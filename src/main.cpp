@@ -1,6 +1,7 @@
 #include "global.hpp"
 
+//a
 int main (int argc , char* argv[]){
-    cout << OK;
+    cout << argc << endl << argv[0];
     return 0;
 }
