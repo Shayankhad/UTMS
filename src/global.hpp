@@ -1,3 +1,6 @@
+#ifndef GLOBALL_HPP
+#define GLOBALL_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,7 +14,4 @@
 #define PERMISSION_DENIED "Permission Denied"
 using namespace std;
 
-int main (int argc , char* argv[]){
-    cout << argc;
-    return 0;
-}
+#endif 
