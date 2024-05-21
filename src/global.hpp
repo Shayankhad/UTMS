@@ -14,4 +14,10 @@
 #define PERMISSION_DENIED "Permission Denied"
 using namespace std;
 
+// files/majors.csv
+// files/students.csv
+// files/courses.csv
+// files/professors.csv
+// files/majors.csv files/students.csv files/courses.csv files/professors.csv
+
 #endif 

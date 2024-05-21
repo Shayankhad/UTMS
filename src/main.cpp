@@ -3,6 +3,8 @@
 //a
 int main (int argc , char* argv[]){
     cout << argc << endl;
-    cout << argv[1];
+    for(int i = 0 ; i < argc ; i++){
+        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+    }
     return 0;
 }

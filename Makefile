@@ -30,9 +30,13 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+# Run the program with specified command-line arguments
+run: $(TARGET)
+	./$(TARGET) files/majors.csv files/students.csv files/courses.csv files/professors.csv
+
 # Clean up build files
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
 # Phony targets
-.PHONY: all clean
+.PHONY: all clean run
