@@ -2,7 +2,7 @@
 CXX := g++
 
 # Compiler flags
-CXXFLAGS := -std=c++17 -Wall -Wextra -Wunused-parameter -Iinclude
+CXXFLAGS := -std=c++20 -Wall -Wextra -Iinclude -m64
 
 # Source and build directories
 SRC_DIR := src
@@ -13,14 +13,14 @@ SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC_FILES))
 
 # Executable name
-TARGET := a
+TARGET := a.exe
 
 # Default target
 all: $(TARGET)
 
 # Link object files to create the final executable
 $(TARGET): $(OBJ_FILES)
-	$(CXX) $(OBJ_FILES) -o $(TARGET)
+	$(CXX) $(OBJ_FILES) -o $(TARGET) -m64
 
 # Compile source files to object files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
