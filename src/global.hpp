@@ -15,10 +15,34 @@
 #define NOT_FOUND "Not Found"
 #define BAD_REQUEST "Bad Request"
 #define PERMISSION_DENIED "Permission Denied"
+#define QUESTION_MARK "?"
 #define GET "GET"
 #define POST "POST"
 #define DELETE "DELETE"
 #define PUT "PUT"
+#define LOGIN "logout"
+#define LOGOUT "logout"
+#define ID "id"
+#define PASSWORD "password"
+#define COURSES "courses"
+#define TITLE "title"
+#define MESSAGE "message"
+#define PERSONAL_PAGE "personal_page"
+#define POST_ID "post_id"
+#define CONNECT "connect"
+#define NOTIFICATION "notification"
+#define UT_ACCOUNT "UT_account"
+#define COURSE_OFFER "course_offer"
+#define COURSE_ID "course_id"
+#define PROFESSOR_ID "professor_id"
+#define CAPACITY "capacity"
+#define TIME "time"
+#define EXAM_DATE "exam_date"
+#define CLASS_NUMBER "class_number"
+#define MY_COURSES "my_courses"
+
+
+
 
 using namespace std;
 
