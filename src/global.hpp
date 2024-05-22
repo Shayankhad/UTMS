@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include "login_enum.hpp"
 #define OK "OK"
 #define EMPTY "Empty"
 #define NOT_FOUND "Not Found"

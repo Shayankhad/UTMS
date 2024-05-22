@@ -1,11 +1,11 @@
 #include "global.hpp"
 
-//a
 int main (int argc , char* argv[]){
     cout << argc << endl;
     for(int i = 0 ; i < argc ; i++){
-        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+        cout << "argv[" << i << "]: " << argv[i] << endl;
     }
-    
+    login_enum x = loged_in;
+    cout << x << endl;
     return 0;
 }
