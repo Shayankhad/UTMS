@@ -13,6 +13,11 @@
 #define NOT_FOUND "Not Found"
 #define BAD_REQUEST "Bad Request"
 #define PERMISSION_DENIED "Permission Denied"
+#define GET "GET"
+#define POST "POST"
+#define DELETE "DELETE"
+#define PUT "PUT"
+
 using namespace std;
 
 // files/majors.csv
