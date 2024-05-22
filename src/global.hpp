@@ -8,6 +8,8 @@
 #include <sstream>
 #include <cmath>
 #include "login_enum.hpp"
+#include "core.hpp"
+
 #define OK "OK"
 #define EMPTY "Empty"
 #define NOT_FOUND "Not Found"
