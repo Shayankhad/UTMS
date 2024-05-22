@@ -6,9 +6,11 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include <cmath>
 #include "login_enum.hpp"
-#include "core.hpp"
+#include "interface.hpp"
+#include "Professors.hpp"
+#include "Student.hpp"
+
 
 #define OK "OK"
 #define EMPTY "Empty"
@@ -40,9 +42,6 @@
 #define EXAM_DATE "exam_date"
 #define CLASS_NUMBER "class_number"
 #define MY_COURSES "my_courses"
-
-
-
 
 using namespace std;
 
