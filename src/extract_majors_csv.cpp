@@ -1,4 +1,6 @@
 #include "global.hpp"
+
+
 void extract_majors_csv(string address, vector<Major*> &majors){
     fstream file(address);
     if (!file.is_open()) {
@@ -17,4 +19,5 @@ void extract_majors_csv(string address, vector<Major*> &majors){
         major_ptr->major_csv_setup(string_to_int(id) , major);
         majors.emplace_back(major_ptr);
     }
+    file.close();
 }

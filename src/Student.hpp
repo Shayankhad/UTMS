@@ -11,6 +11,13 @@ public:
         semester = semester_;
         password = password_;
     }
+    void test_show(){
+        cout << "sid: " << id << endl;
+        cout << "name: "<< name << endl;
+        cout << "major_id: "<< major_id << endl;
+        cout << "semester: "<< semester << endl;
+        cout << "password: "<< password << endl;
+    }
 private:
     int semester;
 };
