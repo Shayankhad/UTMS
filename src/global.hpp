@@ -6,11 +6,6 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "login_enum.hpp"
-#include "interface.hpp"
-#include "Professors.hpp"
-#include "Student.hpp"
-
 
 #define OK "OK"
 #define EMPTY "Empty"
@@ -45,10 +40,16 @@
 
 using namespace std;
 
+#include "login_enum.hpp"
+#include "interface.hpp"
+#include "Professors.hpp"
+#include "Student.hpp"
+
 // files/majors.csv
 // files/students.csv
 // files/courses.csv
 // files/professors.csv
 // files/majors.csv files/students.csv files/courses.csv files/professors.csv
-
 #endif 
+
+
