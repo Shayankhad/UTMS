@@ -45,6 +45,7 @@ using namespace std;
 #include "interface.hpp"
 #include "Uniperson.hpp"
 #include "Student.hpp"
+#include "extract_students_csv.hpp"
 #include "Professor.hpp"
 #include "Course.hpp"
 #include "Major.hpp"
