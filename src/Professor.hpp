@@ -11,6 +11,13 @@ public:
         position = position_;
         password = password_;
     }
+    void test_show(){
+        cout << "pid: " << id <<endl;
+        cout << "name: " << name <<endl;
+        cout << "major_id: " << major_id <<endl;
+        cout << "position: " << position <<endl;
+        cout << "password: " << password <<endl;
+    }
 private:
     string position;
 };
