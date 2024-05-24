@@ -17,7 +17,7 @@
 #define POST "POST"
 #define DELETE "DELETE"
 #define PUT "PUT"
-#define LOGIN "logout"
+#define LOGIN "login"
 #define LOGOUT "logout"
 #define ID "id"
 #define PASSWORD "password"
@@ -42,7 +42,6 @@ using namespace std;
 
 #include "string_to_int.hpp"
 #include "login_enum.hpp"
-#include "interface.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"

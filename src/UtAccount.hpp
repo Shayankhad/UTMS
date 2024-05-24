@@ -2,11 +2,13 @@
 #define UTACCOUNT_HPP
 #include "global.hpp"
 
-class UtAccount{
+class UtAccount : public Uniperson{
 public:
+    UtAccount(){
+        id = 0;
+        string password  = UT_ACCOUNT;
+    }
 private:
-    int id = 0;
-    string password  = "account_UT";
 };
 
 #endif
