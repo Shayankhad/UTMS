@@ -4,7 +4,25 @@
 
 class Course {
 public:
+    void major_csv_setup(int cid_ , string name_ , int credit_ , int prerequisite_ , vector<int> majors_id_ ){
+        cid = cid_;
+        name = name_;
+        credit = credit_;
+        prerequisite = prerequisite_;
+        majors_id = majors_id_;
+    }
+    void test_show(){
+        cout << "cid: " << cid << endl;
+        cout << "name: " << name << endl;
+        cout << "credit: " << credit << endl;
+        cout << "prerequisite: " << prerequisite << endl;
+        cout << "majors_id(s): ";
+        for(vector<int>::size_type i = 0 ; i < majors_id.size() ; i++){
+            cout << majors_id[i] << " ";
+        }
+        cout << endl;
 
+    }
 private:
     int cid;
     string name;
