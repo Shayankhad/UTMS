@@ -43,8 +43,11 @@ using namespace std;
 #include "string_to_int.hpp"
 #include "login_enum.hpp"
 #include "interface.hpp"
-#include "Professors.hpp"
 #include "Student.hpp"
+#include "Professor.hpp"
+#include "Course.hpp"
+#include "Major.hpp"
+
 
 // files/majors.csv
 // files/students.csv
