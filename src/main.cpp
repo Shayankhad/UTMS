@@ -11,7 +11,5 @@ int main (int argc , char* argv[]){
     extract_students_csv(argv[2] , students);
     extract_courses_csv(argv[3] , courses);
     extract_professors_csv(argv[4] , professors);
-    for (auto & x : professors){
-        x->test_show();
-    }
+    // UT_account
 }
