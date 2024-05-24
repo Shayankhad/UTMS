@@ -1,6 +1,8 @@
 #include "global.hpp"
 
 int main (int argc , char* argv[]){
-    int x = string_to_int("123");
-    cout << x;
+    for(int i = 0  ; i < argc ; i++ ){
+        cout << argv[i]<<endl;
+    }
+    Student x;
 }

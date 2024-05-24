@@ -3,6 +3,11 @@
 #include "global.hpp"
 
 class Major {
+public:
+
+private:
+    int mid;
+    string major;
 };
 
 #endif
