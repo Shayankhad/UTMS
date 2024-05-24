@@ -48,6 +48,7 @@ using namespace std;
 #include "extract_students_csv.hpp"
 #include "Professor.hpp"
 #include "Course.hpp"
+#include "extract_courses_csv.hpp"
 #include "Major.hpp"
 #include "extract_majors_csv.hpp"
 
