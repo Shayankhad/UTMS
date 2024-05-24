@@ -40,6 +40,7 @@
 
 using namespace std;
 
+#include "string_to_int.hpp"
 #include "login_enum.hpp"
 #include "interface.hpp"
 #include "Professors.hpp"
