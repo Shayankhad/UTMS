@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 #define OK "OK"
 #define EMPTY "Empty"

@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
     string command;
     while (true)
     {
+        // we gotta use try catch and throw for error handeling
         getline(cin, command);
         if (command == "qq")
         {
