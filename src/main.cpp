@@ -72,8 +72,6 @@ void login_setup(string arg_1_value , string arg_2_value , vector<Student *> &st
 
 void login_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr)
 {
-    // POST login ? id 810102612 password ImtheproblemItsme
-    // POST login ? password ImtheproblemItsme id 810102612
     vector<string> commands = seperate_one_two_command(command);
     stringstream ss;
     ss << command;
@@ -88,7 +86,6 @@ void login_command(string command, vector<Student *> &students, vector<Professor
     string arg_2 = word;
     getline(ss, word, ' ');
     string arg_2_value = word;
-    //cout << arg_2_value << endl << arg_1_value << endl;
     if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
         if(!(((arg_1 == ID) && (arg_2 == PASSWORD)) || ((arg_2 == ID) && (arg_1 == PASSWORD)))){
@@ -104,58 +101,57 @@ void login_command(string command, vector<Student *> &students, vector<Professor
 }
 
 
-// bool is_it_login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
-// {
-//     vector<string> commands = seperate_one_two_command(command);
-//     stringstream ss;
-//     ss << command;
-//     string word;
-//     getline(ss, word, '?');
-//     getline(ss, word, ' ');
-//     getline(ss, word, ' ');
-//     string arg_1 = word;
-//     getline(ss, word, ' ');
-//     string arg_1_value = word;
-//     getline(ss, word, ' ');
-//     string arg_2 = word;
-//     getline(ss, word, ' ');
-//     string arg_2_value = word;
-//     if ((commands[0] == POST) && (commands[1] == LOGIN))
-//     {
-//         if((arg_1 == ID) && (arg_2 == PASSWORD)){
-//             return true;
-//         }
-//         if((arg_2 == ID) && (arg_1 == PASSWORD)){
-//             return true;
-//         }
-//     }else{
-//         return false;
-//     }
-// }
+bool is_it_login_command(string command)
+{
+    vector<string> commands = seperate_one_two_command(command);
+    stringstream ss;
+    ss << command;
+    string word;
+    getline(ss, word, '?');
+    getline(ss, word, ' ');
+    getline(ss, word, ' ');
+    string arg_1 = word;
+    getline(ss, word, ' ');
+    string arg_1_value = word;
+    getline(ss, word, ' ');
+    string arg_2 = word;
+    getline(ss, word, ' ');
+    string arg_2_value = word;
+    if ((commands[0] == POST) && (commands[1] == LOGIN))
+    {
+        if(((arg_1 == ID) && (arg_2 == PASSWORD)) || ((arg_2 == ID) && (arg_1 == PASSWORD))){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
 
-// bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
-// {
-//     bool result = false;
-//     for (auto &student : students)
-//     {
-//         if (student->am_i_loged_in())
-//         {
-//             result = true;
-//         }
-//     }
-//     for (auto &professor : professors)
-//     {
-//         if (professor->am_i_loged_in())
-//         {
-//             result = true;
-//         }
-//     }
-//     if (ut_account_ptr->am_i_loged_in())
-//     {
-//         result = true;
-//     }
-//     return result;
-// }
+bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+{
+    bool result = false;
+    for (auto &student : students)
+    {
+        if (student->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    for (auto &professor : professors)
+    {
+        if (professor->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    if (ut_account_ptr->am_i_loged_in())
+    {
+        result = true;
+    }
+    return result;
+}
 
 int main(int argc, char *argv[])
 {
@@ -181,6 +177,11 @@ int main(int argc, char *argv[])
             }
             check_for_four_commands(command);
             check_for_second_commands(command);
+            if(is_it_login_command(command)){
+                if(is_anyone_loged_in(students ,professors , ut_account_ptr)){
+                    throw PermissionDenied();
+                }
+            }
             login_command(command ,students ,professors , ut_account_ptr);
         }
         catch(const MyException& e){
