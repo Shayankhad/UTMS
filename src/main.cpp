@@ -19,10 +19,8 @@ bool check_for_four_commands(string command){
     string word;
     getline(ss , word , ' ');
     if(!((word == GET) || (word == POST) || (word == DELETE) || (word == PUT))){
-        cerr << BAD_REQUEST << endl;
-        return false;
+        throw BadRequest();
     }
-    return true;
 }
 
 bool check_for_second_commands(string command){
@@ -136,23 +134,24 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     string command;
+
     while (true)
     {
-        // we gotta use try catch and throw for error handeling
-        getline(cin, command);
-        if (command == "qq")
-        {
-            break;
+        try{
+            getline(cin, command);
+            if (command == "qq")
+            {
+                break;
+            }
+            check_for_four_commands(command);
+            if(!check_for_second_commands(command)){
+                continue;
+            }
+            login_command(command, students, professors, ut_account_ptr);
         }
-        if(!check_for_four_commands(command)){
-            continue;
+        catch(const MyException& e){
+            cout <<e.what() << endl;
         }
-        if(!check_for_second_commands(command)){
-            continue;
-        }
-
-        login_command(command, students, professors, ut_account_ptr);
     }
-
     return 0;
 }

@@ -44,6 +44,11 @@ using namespace std;
 
 #include "string_to_int.hpp"
 #include "login_enum.hpp"
+#include "MyException.hpp"
+#include "Empty.hpp"
+#include "NotFound.hpp"
+#include "BadRequest.hpp"
+#include "PermissionDenied.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"
