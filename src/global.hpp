@@ -60,6 +60,13 @@ using namespace std;
 #include "extract_courses_csv.hpp"
 #include "Major.hpp"
 #include "extract_majors_csv.hpp"
+#include "seperate_one_two_command.hpp"
+#include "check_for_four_commands.hpp"
+#include "check_for_second_commands.hpp"
+#include "login_setup.hpp"
+#include "login_command.hpp"
+#include "is_it_login_command.hpp"
+#include "is_anyone_loged_in.hpp"
 #include "deallocate.hpp"
 
 
