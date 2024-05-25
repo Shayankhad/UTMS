@@ -88,7 +88,7 @@ void login_command(string command, vector<Student *> &students, vector<Professor
     string arg_2 = word;
     getline(ss, word, ' ');
     string arg_2_value = word;
-    cout << arg_2_value << endl << arg_1_value << endl;
+    //cout << arg_2_value << endl << arg_1_value << endl;
     if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
         if((arg_1 == ID) && (arg_2 == PASSWORD)){
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
     vector<Student *> students;
     vector<Course *> courses;
     vector<Professor *> professors;
-    UtAccount *ut_account_ptr = new UtAccount;
+    UtAccount *ut_account_ptr = new UtAccount();
     extract_majors_csv(argv[1], majors);
     extract_students_csv(argv[2], students);
     extract_courses_csv(argv[3], courses);
