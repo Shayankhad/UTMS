@@ -1,6 +1,9 @@
 #include "global.hpp"
 
-bool check_who_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+
+
+
+bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
     bool result = false;
     for (auto &x : students)
@@ -36,7 +39,17 @@ vector<string> one_two_command(string command)
     commands.push_back(word);
     return commands;
 }
-
+bool check_for_four_commands(string command){
+    stringstream ss;
+    ss << command;
+    string word;
+    getline(ss , word , ' ');
+    if(!((word == GET) || (word == POST) || (word == DELETE) || (word == PUT))){
+        cerr << BAD_REQUEST << endl;
+        return false;
+    }
+    return true;
+}
 void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
     // POST login ? id 810102612 password ImtheproblemItsme
@@ -99,8 +112,11 @@ int main(int argc, char *argv[])
         {
             break;
         }
+        if(!check_for_four_commands(command)){
+            continue;
+        }
         login_command(command, students, professors, ut_account_ptr);
-        cout << check_who_loged_in(students, professors, ut_account_ptr) << endl;
+        cout << is_anyone_loged_in(students, professors, ut_account_ptr) << endl;
     }
 
     return 0;
