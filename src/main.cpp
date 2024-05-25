@@ -1,6 +1,6 @@
 #include "global.hpp"
 
-void run(vector<Student *> &students , vector<Professor *> professors , UtAccount *ut_account_ptr){
+void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
     while (true)
     {
