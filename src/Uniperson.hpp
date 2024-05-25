@@ -6,9 +6,15 @@ class Uniperson {
 public:
     Uniperson(){
     }
-    bool check_login(int id_ , string password_){
 
+    bool is_id_match(int id_){
+        if(id == id_){
+            return true;
+        }else{
+            return false;
+        }
     }
+
     login_enum am_i_loged_in(){
         return is_loged_int;
     }

@@ -1,29 +1,5 @@
 #include "global.hpp"
 
-bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
-{
-    bool result = false;
-    for (auto &student : students)
-    {
-        if (student->am_i_loged_in())
-        {
-            result = true;
-        }
-    }
-    for (auto &professor : professors)
-    {
-        if (professor->am_i_loged_in())
-        {
-            result = true;
-        }
-    }
-    if (ut_account_ptr->am_i_loged_in())
-    {
-        result = true;
-    }
-    return result;
-}
-
 vector<string> seperate_one_two_command(string command)
 {
     stringstream ss;
@@ -82,28 +58,16 @@ void login_command(string command, vector<Student *> students, vector<Professor 
     string arg_2 = word;
     getline(ss, word, ' ');
     string arg_2_value = word;
-    if ((commands[0] == POST) && (commands[1] == LOGIN))
-    {
-        if((arg_1 == ID) && (arg_2 == PASSWORD)){
-            for(auto &student : students){
-                student->check_login(string_to_int(arg_1_value) , arg_2_value);
-            }
-            for(auto &professor : professors){
-                professor->check_login(string_to_int(arg_1_value) , arg_2_value);
-            }
-            ut_account_ptr->check_login(string_to_int(arg_1_value) , arg_2_value);
-        }
-        if((arg_2 == ID) && (arg_1 == PASSWORD)){
-            for(auto &student : students){
-                student->check_login(string_to_int(arg_2_value) , arg_1_value);
-            }
-            for(auto &professor : professors){
-                professor->check_login(string_to_int(arg_2_value) , arg_1_value);
-            }
-            ut_account_ptr->check_login(string_to_int(arg_2_value) , arg_1_value);
-        }
-    }
+    vector<int> ids;
+    // if ((commands[0] == POST) && (commands[1] == LOGIN))
+    // {
+    //     if((arg_1 == ID) && (arg_2 == PASSWORD)){
+    //     }
+    //     if((arg_2 == ID) && (arg_1 == PASSWORD)){
+    //     }
+    // }
 }
+
 
 bool is_it_login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
@@ -134,6 +98,29 @@ bool is_it_login_command(string command, vector<Student *> students, vector<Prof
     }
 }
 
+bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+{
+    bool result = false;
+    for (auto &student : students)
+    {
+        if (student->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    for (auto &professor : professors)
+    {
+        if (professor->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    if (ut_account_ptr->am_i_loged_in())
+    {
+        result = true;
+    }
+    return result;
+}
 
 int main(int argc, char *argv[])
 {
@@ -164,7 +151,6 @@ int main(int argc, char *argv[])
         }
 
         login_command(command, students, professors, ut_account_ptr);
-        cout << is_anyone_loged_in(students, professors, ut_account_ptr) << endl;
     }
 
     return 0;
