@@ -37,7 +37,40 @@ void check_for_second_commands(string command){
 
 }
 
-void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+void login_setup(string arg_1_value , string arg_2_value , vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
+    for(auto &student : students){
+        if(student->is_id_match(string_to_int(arg_1_value))){
+            if(student->is_password_match(arg_2_value)){
+                student->set_loged(loged_in);
+                throw OkExeption();
+            }else{
+                throw PermissionDenied();
+            }
+        }
+    }
+    for(auto &professor : professors){
+        if(professor->is_id_match(string_to_int(arg_1_value))){
+            if(professor->is_password_match(arg_2_value)){
+                professor->set_loged(loged_in);
+                throw OkExeption();
+            }else{
+                throw PermissionDenied();
+            }
+        }
+    }
+    if(ut_account_ptr->is_id_match(string_to_int(arg_1_value))){
+        if(ut_account_ptr->is_password_match(arg_2_value)){
+            ut_account_ptr->set_loged(loged_in);
+            throw OkExeption();
+        }else{
+            throw PermissionDenied();
+        }
+    }
+    throw NotFound();
+
+}
+
+void login_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr)
 {
     // POST login ? id 810102612 password ImtheproblemItsme
     // POST login ? password ImtheproblemItsme id 810102612
@@ -55,41 +88,14 @@ void login_command(string command, vector<Student *> students, vector<Professor 
     string arg_2 = word;
     getline(ss, word, ' ');
     string arg_2_value = word;
-    
+    cout << arg_2_value << endl << arg_1_value << endl;
     if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
         if((arg_1 == ID) && (arg_2 == PASSWORD)){
-            for(auto &student : students){
-                if(student->is_id_match(string_to_int(arg_1_value))){
-                    if(student->is_password_match(arg_2_value)){
-                        student->set_loged(loged_in);
-                        throw OkExeption();
-                    }else{
-                        throw PermissionDenied();
-                    }
-                }
-            }
-            for(auto &professor : professors){
-                if(professor->is_id_match(string_to_int(arg_1_value))){
-                    if(professor->is_password_match(arg_2_value)){
-                        professor->set_loged(loged_in);
-                        throw OkExeption();
-                    }else{
-                        throw PermissionDenied();
-                    }
-                }
-            }
-            if(ut_account_ptr->is_id_match(string_to_int(arg_1_value))){
-                if(ut_account_ptr->is_password_match(arg_2_value)){
-                    ut_account_ptr->set_loged(loged_in);
-                    throw OkExeption();
-                }else{
-                    throw PermissionDenied();
-                }
-            }
-            throw NotFound();
+            login_setup(arg_1_value , arg_2_value ,students,professors,ut_account_ptr);
         }
-        if((arg_2 == ID) && (arg_1 == PASSWORD)){
+        else if((arg_2 == ID) && (arg_1 == PASSWORD)){
+            login_setup(arg_2_value , arg_1_value ,students,professors,ut_account_ptr);
         }
     }
 }
