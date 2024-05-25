@@ -6,13 +6,14 @@ class Uniperson {
 public:
     Uniperson(){
     }
-    void check_login(int id_ , string password_){
-        if((id == id_) && (password == password_)){
-            is_loged_int = loged_in;
-        }
+    bool check_login(int id_ , string password_){
+
     }
     login_enum am_i_loged_in(){
         return is_loged_int;
+    }
+    int get_id(){
+        return id;
     }
 protected:
     int id;

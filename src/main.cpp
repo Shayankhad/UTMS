@@ -1,21 +1,18 @@
 #include "global.hpp"
 
-
-
-
 bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
     bool result = false;
-    for (auto &x : students)
+    for (auto &student : students)
     {
-        if (x->am_i_loged_in())
+        if (student->am_i_loged_in())
         {
             result = true;
         }
     }
-    for (auto &x : professors)
+    for (auto &professor : professors)
     {
-        if (x->am_i_loged_in())
+        if (professor->am_i_loged_in())
         {
             result = true;
         }
@@ -27,7 +24,7 @@ bool is_anyone_loged_in(vector<Student *> students, vector<Professor *> professo
     return result;
 }
 
-vector<string> one_two_command(string command)
+vector<string> seperate_one_two_command(string command)
 {
     stringstream ss;
     ss << command;
@@ -39,6 +36,7 @@ vector<string> one_two_command(string command)
     commands.push_back(word);
     return commands;
 }
+
 bool check_for_four_commands(string command){
     stringstream ss;
     ss << command;
@@ -50,7 +48,6 @@ bool check_for_four_commands(string command){
     }
     return true;
 }
-
 
 bool check_for_second_commands(string command){
     stringstream ss;
@@ -71,7 +68,7 @@ void login_command(string command, vector<Student *> students, vector<Professor 
 {
     // POST login ? id 810102612 password ImtheproblemItsme
     // POST login ? password ImtheproblemItsme id 810102612
-    vector<string> commands = one_two_command(command);
+    vector<string> commands = seperate_one_two_command(command);
     stringstream ss;
     ss << command;
     string word;
@@ -88,25 +85,55 @@ void login_command(string command, vector<Student *> students, vector<Professor 
     if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
         if((arg_1 == ID) && (arg_2 == PASSWORD)){
-            for(auto &x : students){
-                x->check_login(string_to_int(arg_1_value) , arg_2_value);
+            for(auto &student : students){
+                student->check_login(string_to_int(arg_1_value) , arg_2_value);
             }
-            for(auto &x : professors){
-                x->check_login(string_to_int(arg_1_value) , arg_2_value);
+            for(auto &professor : professors){
+                professor->check_login(string_to_int(arg_1_value) , arg_2_value);
             }
             ut_account_ptr->check_login(string_to_int(arg_1_value) , arg_2_value);
         }
         if((arg_2 == ID) && (arg_1 == PASSWORD)){
-            for(auto &x : students){
-                x->check_login(string_to_int(arg_2_value) , arg_1_value);
+            for(auto &student : students){
+                student->check_login(string_to_int(arg_2_value) , arg_1_value);
             }
-            for(auto &x : professors){
-                x->check_login(string_to_int(arg_2_value) , arg_1_value);
+            for(auto &professor : professors){
+                professor->check_login(string_to_int(arg_2_value) , arg_1_value);
             }
             ut_account_ptr->check_login(string_to_int(arg_2_value) , arg_1_value);
         }
     }
 }
+
+bool is_it_login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+{
+    vector<string> commands = seperate_one_two_command(command);
+    stringstream ss;
+    ss << command;
+    string word;
+    getline(ss, word, '?');
+    getline(ss, word, ' ');
+    getline(ss, word, ' ');
+    string arg_1 = word;
+    getline(ss, word, ' ');
+    string arg_1_value = word;
+    getline(ss, word, ' ');
+    string arg_2 = word;
+    getline(ss, word, ' ');
+    string arg_2_value = word;
+    if ((commands[0] == POST) && (commands[1] == LOGIN))
+    {
+        if((arg_1 == ID) && (arg_2 == PASSWORD)){
+            return true;
+        }
+        if((arg_2 == ID) && (arg_1 == PASSWORD)){
+            return true;
+        }
+    }else{
+        return false;
+    }
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -135,6 +162,7 @@ int main(int argc, char *argv[])
         if(!check_for_second_commands(command)){
             continue;
         }
+
         login_command(command, students, professors, ut_account_ptr);
         cout << is_anyone_loged_in(students, professors, ut_account_ptr) << endl;
     }
