@@ -91,7 +91,10 @@ void login_command(string command, vector<Student *> &students, vector<Professor
     //cout << arg_2_value << endl << arg_1_value << endl;
     if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
-        if((arg_1 == ID) && (arg_2 == PASSWORD)){
+        if(!(((arg_1 == ID) && (arg_2 == PASSWORD)) || ((arg_2 == ID) && (arg_1 == PASSWORD)))){
+            throw BadRequest();
+        }
+        else if((arg_1 == ID) && (arg_2 == PASSWORD)){
             login_setup(arg_1_value , arg_2_value ,students,professors,ut_account_ptr);
         }
         else if((arg_2 == ID) && (arg_1 == PASSWORD)){
@@ -184,6 +187,7 @@ int main(int argc, char *argv[])
             cout <<e.what() << endl;
         }
     }
+
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
 
     return 0;
