@@ -59,6 +59,7 @@ using namespace std;
 #include "extract_courses_csv.hpp"
 #include "Major.hpp"
 #include "extract_majors_csv.hpp"
+#include "deallocate.hpp"
 
 
 // files/majors.csv

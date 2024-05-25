@@ -138,7 +138,9 @@ int main(int argc, char *argv[])
     {
         try{
             getline(cin, command);
-            cout << command << endl;
+            if(command == "qq"){
+                break;
+            }
             check_for_four_commands(command);
             check_for_second_commands(command);
         }
@@ -146,23 +148,7 @@ int main(int argc, char *argv[])
             cout <<e.what() << endl;
         }
     }
+    deallocate(majors ,students , courses ,professors , ut_account_ptr );
 
-    // deleting
-    for (Major* major_ptr : majors) {
-        delete major_ptr;
-    }
-    majors.clear();
-    for (Student* student_ptr : students) {
-        delete student_ptr;
-    }
-    students.clear();
-    for (Professor* proffesor_ptr : professors) {
-        delete proffesor_ptr;
-    }
-    professors.clear();
-    for (Course* course_ptr : courses) {
-        delete course_ptr;
-    }
-    courses.clear();
     return 0;
 }
