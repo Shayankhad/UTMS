@@ -40,6 +40,7 @@ vector<string> one_two_command(string command)
 void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
     // POST login ? id 810102612 password ImtheproblemItsme
+    // POST login ? password ImtheproblemItsme id 810102612
     vector<string> commands = one_two_command(command);
     stringstream ss;
     ss << command;
@@ -54,16 +55,26 @@ void login_command(string command, vector<Student *> students, vector<Professor 
     string arg_2 = word;
     getline(ss, word, ' ');
     string arg_2_value = word;
-    if ((commands[0] == POST) && (commands[1] == LOGIN) && (arg_1 == ID) && (arg_2 == PASSWORD))
+    if ((commands[0] == POST) && (commands[1] == LOGIN))
     {
-        cout << arg_1_value << endl << arg_2_value << endl;
-        for(auto &x : students){
-            x->check_login(string_to_int(arg_1_value) , arg_2_value);
+        if((arg_1 == ID) && (arg_2 == PASSWORD)){
+            for(auto &x : students){
+                x->check_login(string_to_int(arg_1_value) , arg_2_value);
+            }
+            for(auto &x : professors){
+                x->check_login(string_to_int(arg_1_value) , arg_2_value);
+            }
+            ut_account_ptr->check_login(string_to_int(arg_1_value) , arg_2_value);
         }
-        for(auto &x : professors){
-            x->check_login(string_to_int(arg_1_value) , arg_2_value);
+        if((arg_2 == ID) && (arg_1 == PASSWORD)){
+            for(auto &x : students){
+                x->check_login(string_to_int(arg_2_value) , arg_1_value);
+            }
+            for(auto &x : professors){
+                x->check_login(string_to_int(arg_2_value) , arg_1_value);
+            }
+            ut_account_ptr->check_login(string_to_int(arg_2_value) , arg_1_value);
         }
-        ut_account_ptr->check_login(string_to_int(arg_1_value) , arg_2_value);
     }
 }
 
