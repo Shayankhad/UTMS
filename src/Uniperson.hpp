@@ -14,8 +14,8 @@ public:
             return false;
         }
     }
-    bool is_id_password(int password_){
-        if(id == password_){
+    bool is_password_match(string password_){
+        if(password == password_){
             return true;
         }else{
             return false;
@@ -27,6 +27,9 @@ public:
     }
     int get_id(){
         return id;
+    }
+    void set_loged(login_enum x){
+        is_loged_int = x;
     }
 protected:
     int id;
