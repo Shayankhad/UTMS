@@ -11,6 +11,9 @@ public:
             is_loged_int = loged_in;
         }
     }
+    login_enum am_i_loged_in(){
+        return is_loged_int;
+    }
 protected:
     int id;
     string name;

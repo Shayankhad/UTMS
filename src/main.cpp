@@ -1,58 +1,95 @@
 #include "global.hpp"
 
+bool check_who_loged_in(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+{
+    bool result = false;
+    for (auto &x : students)
+    {
+        if (x->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    for (auto &x : professors)
+    {
+        if (x->am_i_loged_in())
+        {
+            result = true;
+        }
+    }
+    if (ut_account_ptr->am_i_loged_in())
+    {
+        result = true;
+    }
+    return result;
+}
 
-vector<string> one_two_command(string command){
+vector<string> one_two_command(string command)
+{
     stringstream ss;
     ss << command;
     string word;
     vector<string> commands;
-    getline(ss , word , ' ');
+    getline(ss, word, ' ');
     commands.push_back(word);
-    getline(ss , word , ' ');
+    getline(ss, word, ' ');
     commands.push_back(word);
     return commands;
 }
 
-void login_command(string command){
-    // POST login ? id 810102612 password meoow
+void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
+{
+    // POST login ? id 810102612 password ImtheproblemItsme
     vector<string> commands = one_two_command(command);
     stringstream ss;
     ss << command;
     string word;
-    getline(ss, word , '?');
-    getline(ss, word , ' ');
-    getline(ss, word , ' ');
+    getline(ss, word, '?');
+    getline(ss, word, ' ');
+    getline(ss, word, ' ');
     string arg_1 = word;
-    getline(ss, word , ' ');
+    getline(ss, word, ' ');
     string arg_1_value = word;
-    getline(ss, word , ' ');
+    getline(ss, word, ' ');
     string arg_2 = word;
-    getline(ss, word , ' ');
+    getline(ss, word, ' ');
     string arg_2_value = word;
-    if((commands[0] == POST) && (commands[1] == LOGIN) && (arg_1 == ID) && (arg_2 == PASSWORD)){
-        cout << "hi!" << endl;
+    if ((commands[0] == POST) && (commands[1] == LOGIN) && (arg_1 == ID) && (arg_2 == PASSWORD))
+    {
+        cout << arg_1_value << endl << arg_2_value << endl;
+        for(auto &x : students){
+            x->check_login(string_to_int(arg_1_value) , arg_2_value);
+        }
+        for(auto &x : professors){
+            x->check_login(string_to_int(arg_1_value) , arg_2_value);
+        }
+        ut_account_ptr->check_login(string_to_int(arg_1_value) , arg_2_value);
     }
 }
 
-int main (int argc , char* argv[]){
+int main(int argc, char *argv[])
+{
     argc++;
     argc--;
-    vector<Major*> majors;
-    vector<Student*> students;
-    vector<Course*> courses;
-    vector<Professor*> professors;
-    extract_majors_csv(argv[1] , majors);
-    extract_students_csv(argv[2] , students);
-    extract_courses_csv(argv[3] , courses);
-    extract_professors_csv(argv[4] , professors);
-    UtAccount* ut_account_ptr = new UtAccount;
+    vector<Major *> majors;
+    vector<Student *> students;
+    vector<Course *> courses;
+    vector<Professor *> professors;
+    UtAccount *ut_account_ptr = new UtAccount;
+    extract_majors_csv(argv[1], majors);
+    extract_students_csv(argv[2], students);
+    extract_courses_csv(argv[3], courses);
+    extract_professors_csv(argv[4], professors);
     string command;
-    while(true){
-        getline(cin , command);
-        if(command == "qq"){
+    while (true)
+    {
+        getline(cin, command);
+        if (command == "qq")
+        {
             break;
         }
-        login_command(command);
+        login_command(command, students, professors, ut_account_ptr);
+        cout << check_who_loged_in(students, professors, ut_account_ptr) << endl;
     }
 
     return 0;
