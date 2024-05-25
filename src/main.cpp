@@ -13,7 +13,7 @@ vector<string> seperate_one_two_command(string command)
     return commands;
 }
 
-bool check_for_four_commands(string command){
+void check_for_four_commands(string command){
     stringstream ss;
     ss << command;
     string word;
@@ -23,7 +23,7 @@ bool check_for_four_commands(string command){
     }
 }
 
-bool check_for_second_commands(string command){
+void check_for_second_commands(string command){
     stringstream ss;
     ss << command;
     string word;
@@ -32,10 +32,9 @@ bool check_for_second_commands(string command){
     if(!((word == LOGIN) || (word == LOGOUT) || (word == COURSES) || (word == POST_SECOND_COMMAND) || 
     (word == PERSONAL_PAGE) || (word == CONNECT) || (word == NOTIFICATION) || 
     (word == COURSE_OFFER) || (word == MY_COURSES))){
-        cerr << NOT_FOUND << endl;
-        return false;
+        throw NotFound();
     }
-    return true;
+
 }
 
 void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
@@ -139,19 +138,31 @@ int main(int argc, char *argv[])
     {
         try{
             getline(cin, command);
-            if (command == "qq")
-            {
-                break;
-            }
+            cout << command << endl;
             check_for_four_commands(command);
-            if(!check_for_second_commands(command)){
-                continue;
-            }
-            login_command(command, students, professors, ut_account_ptr);
+            check_for_second_commands(command);
         }
         catch(const MyException& e){
             cout <<e.what() << endl;
         }
     }
+
+    // deleting
+    for (Major* major_ptr : majors) {
+        delete major_ptr;
+    }
+    majors.clear();
+    for (Student* student_ptr : students) {
+        delete student_ptr;
+    }
+    students.clear();
+    for (Professor* proffesor_ptr : professors) {
+        delete proffesor_ptr;
+    }
+    professors.clear();
+    for (Course* course_ptr : courses) {
+        delete course_ptr;
+    }
+    courses.clear();
     return 0;
 }
