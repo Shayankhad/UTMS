@@ -50,6 +50,23 @@ bool check_for_four_commands(string command){
     }
     return true;
 }
+
+
+bool check_for_second_commands(string command){
+    stringstream ss;
+    ss << command;
+    string word;
+    getline(ss , word , ' ');
+    getline(ss , word , ' ');
+    if(!((word == LOGIN) || (word == LOGOUT) || (word == COURSES) || (word == POST_SECOND_COMMAND) || 
+    (word == PERSONAL_PAGE) || (word == CONNECT) || (word == NOTIFICATION) || 
+    (word == COURSE_OFFER) || (word == MY_COURSES))){
+        cerr << NOT_FOUND << endl;
+        return false;
+    }
+    return true;
+}
+
 void login_command(string command, vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr)
 {
     // POST login ? id 810102612 password ImtheproblemItsme
@@ -113,6 +130,9 @@ int main(int argc, char *argv[])
             break;
         }
         if(!check_for_four_commands(command)){
+            continue;
+        }
+        if(!check_for_second_commands(command)){
             continue;
         }
         login_command(command, students, professors, ut_account_ptr);

@@ -22,6 +22,7 @@
 #define ID "id"
 #define PASSWORD "password"
 #define COURSES "courses"
+#define POST_SECOND_COMMAND "post"
 #define TITLE "title"
 #define MESSAGE "message"
 #define PERSONAL_PAGE "personal_page"
@@ -59,6 +60,9 @@ using namespace std;
 // files/courses.csv
 // files/professors.csv
 // files/majors.csv files/students.csv files/courses.csv files/professors.csv
+
+// 810102566
+// Shayan7812
 #endif 
 
 
