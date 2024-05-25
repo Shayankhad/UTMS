@@ -14,6 +14,13 @@ public:
             return false;
         }
     }
+    bool is_id_password(int password_){
+        if(id == password_){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     login_enum am_i_loged_in(){
         return is_loged_int;

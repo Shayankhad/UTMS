@@ -24,4 +24,5 @@ void deallocate(vector<Major *> &majors , vector<Student *> &students , vector<C
     courses.clear();
 
     delete ut_account_ptr;
+    ut_account_ptr = nullptr;
 }

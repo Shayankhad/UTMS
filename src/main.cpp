@@ -56,13 +56,14 @@ void login_command(string command, vector<Student *> students, vector<Professor 
     getline(ss, word, ' ');
     string arg_2_value = word;
     vector<int> ids;
-    // if ((commands[0] == POST) && (commands[1] == LOGIN))
-    // {
-    //     if((arg_1 == ID) && (arg_2 == PASSWORD)){
-    //     }
-    //     if((arg_2 == ID) && (arg_1 == PASSWORD)){
-    //     }
-    // }
+    if ((commands[0] == POST) && (commands[1] == LOGIN))
+    {
+        if((arg_1 == ID) && (arg_2 == PASSWORD)){
+            
+        }
+        if((arg_2 == ID) && (arg_1 == PASSWORD)){
+        }
+    }
 }
 
 
