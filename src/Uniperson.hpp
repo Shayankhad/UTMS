@@ -31,12 +31,18 @@ public:
     void set_loged(login_enum x){
         is_loged_int = x;
     }
+    void add_contacts(int id_){
+        contacts.push_back(id_);
+    }
 protected:
     int id;
     string name;
     int major_id;
     string password;
     login_enum is_loged_int = didnt_loged_in;
+    vector<int> contacts;
+    vector<vector<string>> notifications; // title & message
+    vector<vector<string>> i_posted;
 };
 
 #endif
