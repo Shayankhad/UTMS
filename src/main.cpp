@@ -137,6 +137,7 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
         }
         catch(const MyException& e){
             cout <<e.what() << endl;
+            
         }
     }
 }

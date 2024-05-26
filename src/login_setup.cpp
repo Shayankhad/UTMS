@@ -4,7 +4,7 @@ void login_setup(string arg_1_value , string arg_2_value , vector<Student *> &st
     for(auto &student : students){
         if(student->is_id_match(string_to_int(arg_1_value))){
             if(student->is_password_match(arg_2_value)){
-                student->set_loged(loged_in);
+                student->set_loged(1);
                 throw OkExeption();
             }else{
                 throw PermissionDenied();
@@ -14,7 +14,7 @@ void login_setup(string arg_1_value , string arg_2_value , vector<Student *> &st
     for(auto &professor : professors){
         if(professor->is_id_match(string_to_int(arg_1_value))){
             if(professor->is_password_match(arg_2_value)){
-                professor->set_loged(loged_in);
+                professor->set_loged(1);
                 throw OkExeption();
             }else{
                 throw PermissionDenied();
@@ -23,7 +23,7 @@ void login_setup(string arg_1_value , string arg_2_value , vector<Student *> &st
     }
     if(ut_account_ptr->is_id_match(string_to_int(arg_1_value))){
         if(ut_account_ptr->is_password_match(arg_2_value)){
-            ut_account_ptr->set_loged(loged_in);
+            ut_account_ptr->set_loged(1);
             throw OkExeption();
         }else{
             throw PermissionDenied();

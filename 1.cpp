@@ -1,6 +1,3 @@
-#ifndef GLOBALL_HPP
-#define GLOBALL_HPP
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -42,13 +39,6 @@
 
 using namespace std;
 
-#include "string_to_int.hpp"
-#include "MyException.hpp"
-#include "OkExeption.hpp"
-#include "Empty.hpp"
-#include "NotFound.hpp"
-#include "BadRequest.hpp"
-#include "PermissionDenied.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"
@@ -80,6 +70,47 @@ using namespace std;
 
 // 810102566
 // Shayan7812
-#endif 
 
+int string_to_int(string str) {
+    int num;
+    stringstream ss(str);
+    ss >> num;
+    return num;
+}
 
+enum login_enum {didnt_loged_in, loged_in};
+
+class MyException : public exception {
+protected:
+    string message;
+public:
+    MyException(const string& msg) : message(msg) {}
+    virtual const char* what() const noexcept override {
+        return message.c_str();
+    }
+};
+
+class OkExeption : public MyException {
+public:
+    OkExeption() : MyException(OK) {}
+};
+
+class Empty : public MyException {
+public:
+    Empty() : MyException(EMPTY) {}
+};
+
+class NotFound : public MyException {
+public:
+    NotFound() : MyException(NOT_FOUND) {}
+};
+
+class BadRequest : public MyException {
+public:
+    BadRequest() : MyException(BAD_REQUEST) {}
+};
+
+class PermissionDenied : public MyException {
+public:
+    PermissionDenied() : MyException(PERMISSION_DENIED) {}
+};

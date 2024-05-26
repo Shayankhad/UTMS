@@ -22,13 +22,13 @@ public:
         }
     }
 
-    login_enum am_i_loged_in(){
+    int am_i_loged_in(){
         return is_loged_int;
     }
     int get_id(){
         return id;
     }
-    void set_loged(login_enum x){
+    void set_loged(int x){
         is_loged_int = x;
     }
     void add_contacts(int id_){
@@ -39,7 +39,7 @@ protected:
     string name;
     int major_id;
     string password;
-    login_enum is_loged_int = didnt_loged_in;
+    int is_loged_int = 0;
     vector<int> contacts;
     vector<vector<string>> notifications; // title & message
     vector<vector<string>> i_posted;
