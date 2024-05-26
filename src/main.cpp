@@ -1,22 +1,40 @@
 #include "global.hpp"
 
+void check_for_quastion_mark(string command){
+    stringstream ss;
+    ss << command;
+    string word;
+    getline(ss , word , ' ');
+    getline(ss , word , ' ');
+    getline(ss , word , ' ');
+    if(!(word == "?")){
+        throw BadRequest();
+    }
+}
+
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
     while (true)
     {
         try{
+            // POST login ? id 810420432 password halalalaylalalay
             getline(cin, command);
             if(command == "qq"){
                 break;
             }
             check_for_four_commands(command);
             check_for_second_commands(command);
+            check_for_quastion_mark(command);
             if(is_it_login_command(command)){
                 if(is_anyone_loged_in(students ,professors , ut_account_ptr)){
                     throw PermissionDenied();
                 }
             }
             login_command(command ,students ,professors , ut_account_ptr);
+
+
+
+            throw BadRequest();
         }
         catch(const MyException& e){
             cout <<e.what() << endl;
