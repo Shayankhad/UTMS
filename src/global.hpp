@@ -68,6 +68,8 @@ using namespace std;
 #include "login_command.hpp"
 #include "is_it_login_command.hpp"
 #include "is_anyone_loged_in.hpp"
+#include "is_it_logout_command.hpp"
+#include "logout_command.hpp"
 #include "deallocate.hpp"
 
 
