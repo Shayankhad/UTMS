@@ -63,6 +63,7 @@ using namespace std;
 #include "seperate_one_two_command.hpp"
 #include "check_for_four_commands.hpp"
 #include "check_for_second_commands.hpp"
+#include "check_for_quastion_mark.hpp"
 #include "login_setup.hpp"
 #include "login_command.hpp"
 #include "is_it_login_command.hpp"
