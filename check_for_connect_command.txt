@@ -1,0 +1,47 @@
+POST connect ? id 810420500
+Permission Denied
+POST login ? id 810000000 password pass
+Permission Denied
+PST login ? id 810000000 password pass3
+bad req
+POST loin ? id 810000000 password pass3
+not found
+POST login ? i 810000000 password pass3
+bad req
+POST login ? id 810000000 password pass3
+ok
+POST logout 
+bad req
+POST logout ?
+ok
+POST login ? id 831013132 password Dash_Majido_Eyval
+ok
+OST connect ? id 810102588
+bad req
+POST conect ? id 810102588
+not found
+POST connect id 810102588 
+bad req
+POST connect ? i 81010258 ///////////
+bad req
+POST connect ? i 810102588
+bad req
+POST connect ? id 810102588.1
+bad req
+POST connect ? id 810102588 ////////////
+ok
+/?
+POST connect ? id 810102342 // the problem is the target id if its for a student it doest do the operation
+ok
+/?
+POST connect ? id 810102588
+bad req
+POST logout ?
+ok
+POST connect ? id 810102588
+permision Denied
+
+
+
+
+

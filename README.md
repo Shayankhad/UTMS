@@ -13,3 +13,7 @@ problem: had a wrong return type for a functino
 make: *** [run] Error -1073741819
 problem: there was some wrong with the makefile because the makefile couldnt consider the change of some hpp files (UNIPERSON CLASS) and was runing the old files and still i dont know why this happesn some times
 
+3- third error:
+always handel errors before doing the operator not in the middle of doing the operator.
+
+4-
