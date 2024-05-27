@@ -36,9 +36,18 @@ public:
     }
 
     void show_contacts(){
-        for (std::vector<int>::size_type i = 0 ; i < contacts.size() ; i++){
+        for (vector<int>::size_type i = 0 ; i < contacts.size() ; i++){
             cout << contacts[i] << endl;
         }
+    }
+
+    bool am_i_in_contact(int contact_id){
+        for(vector<int>::size_type i = 0 ; i < contacts.size() ; i ++){
+            if(contacts[i] == contact_id){
+                return true;
+            }
+        }
+        return false;
     }
 protected:
     int id;
