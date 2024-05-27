@@ -44,6 +44,7 @@
 using namespace std;
 
 #include "string_to_int.hpp"
+#include "check_number_type.hpp"
 #include "MyException.hpp"
 #include "OkExeption.hpp"
 #include "Empty.hpp"
@@ -56,6 +57,8 @@ using namespace std;
 #include "extract_students_csv.hpp"
 #include "Professor.hpp"
 #include "extract_professors_csv.hpp"
+#include "check_id_match_in_peaple.hpp"
+#include "identify_user.hpp"
 #include "Course.hpp"
 #include "extract_courses_csv.hpp"
 #include "Major.hpp"
@@ -70,6 +73,8 @@ using namespace std;
 #include "is_anyone_loged_in.hpp"
 #include "is_it_logout_command.hpp"
 #include "logout_command.hpp"
+#include "is_it_connect_command.hpp"
+#include "connect_command.hpp"
 #include "deallocate.hpp"
 
 
