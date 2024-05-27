@@ -1,6 +1,5 @@
 #include "global.hpp"
 
-
 int check_number_type(const string& str) {
     istringstream iss(str);
     long long int_value;
@@ -23,7 +22,24 @@ int check_number_type(const string& str) {
     return 0;
 }
 
-int identify_user(vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
+bool check_id_match_in_peaple (int id ,vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr ){
+    for(auto & student : students){
+        if(student->is_id_match(id)){
+            return true;
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->is_id_match(id)){
+            return true;
+        }
+    }
+    if(ut_account_ptr->is_id_match(id)){
+        return true;
+    }
+    return false;
+}
+
+int identify_user(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr){
     for(auto & student : students){
         if(student->am_i_loged_in()){
             return student->get_id();
@@ -80,51 +96,53 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
         commands.push_back(word);
         iteration ++;
     }
-
     if(!(check_number_type(commands[4]) == 1)){
         throw BadRequest();
     }
-
+    int target_id = string_to_int(commands[4]);
+    if(!(check_id_match_in_peaple(target_id ,students ,professors , ut_account_ptr))){
+        throw NotFound();
+    }
     if((iteration == 5) &&(commands[0] == POST) && (commands[1] == CONNECT) && (commands[3] == ID) ){
         for(auto &student : students){
-            if((student->get_id() == string_to_int(commands[4]))){
+            if((student->get_id() == target_id)){
                 if(student->am_i_in_contact(user_id)){
                     throw BadRequest();
                 }
                 student->add_contacts(user_id);
             }
             if(student->get_id() == user_id){
-                if(student->am_i_in_contact(string_to_int(commands[4]))){
+                if(student->am_i_in_contact(target_id)){
                     throw BadRequest();
                 }
-                student->add_contacts(string_to_int(commands[4]));
+                student->add_contacts(target_id);
             }
         }
         for(auto &professor : professors){
-            if((professor->get_id() == string_to_int(commands[4]))){
+            if((professor->get_id() == target_id)){
                 if(professor->am_i_in_contact(user_id)){
                     throw BadRequest();
                 }
                 professor->add_contacts(user_id);
             }
             if(professor->get_id() == user_id){
-                if(professor->am_i_in_contact(string_to_int(commands[4]))){
+                if(professor->am_i_in_contact(target_id)){
                     throw BadRequest();
                 }
-                professor->add_contacts(string_to_int(commands[4]));
+                professor->add_contacts(target_id);
             }
         }
-        if((ut_account_ptr->get_id() == string_to_int(commands[4]))){
+        if((ut_account_ptr->get_id() == target_id)){
             if(ut_account_ptr->am_i_in_contact(user_id)){
                 throw BadRequest();
             }
             ut_account_ptr->add_contacts(user_id);
         }
         if(ut_account_ptr->get_id() == user_id){
-            if(ut_account_ptr->am_i_in_contact(string_to_int(commands[4]))){
+            if(ut_account_ptr->am_i_in_contact(target_id)){
                 throw BadRequest();
             }
-            ut_account_ptr->add_contacts(string_to_int(commands[4]));
+            ut_account_ptr->add_contacts(target_id);
         }
         throw OkExeption();
     }
