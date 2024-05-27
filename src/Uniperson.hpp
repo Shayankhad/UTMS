@@ -34,6 +34,12 @@ public:
     void add_contacts(int id_){
         contacts.push_back(id_);
     }
+
+    void show_contacts(){
+        for (std::vector<int>::size_type i = 0 ; i < contacts.size() ; i++){
+            cout << contacts[i] << endl;
+        }
+    }
 protected:
     int id;
     string name;

@@ -1,5 +1,28 @@
 #include "global.hpp"
 
+
+int check_number_type(const string& str) {
+    istringstream iss(str);
+    long long int_value;
+    float float_value;
+    char remaining_char;
+
+    if (iss >> int_value) {
+        if (!(iss >> remaining_char)) {
+            return 1;
+        }
+    }
+    iss.clear();
+    iss.str(str);
+    if (iss >> float_value) {
+        if (!(iss >> remaining_char)) {
+            return 2;
+        }
+    }
+
+    return 0;
+}
+
 int identify_user(vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     for(auto & student : students){
         if(student->am_i_loged_in()){
@@ -57,36 +80,34 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
         commands.push_back(word);
         iteration ++;
     }
-    // check for if the user enters his own id;
+
+    if(!(check_number_type(commands[4]) == 1)){
+        throw BadRequest();
+    }
     if((iteration == 5) &&(commands[0] == POST) && (commands[1] == CONNECT) && (commands[3] == ID) ){
         for(auto &student : students){
             if((student->get_id() == string_to_int(commands[4]))){
                 student->add_contacts(user_id);
-                throw OkExeption();
             }
             if(student->get_id() == user_id){
                 student->add_contacts(string_to_int(commands[4]));
-                throw OkExeption();
             }
         }
         for(auto &professor : professors){
             if((professor->get_id() == string_to_int(commands[4]))){
                 professor->add_contacts(user_id);
-                throw OkExeption();
             }
             if(professor->get_id() == user_id){
                 professor->add_contacts(string_to_int(commands[4]));
-                throw OkExeption();
             }
         }
         if((ut_account_ptr->get_id() == string_to_int(commands[4]))){
             ut_account_ptr->add_contacts(user_id);
-            throw OkExeption();
         }
         if(ut_account_ptr->get_id() == user_id){
             ut_account_ptr->add_contacts(string_to_int(commands[4]));
-            throw OkExeption();
         }
+        throw OkExeption();
     }
 }
 
@@ -130,7 +151,6 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
                     throw PermissionDenied();
                 }
             }
-            //connect_command(command ,students ,professors , ut_account_ptr);
             connect_command(command ,students ,professors , ut_account_ptr);
             // this should be at the end of the while loop: throw BadRequest();
             throw BadRequest();
@@ -159,7 +179,9 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
+    for(auto &professor : professors){
+        professor->show_contacts();
+    }
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
-
     return 0;
 }

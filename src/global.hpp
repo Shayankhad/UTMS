@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <type_traits>
 
 #define OK "OK"
 #define EMPTY "Empty"
