@@ -27,8 +27,8 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
                 if(is_anyone_loged_in(students ,professors , ut_account_ptr)){
                     throw PermissionDenied();
                 }
+                login_command(command ,students ,professors , ut_account_ptr);
             }
-            login_command(command ,students ,professors , ut_account_ptr);
 
 
 
@@ -39,8 +39,8 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
+                logout_command(command ,students ,professors , ut_account_ptr);
             }
-            logout_command(command ,students ,professors , ut_account_ptr);
 
 
 
@@ -51,15 +51,14 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
+                connect_command(command ,students ,professors , ut_account_ptr);
             }
-            connect_command(command ,students ,professors , ut_account_ptr);
 
 
 
 
 
-            // this should be at the end of the while loop: throw BadRequest();
-            throw BadRequest();
+
         }
         catch(const MyException& e){
             cout <<e.what() << endl;

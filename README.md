@@ -16,4 +16,7 @@ problem: there was some wrong with the makefile because the makefile couldnt con
 3- third error:
 always handel errors before doing the operator not in the middle of doing the operator.
 
-4-
+4-fourth error:
+it is important where to put the throw catch because some times its too late to throw an error cause the operator that we didnt want to do any thing did something
+
+5- 

@@ -16,10 +16,10 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
         commands.push_back(word);
         iteration ++;
     }
+    int target_id = string_to_int(commands[4]);
     if(!(check_number_type(commands[4]) == 1)){
         throw BadRequest();
     }
-    int target_id = string_to_int(commands[4]);
     if(!(check_id_match_in_peaple(target_id ,students ,professors , ut_account_ptr))){
         throw NotFound();
     }
@@ -85,5 +85,7 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
             ut_account_ptr->add_contacts(target_id);
         }
         throw OkExeption();
+    }else{
+        throw BadRequest();
     }
 }

@@ -28,12 +28,8 @@ POST connect ? i 810102588
 bad req
 POST connect ? id 810102588.1
 bad req
-POST connect ? id 810102588 ////////////
+POST connect ? id 810102588
 ok
-/?
-POST connect ? id 810102342 // the problem is the target id if its for a student it doest do the operation
-ok
-/?
 POST connect ? id 810102588
 bad req
 POST logout ?
