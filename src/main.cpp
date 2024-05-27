@@ -153,42 +153,58 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
     while (true)
     {
         try{
-
             getline(cin, command);
             if(command == "qq"){
                 break;
             }
 
-            // first check
+
+
+
+
             check_for_four_commands(command);
             check_for_second_commands(command);
             check_for_quastion_mark(command);
 
 
-            // login command
-            // POST login ? id 810420432 password halalalaylalalay
+
+
+
             if(is_it_login_command(command)){
                 if(is_anyone_loged_in(students ,professors , ut_account_ptr)){
                     throw PermissionDenied();
                 }
             }
             login_command(command ,students ,professors , ut_account_ptr);
-            // logout command 
-            // POST logout ?
+
+
+
+
+
+
             if(is_it_logout_command(command)){
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
             }
             logout_command(command ,students ,professors , ut_account_ptr);
-            // POST connect ? id 810420500
-            // connect command
+
+
+
+
+
+
             if(is_it_connect_command(command)){
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
             }
             connect_command(command ,students ,professors , ut_account_ptr);
+
+
+
+
+
             // this should be at the end of the while loop: throw BadRequest();
             throw BadRequest();
         }
@@ -216,9 +232,6 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
-    for(auto &professor : professors){
-        professor->show_contacts();
-    }
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
 }
