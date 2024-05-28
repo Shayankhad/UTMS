@@ -71,7 +71,6 @@ public:
             delete x;
         }
         notifications.clear();  
-        cout << "hi";
     }
 protected:
     int id;
