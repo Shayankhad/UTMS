@@ -92,6 +92,13 @@ int main(int argc, char *argv[])
     ut_account_ptr->make_post("qwe" , "akeshflwer");
     ut_account_ptr->make_post("zxc" , "akeshflwer");
     ut_account_ptr->show_posts();
+    for(auto & s: students){
+        s->add_notif(810102566 , "shayan" , "New Post");
+    }
+    for(auto & s: students){
+        s->show_notif_vec();
+    }
+
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
 }

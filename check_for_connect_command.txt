@@ -22,7 +22,7 @@ POST conect ? id 810102588
 not found
 POST connect id 810102588 
 bad req
-POST connect ? i 81010258 ///////////
+POST connect ? i 81010258
 bad req
 POST connect ? i 810102588
 bad req
