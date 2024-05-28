@@ -8,8 +8,10 @@ bool is_it_connect_command(string command){
     int iteration = 0 ;
     while (getline(ss, word, ' '))
     {
-        commands.push_back(word);
-        iteration ++;
+        if(!(word == "" )){
+            commands.push_back(word);
+            iteration ++;
+        }
     }
     if(iteration == 5){
         if((commands[0] == POST) && (commands[1] == CONNECT) && (commands[3] == ID)){

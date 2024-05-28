@@ -8,7 +8,9 @@ bool is_it_logout_command(string command){
     int iteration = 0 ;
     while (getline(ss, word, ' '))
     {
-        iteration ++;
+        if(!(word == "")){
+            iteration ++;
+        }
     }
     if(iteration == 3){
         if((commands[0] == POST) && (commands[1] == LOGOUT)){

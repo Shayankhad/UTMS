@@ -1,5 +1,6 @@
 #include "global.hpp"
 
+
 bool is_it_post_command(string command){
     // POST post ? title “Good Day” message “Ye rooz joonane dige”
 
