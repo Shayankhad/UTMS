@@ -10,11 +10,9 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
     if(user_id == -1){
         throw PermissionDenied();
     }
-    int iteration = 0 ;
     while (getline(ss, word, ' '))
     {
         commands.push_back(word);
-        iteration ++;
     }
     int target_id = string_to_int(commands[4]);
     if(!(check_number_type(commands[4]) == 1)){
@@ -61,31 +59,27 @@ void connect_command(string command, vector<Student *> &students, vector<Profess
     }
 
 
-    if((iteration == 5) &&(commands[0] == POST) && (commands[1] == CONNECT) && (commands[3] == ID) ){
-        for(auto &student : students){
-            if((student->get_id() == target_id)){
-                student->add_contacts(user_id);
-            }
-            if(student->get_id() == user_id){
-                student->add_contacts(target_id);
-            }
+    for(auto &student : students){
+        if((student->get_id() == target_id)){
+            student->add_contacts(user_id);
         }
-        for(auto &professor : professors){
-            if((professor->get_id() == target_id)){
-                professor->add_contacts(user_id);
-            }
-            if(professor->get_id() == user_id){
-                professor->add_contacts(target_id);
-            }
+        if(student->get_id() == user_id){
+            student->add_contacts(target_id);
         }
-        if((ut_account_ptr->get_id() == target_id)){
-            ut_account_ptr->add_contacts(user_id);
-        }
-        if(ut_account_ptr->get_id() == user_id){
-            ut_account_ptr->add_contacts(target_id);
-        }
-        throw OkExeption();
-    }else{
-        throw BadRequest();
     }
+    for(auto &professor : professors){
+        if((professor->get_id() == target_id)){
+            professor->add_contacts(user_id);
+        }
+        if(professor->get_id() == user_id){
+            professor->add_contacts(target_id);
+        }
+    }
+    if((ut_account_ptr->get_id() == target_id)){
+        ut_account_ptr->add_contacts(user_id);
+    }
+    if(ut_account_ptr->get_id() == user_id){
+        ut_account_ptr->add_contacts(target_id);
+    }
+    throw OkExeption();
 }
