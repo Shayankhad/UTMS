@@ -10,7 +10,8 @@ public:
         message = message_;
     }
     void show_full_post_system(){
-        cout  << id << " " << title << " " << message << endl;
+        cout  << id << " " <<  '"' << title << '"' << " " << '"'<< message << '"'<< endl;
+        cout << "hi" << endl;
     }
 private:
     int id;

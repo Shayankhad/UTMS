@@ -2,7 +2,7 @@
 CXX := g++
 
 # Compiler flags
-CXXFLAGS := -std=c++20 -Wall -Wextra -Iinclude -m64
+CXXFLAGS := -std=c++20 -Wall -Wextra -Iinclude -MMD -MP -m64
 
 # Source and build directories
 SRC_DIR := src
@@ -11,6 +11,9 @@ BUILD_DIR := build
 # Create a list of source files and corresponding object files
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC_FILES))
+
+# Dependency files
+DEP_FILES := $(OBJ_FILES:.o=.d)
 
 # Executable name
 TARGET := a.exe
@@ -29,6 +32,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 # Create build directory if it doesn't exist
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
+
+# Include dependency files if they exist
+-include $(DEP_FILES)
 
 # Run the program with specified command-line arguments
 run: $(TARGET)
