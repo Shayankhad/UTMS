@@ -1,6 +1,7 @@
 #include "global.hpp"
 
 
+
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
     while (true)
@@ -87,8 +88,9 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
-    ut_account_ptr->make_post("title-1" , "rjlrty");
-    ut_account_ptr->make_post("title-2" , "akeshflwer");
+    ut_account_ptr->make_post("asd" , "rjlrty");
+    ut_account_ptr->make_post("qwe" , "akeshflwer");
+    ut_account_ptr->make_post("zxc" , "akeshflwer");
     ut_account_ptr->show_posts();
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;

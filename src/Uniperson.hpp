@@ -60,12 +60,18 @@ public:
             x->show_full_post_system();
         }
     }
-    ~Uniperson(){
+    void deallocate_uniperson(){
         for (Post_system *x : posts_i_made)
         {
             delete x;
         }
         posts_i_made.clear();
+        for (Notif*x : notifications)
+        {
+            delete x;
+        }
+        notifications.clear();  
+        cout << "hi";
     }
 protected:
     int id;
@@ -76,7 +82,7 @@ protected:
     vector<int> contacts;
     vector<Post_system *> posts_i_made;
     int post_id = 1 ;
-
+    vector<Notif*> notifications;
 };
 
 #endif

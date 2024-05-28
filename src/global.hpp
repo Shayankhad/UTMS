@@ -52,6 +52,7 @@ using namespace std;
 #include "BadRequest.hpp"
 #include "PermissionDenied.hpp"
 #include "Post_system.hpp"
+#include "Notif.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"
