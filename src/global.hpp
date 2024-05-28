@@ -51,6 +51,7 @@ using namespace std;
 #include "NotFound.hpp"
 #include "BadRequest.hpp"
 #include "PermissionDenied.hpp"
+#include "Post_system.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"

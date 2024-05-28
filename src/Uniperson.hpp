@@ -49,6 +49,24 @@ public:
         }
         return false;
     }
+    void make_post(string post_title , string post_message){
+        Post_system * new_post;
+        new_post = new Post_system(post_id , post_title ,post_message);
+        posts_i_made.emplace_back(new_post);
+        post_id ++;
+    }
+    void show_posts(){
+        for(auto &x : posts_i_made){
+            x->show_full_post_system();
+        }
+    }
+    ~Uniperson(){
+        for (Post_system *x : posts_i_made)
+        {
+            delete x;
+        }
+        posts_i_made.clear();
+    }
 protected:
     int id;
     string name;
@@ -56,8 +74,9 @@ protected:
     string password;
     int is_loged_int = 0;
     vector<int> contacts;
-    vector<vector<string>> notifications; // title & message
-    vector<vector<string>> i_posted;
+    vector<Post_system *> posts_i_made;
+    int post_id = 1 ;
+
 };
 
 #endif
