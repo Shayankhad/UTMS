@@ -1,6 +1,37 @@
 #include "global.hpp"
 
+bool is_it_post_command(string command){
+    // POST post ? title “Good Day” message “Ye rooz joonane dige”
 
+    stringstream ss;
+    ss << command;
+    string command_1;
+    getline(ss , command_1 , ' ');
+    string command_2;
+    getline(ss , command_2 , ' ');
+    string question_mark;
+    getline(ss , question_mark , ' ');
+    string arg_1;
+    getline(ss , arg_1 , ' ');
+    string arg_1_value;
+    getline(ss , arg_1_value , '"');
+    getline(ss , arg_1_value , '"');
+    string arg_2;
+    getline(ss , arg_2 , ' ');
+    getline(ss , arg_2 , ' ');
+    string arg_2_value;
+    getline(ss , arg_2_value , '"');
+    getline(ss , arg_2_value , '"');
+    if((command_1 == POST) && (command_2 == POST_SECOND_COMMAND) && (question_mark == "?")){
+        if(((arg_1 == TITLE) && (arg_2 == MESSAGE)) || ((arg_1 == MESSAGE) && (arg_2 == TITLE))){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
 
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
@@ -58,6 +89,8 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
+
+            cout << is_it_post_command(command) << endl;
 
 
             // end

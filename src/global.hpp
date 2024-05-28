@@ -27,6 +27,7 @@
 #define POST_SECOND_COMMAND "post"
 #define TITLE "title"
 #define MESSAGE "message"
+#define POST_SECOND_COMMAND "post"
 #define PERSONAL_PAGE "personal_page"
 #define POST_ID "post_id"
 #define CONNECT "connect"
