@@ -59,6 +59,9 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
+            // end
+            throw BadRequest();
+
         }
         catch(const MyException& e){
             cout <<e.what() << endl;
