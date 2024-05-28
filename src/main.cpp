@@ -22,6 +22,13 @@ bool is_it_post_command(string command){
     string arg_2_value;
     getline(ss , arg_2_value , '"');
     getline(ss , arg_2_value , '"');
+    string endline_test;
+    getline(ss , endline_test , '\n');
+    for(char c: endline_test){
+        if((c != ' ')){
+            return false;
+        }
+    }
     if((command_1 == POST) && (command_2 == POST_SECOND_COMMAND) && (question_mark == "?")){
         if(((arg_1 == TITLE) && (arg_2 == MESSAGE)) || ((arg_1 == MESSAGE) && (arg_2 == TITLE))){
             return true;
