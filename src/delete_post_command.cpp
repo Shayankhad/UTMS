@@ -1,7 +1,6 @@
 #include "global.hpp"
 
 
-
 void delete_post_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     int user_id = identify_user(students ,professors , ut_account_ptr);
     vector<string> commands;
