@@ -85,7 +85,13 @@ public:
         notif_ptr = new Notif(notif_id , notif_name , notif_type_);
         notifications.emplace_back(notif_ptr);
     }
-
+    bool is_notifications_empty(){
+        if((notifications.size() == 0)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     void show_notif_vec(){
         for(auto & x : notifications){
             x->show_notif();

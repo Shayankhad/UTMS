@@ -24,6 +24,36 @@ bool is_it_notificaiton_command(string command){
     }
 }
 
+void notificaiton_command(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
+    bool is_notif_printed = false;
+    int user_id = identify_user(students ,professors , ut_account_ptr);
+    for(auto & student: students){
+        if(student->get_id() == user_id){
+            if(!student->is_notifications_empty()){
+                is_notif_printed = true;
+                student->show_notif_vec();
+            }
+        }
+    }
+    for(auto & professor: professors){
+        if(professor->get_id() == user_id){
+            if(!professor->is_notifications_empty()){
+                is_notif_printed = true;
+                professor->show_notif_vec();
+            }
+        }
+    }
+    if(ut_account_ptr->get_id() == user_id){
+        if(!ut_account_ptr->is_notifications_empty()){
+            is_notif_printed = true;
+            ut_account_ptr->show_notif_vec();
+        }
+    }
+    if(!is_notif_printed){
+        throw Empty();
+    }
+}
+
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
     while (true)
@@ -100,7 +130,13 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
-            cout << is_it_notificaiton_command(command) << endl;
+            if(is_it_notificaiton_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                notificaiton_command(students ,professors , ut_account_ptr);
+                continue;
+            }
 
 
 
@@ -145,13 +181,7 @@ int main(int argc, char *argv[])
 
     // second show notif
 
-    for(auto & s: students){
-        s->show_notif_vec();
-    }
-    for(auto & p: professors){
-        p->show_notif_vec();
-    }
-    ut_account_ptr->show_notif_vec();
+
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
 }
