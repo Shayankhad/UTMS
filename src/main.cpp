@@ -1,4 +1,5 @@
 #include "global.hpp"
+
 bool check_for_double_quatation(string command){
     stringstream ss;
     ss << command;
@@ -39,6 +40,7 @@ bool check_for_double_quatation(string command){
 
 bool is_it_post_command(string command){
     // POST post ? title “Good Day” message “Ye rooz joonane dige”
+    // POST post ? message “Ye rooz joonane dige” title “Good Day”
     if(!check_for_double_quatation(command)){
         return false;
     }
@@ -79,6 +81,45 @@ bool is_it_post_command(string command){
     }
 }
 
+void post_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
+    int user_id = identify_user(students ,professors , ut_account_ptr);
+    stringstream ss;
+    ss << command;
+    string begining;
+    getline(ss , begining , ' ');
+    getline(ss , begining , ' ');
+    getline(ss , begining , ' ');
+    string arg_1;
+    getline(ss , arg_1 , ' ');
+    string arg_1_value;
+    getline(ss , arg_1_value , '"');
+    getline(ss , arg_1_value , '"');
+    string arg_2;
+    getline(ss , arg_2 , ' ');
+    getline(ss , arg_2 , ' ');
+    string arg_2_value;
+    getline(ss , arg_2_value , '"');
+    getline(ss , arg_2_value , '"');
+    if((arg_1 == TITLE) && (arg_2 == MESSAGE)){
+        for(auto & student : students){
+            if(student->get_id() == user_id){
+                student->make_post(arg_1_value , arg_2_value);
+            }
+        }
+        for(auto & professor : professors){
+            if(professor->get_id() == user_id){
+                professor->make_post(arg_1_value , arg_2_value);
+            }
+        }
+        if(ut_account_ptr->get_id() == user_id){
+            ut_account_ptr->make_post(arg_1_value , arg_2_value);
+        }   
+    }
+    // for (vector<int>::size_type i = 0 ; i < contacts.size() ; i++){
+    //     cout << contacts[i] << endl;
+    // }
+}
+
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
     while (true)
@@ -88,8 +129,6 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
             if(command == "qq"){
                 break;
             }
-
-
 
 
 
@@ -117,7 +156,7 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
-                logout_command(command ,students ,professors , ut_account_ptr);
+                logout_command(students ,professors , ut_account_ptr);
             }
 
 
@@ -137,8 +176,13 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
             if(is_it_post_command(command)){
-                cout << "yes" << endl;
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                post_command(command ,students ,professors , ut_account_ptr);
             }
+
+
 
 
             // end
@@ -169,17 +213,13 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
-    ut_account_ptr->make_post("asd" , "rjlrty");
-    ut_account_ptr->make_post("qwe" , "akeshflwer");
-    ut_account_ptr->make_post("zxc" , "akeshflwer");
+    for(auto & s: students){
+        s->show_posts();
+    }
+    for(auto & p: professors){
+        p->show_posts();
+    }
     ut_account_ptr->show_posts();
-    for(auto & s: students){
-        s->add_notif(810102566 , "shayan" , "New Post");
-    }
-    for(auto & s: students){
-        s->show_notif_vec();
-    }
-
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
 }

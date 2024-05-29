@@ -3,4 +3,5 @@
 #include "global.hpp"
 
 void logout_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr);
+
 #endif

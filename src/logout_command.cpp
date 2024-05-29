@@ -1,6 +1,7 @@
 #include "global.hpp"
 
-void logout_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
+
+void logout_command(vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     for(auto & student : students){
         if(student->am_i_loged_in()){
             student->set_loged(0);

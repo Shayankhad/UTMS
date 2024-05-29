@@ -60,7 +60,7 @@ public:
             x->show_full_post_system();
         }
     }
-
+    
     void add_notif(int notif_id , string notif_name , string notif_type_){
         Notif * notif_ptr;
         notif_ptr = new Notif(notif_id , notif_name , notif_type_);
@@ -72,6 +72,7 @@ public:
             x->show_notif();
         }
     }
+
     void deallocate_uniperson(){
         for (Post_system *x : posts_i_made)
         {
