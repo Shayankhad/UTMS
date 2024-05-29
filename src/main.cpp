@@ -110,12 +110,13 @@ int main(int argc, char *argv[])
     vector<Student *> students;
     vector<Course *> courses;
     vector<Professor *> professors;
+    vector<PresentedCourse *> presented_course;
     UtAccount *ut_account_ptr = new UtAccount();
     extract_majors_csv(argv[1], majors);
     extract_students_csv(argv[2], students);
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
-    deallocate(majors ,students , courses ,professors , ut_account_ptr );
+    deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }

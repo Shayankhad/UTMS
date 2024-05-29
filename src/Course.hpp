@@ -4,7 +4,7 @@
 
 class Course {
 public:
-    void major_csv_setup(int cid_ , string name_ , int credit_ , int prerequisite_ , vector<int> majors_id_ ){
+    void course_csv_setup(int cid_ , string name_ , int credit_ , int prerequisite_ , vector<int> majors_id_ ){
         cid = cid_;
         name = name_;
         credit = credit_;

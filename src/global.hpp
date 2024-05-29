@@ -92,6 +92,7 @@ using namespace std;
 #include "is_it_notificaiton_command.hpp"
 #include "notificaiton_command.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
+#include "PresentedCourse.hpp"
 #include "deallocate.hpp"
 
 
