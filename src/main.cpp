@@ -1,5 +1,5 @@
 #include "global.hpp"
-void check_for_double_quatation(string command){
+bool check_for_double_quatation(string command){
     stringstream ss;
     ss << command;
     string command_1;
@@ -19,7 +19,7 @@ void check_for_double_quatation(string command){
     string test;
     if(getline(ss , test , '"')){
         if(!(test == "")){
-            throw BadRequest();
+            return false;
         }
     }
     string arg_2_value;
@@ -32,13 +32,16 @@ void check_for_double_quatation(string command){
         }
     }
     if(number_of_double_qoute == 0){
-        throw BadRequest();
+        return false;
     }
+    return true;
 }
 
 bool is_it_post_command(string command){
     // POST post ? title “Good Day” message “Ye rooz joonane dige”
-    check_for_double_quatation(command);
+    if(!check_for_double_quatation(command)){
+        return false;
+    }
     stringstream ss;
     ss << command;
     string command_1;
@@ -133,7 +136,9 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
-            cout << is_it_post_command(command) << endl;
+            if(is_it_post_command(command)){
+                cout << "yes" << endl;
+            }
 
 
             // end
