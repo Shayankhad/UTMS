@@ -1,3 +1,3 @@
-POST login ? id 831013132 password Dash_Majido_Eyval
+POST login ? id 810102612 password ImtheproblemItsme
 POST connect ? id 810102588
 POST post ? title “Good Day” message “Ye rooz joonane dige”

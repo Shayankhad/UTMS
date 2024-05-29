@@ -41,6 +41,10 @@
 #define EXAM_DATE "exam_date"
 #define CLASS_NUMBER "class_number"
 #define MY_COURSES "my_courses"
+#define NEW_POST "New Post"
+#define NEW_COURSE_OFFERING "New Course Offering"
+#define GET_COURSE "Get Course"
+#define DELETE_COURSE " Delete Course"
 
 using namespace std;
 

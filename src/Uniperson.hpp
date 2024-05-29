@@ -28,6 +28,10 @@ public:
     int get_id(){
         return id;
     }
+
+    string get_name(){
+        return name;
+    }
     void set_loged(int x){
         is_loged_int = x;
     }
@@ -55,12 +59,12 @@ public:
         posts_i_made.emplace_back(new_post);
         post_id ++;
     }
-    void show_posts(){
+    void show_my_posts(){
         for(auto &x : posts_i_made){
             x->show_full_post_system();
         }
     }
-    
+
     void add_notif(int notif_id , string notif_name , string notif_type_){
         Notif * notif_ptr;
         notif_ptr = new Notif(notif_id , notif_name , notif_type_);
