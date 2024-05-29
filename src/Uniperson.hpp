@@ -59,6 +59,21 @@ public:
         posts_i_made.emplace_back(new_post);
         post_id ++;
     }
+    bool is_post_id_match(int post_id_){
+        for(auto & post_element : posts_i_made){
+            if(post_element->get_post_id() == post_id_){
+                return true;
+            }
+        }
+        return false;
+    }
+    void delete_post(int target_post_id){
+        for(std::vector<Post_system*>::size_type i = 0 ; i < posts_i_made.size() ; i ++){
+            if((posts_i_made[i]->get_post_id()) ==  target_post_id){
+                posts_i_made.erase(posts_i_made.begin() + i);
+            }
+        }
+    }
     void show_my_posts(){
         for(auto &x : posts_i_made){
             x->show_full_post_system();

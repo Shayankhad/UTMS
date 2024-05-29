@@ -2,7 +2,6 @@
 
 
 bool is_it_delete_post_command(string command){
-    // DELETE post ? id 3
     vector<string> commands;
     string word;
     stringstream ss;
@@ -26,6 +25,69 @@ bool is_it_delete_post_command(string command){
         return false;
     }
 }
+
+void check_post_id_exist(int target_post_id ,vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr ){
+    bool does_post_id_match = false;
+    int user_id = identify_user(students ,professors , ut_account_ptr);
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            if(student->is_post_id_match(target_post_id)){
+                does_post_id_match = true;
+            }
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            if(professor->is_post_id_match(target_post_id)){
+                does_post_id_match = true;
+            }
+        }
+    }
+    if(ut_account_ptr->get_id() == user_id){
+        if(ut_account_ptr->is_post_id_match(target_post_id)){
+            does_post_id_match = true;
+        }
+    }
+
+    if(does_post_id_match == false){
+        throw NotFound();
+    }
+}
+
+void delete_post_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
+    //DELETE post ? id 3
+    int user_id = identify_user(students ,professors , ut_account_ptr);
+    vector<string> commands;
+    string word;
+    stringstream ss;
+    ss << command;
+    while(getline(ss , word , ' ' )){
+        if(!word.empty()){
+            commands.push_back(word);
+        }
+    }
+    int target_post_id = string_to_int(commands[4]); 
+    check_post_id_exist(target_post_id , students ,professors , ut_account_ptr);
+
+
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            student->delete_post(target_post_id);
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            professor->delete_post(target_post_id);
+        }
+    }
+    if(ut_account_ptr->get_id() == user_id){
+        ut_account_ptr->delete_post(target_post_id);
+    }
+
+    throw OkExeption();
+
+}
+
 
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
@@ -90,9 +152,12 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
             }
 
 
-
-            cout << is_it_delete_post_command(command) << endl;
-
+            if(is_it_delete_post_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                delete_post_command(command ,students ,professors , ut_account_ptr);
+            }
 
 
 
