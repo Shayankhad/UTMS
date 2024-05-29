@@ -3,4 +3,5 @@ POST connect ? id 810102588
 POST connect ? id 810102342
 POST post ? title “Good Day” message “Ye rooz joonane dige”
 POST post ? message “Ye shab bade dige” title “bad night”
+DELETE post ? id 1
 qq
