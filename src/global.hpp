@@ -89,6 +89,9 @@ using namespace std;
 #include "is_it_delete_post_command.hpp"
 #include "check_post_id_exist.hpp"
 #include "delete_post_command.hpp"
+#include "is_it_notificaiton_command.hpp"
+#include "notificaiton_command.hpp"
+#include "set_ut_account_ptr_contacts.hpp"
 #include "deallocate.hpp"
 
 

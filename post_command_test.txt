@@ -16,4 +16,6 @@ POST login ? id 810102588 password lablablab
 GET notification ?
 GET notification ?
 POST logout ?
+POST login ? id 0 password UT_account
+GET notification ?
 qq
