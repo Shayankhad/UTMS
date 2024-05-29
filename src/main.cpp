@@ -100,9 +100,6 @@ void post_command_setup(int user_id , string arg_1_value , string arg_2_value , 
         }
     }
 
-
-
-
     for(auto & professor : professors){
         if(professor->get_id() == user_id){
             professor->make_post(arg_1_value , arg_2_value);
@@ -122,8 +119,6 @@ void post_command_setup(int user_id , string arg_1_value , string arg_2_value , 
         }
     }
 
-
-
     if(ut_account_ptr->get_id() == user_id){
         ut_account_ptr->make_post(arg_1_value , arg_2_value);
         for(auto & s : students){
@@ -141,6 +136,7 @@ void post_command_setup(int user_id , string arg_1_value , string arg_2_value , 
         }
     }
 }
+
 void post_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     int user_id = identify_user(students ,professors , ut_account_ptr);
     stringstream ss;
@@ -162,10 +158,12 @@ void post_command(string command, vector<Student *> &students, vector<Professor 
     getline(ss , arg_2_value , '"');
     if((arg_1 == TITLE) && (arg_2 == MESSAGE)){
         post_command_setup(user_id , arg_1_value , arg_2_value , students ,professors , ut_account_ptr );
+        throw OkExeption();
     }
     
     else if((arg_1 == MESSAGE) && (arg_2 == TITLE)){
         post_command_setup(user_id ,  arg_2_value , arg_1_value, students ,professors , ut_account_ptr );
+        throw OkExeption();
     }
 }
 
@@ -262,15 +260,24 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
+
+    // first show posts
     for(auto & s: students){
         s->show_my_posts();
-        s->show_notif_vec();
     }
     for(auto & p: professors){
         p->show_my_posts();
-        p->show_notif_vec();
     }
     ut_account_ptr->show_my_posts();
+
+    // second show notif
+
+    for(auto & s: students){
+        s->show_notif_vec();
+    }
+    for(auto & p: professors){
+        p->show_notif_vec();
+    }
     ut_account_ptr->show_notif_vec();
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
