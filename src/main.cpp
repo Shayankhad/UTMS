@@ -53,8 +53,18 @@ void notificaiton_command(vector<Student *> &students , vector<Professor *> &pro
         throw Empty();
     }
 }
-
+void set_ut_account_ptr_contacts(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
+    for(auto & student : students){
+        ut_account_ptr->add_contacts(student->get_id());
+        student->add_contacts(ut_account_ptr->get_id());
+    }
+    for(auto & professor : professors){
+        ut_account_ptr->add_contacts(professor->get_id());
+        professor->add_contacts(ut_account_ptr->get_id());
+    }
+}
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
+    set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
     while (true)
     {
@@ -169,19 +179,6 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students ,professors , ut_account_ptr);
-
-    // first show posts
-    for(auto & s: students){
-        s->show_my_posts();
-    }
-    for(auto & p: professors){
-        p->show_my_posts();
-    }
-    ut_account_ptr->show_my_posts();
-
-    // second show notif
-
-
     deallocate(majors ,students , courses ,professors , ut_account_ptr );
     return 0;
 }
