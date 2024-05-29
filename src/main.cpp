@@ -1,5 +1,28 @@
 #include "global.hpp"
 
+bool is_it_notificaiton_command(string command){
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0 ;
+    while (getline(ss, word, ' '))
+    {
+        if(!(word == "")){
+            commands.push_back(word);
+            iteration ++;
+        }
+    }
+    if(iteration == 3){
+        if((commands[0] == GET) && (commands[1] == NOTIFICATION) && (commands[2] == "?")){
+            return true;
+        }else {
+            return false;
+        }
+    }else {
+        return false;
+    }
+}
 
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     string command;
@@ -64,12 +87,20 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
             }
 
 
+
+
+
             if(is_it_delete_post_command(command)){
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
                 delete_post_command(command ,students ,professors , ut_account_ptr);
             }
+
+
+
+
+            cout << is_it_notificaiton_command(command) << endl;
 
 
 
