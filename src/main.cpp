@@ -80,7 +80,67 @@ bool is_it_post_command(string command){
         return false;
     }
 }
+void post_command_setup(int user_id , string arg_1_value , string arg_2_value , vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr ){
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            student->make_post(arg_1_value , arg_2_value);
+            for(auto & s : students){
+                if(student->am_i_in_contact(s->get_id())){
+                    s->add_notif(student->get_id() , student->get_name() , NEW_POST );
+                }   
+            }
+            for(auto & p : professors){ 
+                if(student->am_i_in_contact(p->get_id())){
+                    p->add_notif(student->get_id() , student->get_name() , NEW_POST );
+                }
+            }
+            if(student->am_i_in_contact(ut_account_ptr->get_id())){
+                ut_account_ptr->add_notif(student->get_id() , student->get_name() , NEW_POST ); 
+            }
+        }
+    }
 
+
+
+
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            professor->make_post(arg_1_value , arg_2_value);
+            for(auto & s : students){
+                if(professor->am_i_in_contact(s->get_id())){
+                    s->add_notif(professor->get_id() , professor->get_name() , NEW_POST );
+                }   
+            }
+            for(auto & p : professors){ 
+                if(professor->am_i_in_contact(p->get_id())){
+                    p->add_notif(professor->get_id() , professor->get_name() , NEW_POST );
+                }
+            }
+            if(professor->am_i_in_contact(ut_account_ptr->get_id())){
+                ut_account_ptr->add_notif(professor->get_id() , professor->get_name() , NEW_POST ); 
+            }
+        }
+    }
+
+
+
+    if(ut_account_ptr->get_id() == user_id){
+        ut_account_ptr->make_post(arg_1_value , arg_2_value);
+        for(auto & s : students){
+            if(ut_account_ptr->am_i_in_contact(s->get_id())){
+                s->add_notif(ut_account_ptr->get_id() , ut_account_ptr->get_name() , NEW_POST );
+            }   
+        }
+        for(auto & p : professors){ 
+            if(ut_account_ptr->am_i_in_contact(p->get_id())){
+                p->add_notif(ut_account_ptr->get_id() , ut_account_ptr->get_name() , NEW_POST );
+            }
+        }
+        if(ut_account_ptr->am_i_in_contact(ut_account_ptr->get_id())){
+            ut_account_ptr->add_notif(ut_account_ptr->get_id() , ut_account_ptr->get_name() , NEW_POST ); 
+        }
+    }
+}
 void post_command(string command, vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     int user_id = identify_user(students ,professors , ut_account_ptr);
     stringstream ss;
@@ -101,54 +161,12 @@ void post_command(string command, vector<Student *> &students, vector<Professor 
     getline(ss , arg_2_value , '"');
     getline(ss , arg_2_value , '"');
     if((arg_1 == TITLE) && (arg_2 == MESSAGE)){
-        
-        for(auto & student : students){
-            if(student->get_id() == user_id){
-                student->make_post(arg_1_value , arg_2_value);
-                for(auto & s : students){
-                    if(student->am_i_in_contact(s->get_id())){
-                        s->add_notif(student->get_id() , student->get_name() , NEW_POST );
-                    }   
-                }
-                for(auto & p : professors){ 
-                    if(student->am_i_in_contact(p->get_id())){
-                        p->add_notif(student->get_id() , student->get_name() , NEW_POST );
-                    }
-                }
-                if(student->am_i_in_contact(ut_account_ptr->get_id())){
-                    ut_account_ptr->add_notif(student->get_id() , student->get_name() , NEW_POST ); 
-                }
-            }
-        }
-
-        // for(auto & student : students){
-        //     if(student->get_id() == user_id){
-        //         student->make_post(arg_1_value , arg_2_value);
-        //         for(auto & s : students){
-        //             if(student->am_i_in_contact(s->get_id())){
-        //                 s->add_notif(student->get_id() , student->get_name() , NEW_POST );
-        //             }   
-        //         }
-        //         for(auto & p : professors){ 
-        //             if(student->am_i_in_contact(p->get_id())){
-        //                 p->add_notif(student->get_id() , student->get_name() , NEW_POST );
-        //             }
-        //         }
-        //         if(student->am_i_in_contact(ut_account_ptr->get_id())){
-        //             ut_account_ptr->add_notif(student->get_id() , student->get_name() , NEW_POST ); 
-        //         }
-        //     }
-        // }
-
-
-
+        post_command_setup(user_id , arg_1_value , arg_2_value , students ,professors , ut_account_ptr );
     }
     
     else if((arg_1 == MESSAGE) && (arg_2 == TITLE)){
+        post_command_setup(user_id ,  arg_2_value , arg_1_value, students ,professors , ut_account_ptr );
     }
-    // for (vector<int>::size_type i = 0 ; i < contacts.size() ; i++){
-    //     cout << contacts[i] << endl;
-    // }
 }
 
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
