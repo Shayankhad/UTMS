@@ -82,6 +82,10 @@ using namespace std;
 #include "logout_command.hpp"
 #include "is_it_connect_command.hpp"
 #include "connect_command.hpp"
+#include "check_for_double_quatation.hpp"
+#include "is_it_post_command.hpp"
+#include "post_command_setup.hpp"
+#include "post_command.hpp"
 #include "deallocate.hpp"
 
 
