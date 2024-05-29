@@ -93,9 +93,14 @@ public:
         }
     }
     void show_notif_vec(){
-        for(auto & x : notifications){
-            x->show_notif();
+        for (auto notif_element = notifications.rbegin(); notif_element != notifications.rend(); ++notif_element) {
+            (*notif_element)->show_notif();
         }
+        for (Notif* notif_element : notifications)
+        {
+            delete notif_element;
+        }
+        notifications.clear();  
     }
 
     void deallocate_uniperson(){
