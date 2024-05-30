@@ -1,37 +1,111 @@
 #include "global.hpp"
 
-void is_it_course_offer_command(string command){
+bool set_arg_order(vector<int> &arg_order , vector<vector<string>> arg_commands ){
+    int turn = 1;
+    
+    if(turn == 1){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == COURSE_ID) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 2){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == PROFESSOR_ID) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 3){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == CAPACITY) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 4){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == TIME) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 5){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == EXAM_DATE) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 6){
+        for(vector<__cxx11::basic_string<char>>::size_type a = 0 ; a < arg_commands.size() ; a ++){
+            if((arg_commands[a][0] == CLASS_NUMBER) ){
+                arg_order.push_back(a);
+                turn ++;
+                break;
+            }
+        }
+    }
+    if(turn == 7){
+        return true;
+    }
+    
+    return false;
+}
+
+bool is_it_course_offer_command(string command){
     /*
 POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
+POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 class_number 2 exam_date 1403/4/4
+POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
     */
-    vector<string> first_commands;
+    vector<string> commands;
     stringstream ss;
     ss << command;
     string word;
+    vector<vector<string>> arg_commands;
     int iteration = 0;
-    while(getline(ss , word , ' ')){
-        if((word != " ") && (word != "") && (iteration <3)){
-            first_commands.push_back(word);
+    while (getline(ss , word , ' ')){
+        if ((!word.empty()) && (word != " ")) {
+            commands.push_back(word);
             iteration ++;
         }
-    }   
-    // vector<vector<string>> arg_commands;
-    // string argument;
-    // string argument_value;
-    // while(getline(ss , argument ,' ') && (getline(ss , argument_value ,' '))){
-    //     cout << "hi" << endl;
-    //     if((argument != " ") && (argument != "") && (argument_value != " ") && (argument_value != "")){
-    //         arg_commands.push_back({argument , argument_value});
-    //         iteration ++;
-    //     }
-
-    // }
-    // cout << iteration << endl;
-    // cout << argument << endl;
-    if((iteration == 15) && (first_commands[0] == POST) && (first_commands[1] == COURSE_OFFER) && (first_commands[2] == QUESTION_MARK)){
-
     }
+
+    if(iteration != 15){
+        return false;
+    }
+
+    for(vector<vector<__cxx11::basic_string<char>>>::size_type i = 3 ; i < 15 ; i = i +2 ){
+        arg_commands.push_back({ commands[i] , commands[i + 1]});
+    }
+
+    vector<int> arg_order;
+    set_arg_order(arg_order , arg_commands);
+    for(int i = 0 ; i < arg_order.size() ; i++){
+        cout << arg_order[i] << endl;
+    }
+    if(arg_order.size() != 6){
+        return false;
+    }
+
+    // check_number_type
+
+
+    return true;
 }
+
 
 void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
@@ -121,7 +195,7 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
-            is_it_course_offer_command(command);
+            cout << is_it_course_offer_command(command) << endl;
 
 
 
