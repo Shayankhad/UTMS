@@ -113,12 +113,6 @@ bool is_it_professor(int id , vector<Professor *> professors ){
 }
 
 void course_offer_command(string command , vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
-    /*
-POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
-POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 class_number 2 exam_date 1403/4/4
-POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
-POST course_offer ? professor_id 810420432 course_id 1 capacity 70 exam_date 1403/4/4 time Sunday:13-15 class_number 2
-    */
     vector<string> commands;
     stringstream ss;
     ss << command;
@@ -171,8 +165,22 @@ POST course_offer ? professor_id 810420432 course_id 1 capacity 70 exam_date 140
         throw PermissionDenied();
     }
 
-    
+    // proff id = string_to_int(ordered_arg_commands[1][1])
+    // course_id = string_to_int(ordered_arg_commands[0][1])
+    for(auto & course : courses){
+        if(course->get_id() == string_to_int(ordered_arg_commands[0][1])){
+            for(auto & professor : professors){
+                if(professor->get_id() == string_to_int(ordered_arg_commands[1][1])){
+                    if(!course->is_majors_id_match(professor->get_major_id())){
+                        throw PermissionDenied();
+                    }
+                }
+            }
+        }  
+    }
 
+    
+    throw OkExeption();
 }
 
 void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
@@ -263,16 +271,16 @@ void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *
 
 
 
-            // if(is_it_course_offer_command(command)){
-            //     int user_id = identify_user(students ,professors , ut_account_ptr);
-            //     if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
-            //         throw PermissionDenied();
-            //     }
-            //     if(user_id != 0){
-            //         throw PermissionDenied();
-            //     }
-            // }
-            course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
+            if(is_it_course_offer_command(command)){
+                int user_id = identify_user(students ,professors , ut_account_ptr);
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                if(user_id != 0){
+                    throw PermissionDenied();
+                }
+                course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
+            }
 
 
 

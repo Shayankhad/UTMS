@@ -115,6 +115,10 @@ public:
         }
         notifications.clear();  
     }
+
+    int get_major_id(){
+        return major_id;
+    }
 protected:
     int id;
     string name;

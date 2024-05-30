@@ -26,6 +26,15 @@ public:
     int get_id(){
         return cid;
     }
+
+    bool is_majors_id_match(int majors_id_){
+        for(vector<int>::size_type i = 0 ; i < majors_id.size(); i ++){
+            if(majors_id[i] == majors_id_){
+                return true;
+            }
+        }
+        return false;
+    }
 private:
     int cid;
     string name;
