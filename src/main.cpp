@@ -99,8 +99,54 @@ void course_offer_command(string command , vector<Major *> &majors , vector<Stud
 POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
 POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 class_number 2 exam_date 1403/4/4
 POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
+POST course_offer ? professor_id 810420432 course_id 1 capacity 70 exam_date 1403/4/4 time Sunday:13-15 class_number 2
     */
-    cout << "hi" << endl;
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    vector<vector<string>> arg_commands;
+    while (getline(ss , word , ' ')){
+        if ((!word.empty()) && (word != " ")) {
+            commands.push_back(word);
+        }
+    }
+    for(vector<vector<__cxx11::basic_string<char>>>::size_type i = 3 ; i < 15 ; i = i +2 ){
+        arg_commands.push_back({ commands[i] , commands[i + 1]});
+    }
+    vector<int> arg_order;
+    set_arg_order(arg_order , arg_commands);
+    vector<vector<string>> ordered_arg_commands;
+    for(std::vector<int>::size_type i = 0 ; i < arg_order.size() ; i++ ){
+        ordered_arg_commands.push_back({arg_commands[arg_order[i]][0] , arg_commands[arg_order[i]][1] });
+    }
+// cout << ordered_arg_commands[0][0] << endl;
+// cout << ordered_arg_commands[1][0] << endl;
+// cout << ordered_arg_commands[2][0] << endl;
+// cout << ordered_arg_commands[3][0] << endl;
+// cout << ordered_arg_commands[4][0] << endl;
+// cout << ordered_arg_commands[5][0] << endl;
+// ordered_arg_commands[0][0] = course_id
+// ordered_arg_commands[1][0] = professor_id
+// ordered_arg_commands[2][0] = capacity
+// ordered_arg_commands[3][0] = time
+// ordered_arg_commands[4][0] = exam_date
+// ordered_arg_commands[5][0] = class_number
+    if((check_number_type(ordered_arg_commands[0][1]) != 1) ||
+    (check_number_type(ordered_arg_commands[1][1]) != 1 ) ||
+    (check_number_type(ordered_arg_commands[2][1]) != 1 ) ||
+    (check_number_type(ordered_arg_commands[5][1]) != 1 ) ||
+    (string_to_int(ordered_arg_commands[0][1]) <= 0) ||
+    (string_to_int(ordered_arg_commands[1][1]) <= 0) ||
+    (string_to_int(ordered_arg_commands[2][1]) <= 0) ||
+    (string_to_int(ordered_arg_commands[5][1]) <= 0)){
+        throw BadRequest();
+    }
+
+    if(!check_id_match_in_peaple(string_to_int(ordered_arg_commands[1][1]) , students , professors , ut_account_ptr)){
+        throw NotFound();
+    }
+   
 }
 
 void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
@@ -191,16 +237,16 @@ void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *
 
 
 
-            if(is_it_course_offer_command(command)){
-                int user_id = identify_user(students ,professors , ut_account_ptr);
-                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
-                    throw PermissionDenied();
-                }
-                if(user_id != 0){
-                    throw PermissionDenied();
-                }
-                course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
-            }
+            // if(is_it_course_offer_command(command)){
+            //     int user_id = identify_user(students ,professors , ut_account_ptr);
+            //     if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+            //         throw PermissionDenied();
+            //     }
+            //     if(user_id != 0){
+            //         throw PermissionDenied();
+            //     }
+            // }
+            course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
 
 
 
