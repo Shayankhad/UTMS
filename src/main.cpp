@@ -65,11 +65,7 @@ bool set_arg_order(vector<int> &arg_order , vector<vector<string>> arg_commands 
 }
 
 bool is_it_course_offer_command(string command){
-    /*
-POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
-POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 class_number 2 exam_date 1403/4/4
-POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
-    */
+
     vector<string> commands;
     stringstream ss;
     ss << command;
@@ -98,8 +94,16 @@ POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:1
     return true;
 }
 
+void course_offer_command(string command , vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
+    /*
+POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
+POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 class_number 2 exam_date 1403/4/4
+POST course_offer ? professor_id 810420432 course_id 1 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
+    */
+    cout << "hi" << endl;
+}
 
-void run(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr){
+void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
     while (true)
@@ -187,7 +191,16 @@ void run(vector<Student *> &students , vector<Professor *> &professors , UtAccou
 
 
 
-            cout << is_it_course_offer_command(command) << endl;
+            if(is_it_course_offer_command(command)){
+                int user_id = identify_user(students ,professors , ut_account_ptr);
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                if(user_id != 0){
+                    throw PermissionDenied();
+                }
+                course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
+            }
 
 
 
@@ -219,7 +232,7 @@ int main(int argc, char *argv[])
     extract_students_csv(argv[2], students);
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
-    run(students ,professors , ut_account_ptr);
+    run(majors , students , courses , professors , presented_course , ut_account_ptr);
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }
