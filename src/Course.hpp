@@ -21,7 +21,10 @@ public:
             cout << majors_id[i] << " ";
         }
         cout << endl;
+    }
 
+    int get_id(){
+        return cid;
     }
 private:
     int cid;

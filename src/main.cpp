@@ -94,6 +94,24 @@ bool is_it_course_offer_command(string command){
     return true;
 }
 
+bool check_course_id_match_in_courses(int course_id , vector<Course *> courses ){
+    for(auto & course : courses){
+        if(course->get_id() == course_id){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool is_it_professor(int id , vector<Professor *> professors ){
+    for(auto & professor : professors ){
+        if(professor->get_id() == id){
+            return true;
+        }
+    }
+    return false;
+}
+
 void course_offer_command(string command , vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     /*
 POST course_offer ? course_id 1 professor_id 810420432 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
@@ -143,10 +161,18 @@ POST course_offer ? professor_id 810420432 course_id 1 capacity 70 exam_date 140
         throw BadRequest();
     }
 
+    if(!check_course_id_match_in_courses(string_to_int(ordered_arg_commands[0][1]) , courses)){
+        throw NotFound();
+    }
     if(!check_id_match_in_peaple(string_to_int(ordered_arg_commands[1][1]) , students , professors , ut_account_ptr)){
         throw NotFound();
     }
-   
+    if(!is_it_professor(string_to_int(ordered_arg_commands[1][1]) , professors)){
+        throw PermissionDenied();
+    }
+
+    
+
 }
 
 void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
