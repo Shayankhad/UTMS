@@ -4,7 +4,7 @@
 class PresentedCourse{
 public:
     PresentedCourse(int course_id_ , int professor_id_ ,int capacity_
-    , string day_ , vector<int> start_finish_hour_ , string exam_date_ 
+    , string day_ , vector<int> start_finish_hour_ , vector<int> exam_date_ 
     , int class_number_  ) : course_id(course_id_) , professor_id(professor_id_) 
     , capacity(capacity_) , day(day_) , start_finish_hour(start_finish_hour_)
     , exam_date(exam_date_) , class_number(class_number_) {}
@@ -15,7 +15,9 @@ public:
         cout << "capacity: " << capacity << endl;
         cout << "day: " << day << endl;
         cout << "start hour: " << start_finish_hour[0] << " finish hour: " << start_finish_hour[1] << endl;
-        cout << "exam_date: " << exam_date << endl;
+        cout << "day of exam date: " << exam_date[0] << endl;
+        cout << "month of exam date: " << exam_date[1] << endl;
+        cout << "year of exam date: " << exam_date[2] << endl;
         cout << "class_number: " << class_number << endl;
     }
 private:
@@ -24,7 +26,7 @@ private:
     int capacity;
     string day;
     vector<int> start_finish_hour;
-    string exam_date;
+    vector<int> exam_date;
     int class_number;
 };
 #endif

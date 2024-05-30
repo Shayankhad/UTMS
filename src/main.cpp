@@ -112,6 +112,47 @@ bool is_it_professor(int id , vector<Professor *> professors ){
     return false;
 }
 
+string seperate_day(string time){
+    // Sunday:13-15
+    string day;
+    stringstream ss;
+    ss << time;
+    getline(ss , day , ':' );
+    return day;
+}
+vector<int> seperate_hour(string time){
+    // Sunday:13-15
+    string day;
+    stringstream ss;
+    ss << time;
+    getline(ss , day , ':' );
+    string start;
+    getline(ss, start , '-');
+    string finish;
+    getline(ss, finish);
+    vector<int> hour;
+    hour.push_back(string_to_int(start));
+    hour.push_back(string_to_int(finish));
+    return hour;
+}
+
+vector<int> seperate_exam_date(string exam_date){
+    // 1403/4/4
+    vector<int> exam_date_vec;
+    string day;
+    string month;
+    string year;
+    stringstream ss;
+    ss << exam_date;
+    getline(ss, year , '/');
+    getline(ss, month , '/');
+    getline(ss, day);
+    exam_date_vec.push_back(string_to_int(day));
+    exam_date_vec.push_back(string_to_int(month));
+    exam_date_vec.push_back(string_to_int(year));
+    return exam_date_vec;
+}
+
 void course_offer_command(string command , vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     vector<string> commands;
     stringstream ss;
@@ -154,23 +195,24 @@ void course_offer_command(string command , vector<Major *> &majors , vector<Stud
     (string_to_int(ordered_arg_commands[5][1]) <= 0)){
         throw BadRequest();
     }
+    int int_course_id = string_to_int(ordered_arg_commands[0][1]);
+    int int_proffesor_id = string_to_int(ordered_arg_commands[1][1]);
+    int int_capacity_id = string_to_int(ordered_arg_commands[2][1]);
+    int int_class_number_id = string_to_int(ordered_arg_commands[5][1]);
 
-    if(!check_course_id_match_in_courses(string_to_int(ordered_arg_commands[0][1]) , courses)){
+    if(!check_course_id_match_in_courses(int_course_id , courses)){
         throw NotFound();
     }
-    if(!check_id_match_in_peaple(string_to_int(ordered_arg_commands[1][1]) , students , professors , ut_account_ptr)){
+    if(!check_id_match_in_peaple(int_proffesor_id , students , professors , ut_account_ptr)){
         throw NotFound();
     }
-    if(!is_it_professor(string_to_int(ordered_arg_commands[1][1]) , professors)){
+    if(!is_it_professor(int_proffesor_id , professors)){
         throw PermissionDenied();
     }
-
-    // proff id = string_to_int(ordered_arg_commands[1][1])
-    // course_id = string_to_int(ordered_arg_commands[0][1])
     for(auto & course : courses){
-        if(course->get_id() == string_to_int(ordered_arg_commands[0][1])){
+        if(course->get_id() == int_course_id){
             for(auto & professor : professors){
-                if(professor->get_id() == string_to_int(ordered_arg_commands[1][1])){
+                if(professor->get_id() == int_proffesor_id){
                     if(!course->is_majors_id_match(professor->get_major_id())){
                         throw PermissionDenied();
                     }
@@ -179,7 +221,19 @@ void course_offer_command(string command , vector<Major *> &majors , vector<Stud
         }  
     }
 
-    
+// ordered_arg_commands[0][0] = course_id
+// ordered_arg_commands[1][0] = professor_id
+// ordered_arg_commands[2][0] = capacity
+// ordered_arg_commands[3][0] = time
+// ordered_arg_commands[4][0] = exam_date
+// ordered_arg_commands[5][0] = class_number
+    vector<int> hour;
+    string day = seperate_day(ordered_arg_commands[3][1]);
+    hour = seperate_hour(ordered_arg_commands[3][1]);
+    vector<int> exam_date_vec = seperate_exam_date(ordered_arg_commands[4][1]);
+
+    PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , int_proffesor_id , int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id);
+    presented_course.emplace_back(presented_course_ptr);
     throw OkExeption();
 }
 
@@ -313,6 +367,9 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(majors , students , courses , professors , presented_course , ut_account_ptr);
+    for(auto & x : presented_course){
+        x->test_show();
+    }
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }
