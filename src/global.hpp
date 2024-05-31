@@ -94,6 +94,16 @@ using namespace std;
 #include "add_notif_handeling.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
 #include "PresentedCourse.hpp"
+#include "set_arg_order.hpp"
+#include "is_it_course_offer_command.hpp"
+#include "check_course_id_match_in_courses.hpp"
+#include "is_it_professor.hpp"
+#include "seperate_day.hpp"
+#include "seperate_hour.hpp"
+#include "seperate_exam_date.hpp"
+#include "course_offer_notif_handeling.hpp"
+#include "check_course_offer_time_handeling.hpp"
+#include "course_offer_command.hpp"
 #include "deallocate.hpp"
 
 

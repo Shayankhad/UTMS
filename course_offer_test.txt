@@ -4,7 +4,7 @@ POST course_offer ? course_id 2 professor_id 810420432 capacity 70 time Sunday:1
 permision denied
 POST logout ?
 ok
-POST login ? id 0 password UT_account
+POST login ? password UT_account id 0
 ok
 POST course_offer ? course_id 1 professor_id 810000000 capacity 70 time Sunday:13-15 exam_date 1403/4/4 class_number 2
 permision denied
@@ -28,7 +28,7 @@ POST course_offer ? course_id 2 professor_id 810000000 capacity 70 time Monday:1
 ok
 POST course_offer ? course_id 2 professor_id 810000000 capacity 70 time Monday:12-14 exam_date 1403/4/4 class_number 2
 permision denied
-POST course_offer ? course_id 2 professor_id 810000000 capacity 70 time Monday:11-13 exam_date 1403/4/4 class_number 2
+POST course_offer ? professor_id 810000000 capacity 70 time Monday:11-13 course_id 2 class_number 2 exam_date 1403/4/4
 ok
 GET notification ?
 810000000 Agha Majid: New Course Offering
@@ -38,13 +38,13 @@ GET notification ?
 Empty
 POST logout ?
 ok
-POST login ? id 810102588 password lablablab
+POST login ? password lablablab id 810102588
 ok
 POST connect ? id 810102342
 ok
 POST connect ? id 810102612
 ok
-POST post ? title “Good Day” message “Ye rooz joonane dige”
+POST post ? message “Ye rooz joonane dige” title “Good Day” 
 ok
 GET notification ?
 810000000 Agha Majid: New Course Offering
@@ -52,11 +52,11 @@ GET notification ?
 810000000 Agha Majid: New Course Offering
 POST logout ?
 ok
-POST login ? id 810102342 password meoow
+POST login ? password meoow id 810102342 
 ok
 POST connect ? id 810102612
 ok
-POST post ? title “bad night” message “asdasd”
+POST post ? message “asdasd” title “bad night”
 ok
 GET notification ?
 810102588 Sadegh: New Post
@@ -65,10 +65,14 @@ GET notification ?
 810000000 Agha Majid: New Course Offering
 POST logout ?
 ok
-POST login ? id 810102612 password ImtheproblemItsme
+POST login ? password ImtheproblemItsme id 810102612
 ok
 GET notification ?
-
+810102342 Nesa: New Post
+810102588 Sadegh: New Post
+810000000 Agha Majid: New Course Offering
+810000000 Agha Majid: New Course Offering
+810000000 Agha Majid: New Course Offering
 POST logout ?
 ok
 
