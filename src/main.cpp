@@ -97,7 +97,6 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
             for(auto & course : courses){
                 if(course->get_id() == course_id){
                     if(!course->is_majors_id_match(student_major_id)){
-                        cout << "hi" << endl;
                         throw PermissionDenied();
                     }
                 }
@@ -106,7 +105,14 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
     }
 
 
+    
 
+
+    for(auto & student : students){
+        if(student->get_id() == student_id){
+            student->add_token_courses(target_presented_course_id);
+        }
+    }
 
     throw OkExeption();
 
@@ -273,9 +279,9 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors , students , courses , professors , argv[1] , argv[2] , argv[3] , argv[4]);
     run(students , courses , professors , presented_course , ut_account_ptr);
-    // for(auto & x : students){
-    //     x->show_token_courses();
-    // }
+    for(auto & x : students){
+        x->show_token_courses();
+    }
     // for(auto & x : professors){
     //     x->show_token_courses();
     // }
