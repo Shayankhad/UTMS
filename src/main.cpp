@@ -119,6 +119,7 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
                     throw PermissionDenied();
                 }
                 show_presented_course_type_two_command( command , presented_course);
+                continue;
             }
 
 
@@ -146,9 +147,6 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors , students , courses , professors , argv[1] , argv[2] , argv[3] , argv[4]);
     run(students , courses , professors , presented_course , ut_account_ptr);
-    for(auto & x : presented_course){
-        x->test_show();
-    }
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }

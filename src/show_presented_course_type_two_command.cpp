@@ -12,7 +12,10 @@ void show_presented_course_type_two_command(string command , vector<PresentedCou
         }
     }
 
-    if(check_number_type(commands[4]) != 1){
+    if((check_number_type(commands[4]) != 1)){
+        throw BadRequest();
+    }
+    if(string_to_int(commands[4]) <= 0){
         throw BadRequest();
     }
     int target_presented_course_id = string_to_int(commands[4]); 
@@ -26,6 +29,4 @@ void show_presented_course_type_two_command(string command , vector<PresentedCou
             presented_c->show_type_2();
         }
     }
-
-    throw OkExeption();
 }
