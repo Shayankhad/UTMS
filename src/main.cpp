@@ -24,6 +24,10 @@ bool is_it_show_presented_course_type_one_command(string command){
     }
 }
 
+// void show_presented_course_type_one_command(vector<PresentedCourse *> presented_course){
+
+// }
+
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
@@ -127,7 +131,12 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
 
 
 
-            cout << is_it_show_presented_course_type_one_command(command) << endl;
+            if(is_it_show_presented_course_type_one_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                //show_presented_course_type_one_command(presented_course);
+            }
 
 
 

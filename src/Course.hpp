@@ -35,6 +35,10 @@ public:
         }
         return false;
     }
+
+    string get_name(){
+        return name;
+    }
 private:
     int cid;
     string name;
