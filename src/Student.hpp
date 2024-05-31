@@ -18,6 +18,10 @@ public:
         cout << "semester: "<< semester << endl;
         cout << "password: "<< password << endl;
     }
+
+    int get_semester(){
+        return semester;
+    }
 private:
     int semester;
 };

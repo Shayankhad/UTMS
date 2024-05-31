@@ -39,6 +39,10 @@ public:
     string get_name(){
         return name;
     }
+
+    int get_prerequisite(){
+        return prerequisite;
+    }
 private:
     int cid;
     string name;

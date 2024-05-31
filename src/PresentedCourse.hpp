@@ -5,23 +5,11 @@ class PresentedCourse{
 public:
     PresentedCourse(int course_id_ , string course_name_ , int professor_id_ , string professor_name_
     , int capacity_ , string day_ , vector<int> start_finish_hour_ , vector<int> exam_date_ 
-    , int class_number_  , int presented_course_id_ ) : course_id(course_id_) , course_name(course_name_) 
+    , int class_number_  , int presented_course_id_ , int prerequisite_ ) : course_id(course_id_) , course_name(course_name_) 
     , professor_id(professor_id_) , professor_name(professor_name_) ,capacity(capacity_) , day(day_) , start_finish_hour(start_finish_hour_)
-    , exam_date(exam_date_) , class_number(class_number_ ) , presented_course_id(presented_course_id_) {
+    , exam_date(exam_date_) , class_number(class_number_ ) , presented_course_id(presented_course_id_) , prerequisite(prerequisite_) {
     }
 
-    void test_show(){
-        cout << "presented_course_id: " << presented_course_id << endl;
-        cout << "course_id: " << course_id << endl;
-        cout << "professor_id: " << professor_id << endl;
-        cout << "capacity: " << capacity << endl;
-        cout << "day: " << day << endl;
-        cout << "start hour: " << start_finish_hour[0] << " finish hour: " << start_finish_hour[1] << endl;
-        cout << "day of exam date: " << exam_date[0] << endl;
-        cout << "month of exam date: " << exam_date[1] << endl;
-        cout << "year of exam date: " << exam_date[2] << endl;
-        cout << "class_number: " << class_number << endl;
-    }
     void show_type_1(){
         cout << presented_course_id << " ";
         cout << course_name << " ";
@@ -59,6 +47,20 @@ public:
         return presented_course_id;
     }
 
+    bool is_presented_course_match(int id_){
+        if(presented_course_id == id_){
+            return true;
+        }
+        return false;
+    }
+
+    bool check_semester(int semester){
+        if(semester < prerequisite){
+            return false;
+        }
+        return true;
+    }
+
 private:
     int course_id;
     string course_name;
@@ -70,5 +72,6 @@ private:
     vector<int> exam_date;
     int class_number;
     int presented_course_id;
+    int prerequisite;
 };
 #endif

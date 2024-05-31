@@ -82,7 +82,13 @@ void course_offer_command(string command , vector<Student *> &students , vector<
             professor->add_token_courses(presented_course_id);
         }
     }
-    PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , course_name , int_proffesor_id , professor_name ,int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id , presented_course_id);
+    int prerequisite;
+    for(auto & course : courses){
+        if(course->get_id() == int_course_id){
+            prerequisite = course->get_prerequisite();
+        }
+    }
+    PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , course_name , int_proffesor_id , professor_name ,int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id , presented_course_id , prerequisite);
     presented_course.emplace_back(presented_course_ptr);
     course_offer_notif_handeling(students , professors , ut_account_ptr , int_proffesor_id);
     throw OkExeption();
