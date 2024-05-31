@@ -172,6 +172,15 @@ void course_offer_handeling(vector<Student *> &students , vector<Professor *> &p
     ut_account_ptr->add_notif(professor_id , professor_name , NEW_COURSE_OFFERING);    
 }
 
+void check_course_offer_time_handeling(vector<PresentedCourse *> presented_course , vector<int> hour , string day , int proffesor_id){
+    for(auto & presented_course : presented_course){
+        if(!presented_course->check_start_and_finish_time_class_interference(hour , day , proffesor_id)){
+            cout << "hi" << endl;
+            throw PermissionDenied();
+        }
+    }
+}
+
 
 void course_offer_command(string command , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     vector<string> commands;
@@ -240,7 +249,7 @@ void course_offer_command(string command , vector<Student *> &students , vector<
     string day = seperate_day(ordered_arg_commands[3][1]);
     hour = seperate_hour(ordered_arg_commands[3][1]);
     vector<int> exam_date_vec = seperate_exam_date(ordered_arg_commands[4][1]);
-
+    check_course_offer_time_handeling(presented_course , hour , day , int_proffesor_id);
     PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , int_proffesor_id , int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id);
     presented_course.emplace_back(presented_course_ptr);
     course_offer_handeling(students , professors , ut_account_ptr , int_proffesor_id);
@@ -377,13 +386,15 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students , courses , professors , presented_course , ut_account_ptr);
-    // for(auto & x : presented_course){
-    //     x->test_show();
-    // }
+    
+    for(auto & x : presented_course){
+        x->test_show();
+    }
 
-    for(auto & s : students){
+    for(auto & s : professors){
         s->show_notif_vec();
     }
+
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }
