@@ -108,6 +108,9 @@ using namespace std;
 #include "course_offer_command.hpp"
 #include "is_it_show_presented_course_type_one_command.hpp"
 #include "show_presented_course_type_one_command.hpp"
+#include "is_it_show_presented_course_type_two_command.hpp"
+#include "is_presented_course_id_exist.hpp"
+#include "show_presented_course_type_two_command.hpp"
 #include "deallocate.hpp"
 
 
