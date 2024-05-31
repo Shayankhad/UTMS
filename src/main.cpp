@@ -114,6 +114,8 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
         }
     }
 
+    add_notif_handeling(students ,professors , ut_account_ptr, GET_COURSE , student_id );
+
     throw OkExeption();
 
 }
