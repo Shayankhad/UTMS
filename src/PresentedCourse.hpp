@@ -24,13 +24,10 @@ public:
     bool check_start_and_finish_time_class_interference( vector<int> hour_ , string day_ , int proffesor_id_){
         if(proffesor_id_ == professor_id){
             if(day_ == day){
-                
-                if((start_finish_hour[0] < hour_[0]) && (hour_[0] < start_finish_hour[1])){
-                    return false;
-                }
-                
-                if((start_finish_hour[0] < hour_[1]) && (hour_[2] < start_finish_hour[1])){
-                    return false;
+                for(float i = hour_[0] + 1 ; i < hour_[1] ; i = i + 0.5 ){
+                    if(((start_finish_hour[0] < i) && (i < start_finish_hour[1]))){
+                        return false;
+                    }
                 }
             }
         }
