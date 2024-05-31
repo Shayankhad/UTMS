@@ -131,15 +131,9 @@ int main(int argc, char *argv[])
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
     run(students , courses , professors , presented_course , ut_account_ptr);
-    
     for(auto & x : presented_course){
         x->test_show();
     }
-
-    for(auto & s : professors){
-        s->show_notif_vec();
-    }
-
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }

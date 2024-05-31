@@ -5,11 +5,13 @@ class PresentedCourse{
 public:
     PresentedCourse(int course_id_ , int professor_id_ ,int capacity_
     , string day_ , vector<int> start_finish_hour_ , vector<int> exam_date_ 
-    , int class_number_  ) : course_id(course_id_) , professor_id(professor_id_) 
+    , int class_number_  , int presented_course_id_ ) : course_id(course_id_) , professor_id(professor_id_) 
     , capacity(capacity_) , day(day_) , start_finish_hour(start_finish_hour_)
-    , exam_date(exam_date_) , class_number(class_number_) {}
+    , exam_date(exam_date_) , class_number(class_number_ ) , presented_course_id(presented_course_id_) {
+    }
 
     void test_show(){
+        cout << "presented_course_id: " << presented_course_id << endl;
         cout << "course_id: " << course_id << endl;
         cout << "professor_id: " << professor_id << endl;
         cout << "capacity: " << capacity << endl;
@@ -43,5 +45,6 @@ private:
     vector<int> start_finish_hour;
     vector<int> exam_date;
     int class_number;
+    int presented_course_id;
 };
 #endif

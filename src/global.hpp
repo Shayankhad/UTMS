@@ -94,6 +94,7 @@ using namespace std;
 #include "add_notif_handeling.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
 #include "PresentedCourse.hpp"
+#include "how_many_courses_presented.hpp"
 #include "set_arg_order.hpp"
 #include "is_it_course_offer_command.hpp"
 #include "check_course_id_match_in_courses.hpp"
