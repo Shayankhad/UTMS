@@ -91,6 +91,7 @@ using namespace std;
 #include "delete_post_command.hpp"
 #include "is_it_notificaiton_command.hpp"
 #include "notificaiton_command.hpp"
+#include "add_notif_handeling.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
 #include "PresentedCourse.hpp"
 #include "deallocate.hpp"

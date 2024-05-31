@@ -1,5 +1,4 @@
 #include "global.hpp"
-
 bool set_arg_order(vector<int> &arg_order , vector<vector<string>> arg_commands ){
     int turn = 1;
     
@@ -153,7 +152,9 @@ vector<int> seperate_exam_date(string exam_date){
     return exam_date_vec;
 }
 
-void course_offer_command(string command , vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
+
+
+void course_offer_command(string command , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     vector<string> commands;
     stringstream ss;
     ss << command;
@@ -173,18 +174,7 @@ void course_offer_command(string command , vector<Major *> &majors , vector<Stud
     for(std::vector<int>::size_type i = 0 ; i < arg_order.size() ; i++ ){
         ordered_arg_commands.push_back({arg_commands[arg_order[i]][0] , arg_commands[arg_order[i]][1] });
     }
-// cout << ordered_arg_commands[0][0] << endl;
-// cout << ordered_arg_commands[1][0] << endl;
-// cout << ordered_arg_commands[2][0] << endl;
-// cout << ordered_arg_commands[3][0] << endl;
-// cout << ordered_arg_commands[4][0] << endl;
-// cout << ordered_arg_commands[5][0] << endl;
-// ordered_arg_commands[0][0] = course_id
-// ordered_arg_commands[1][0] = professor_id
-// ordered_arg_commands[2][0] = capacity
-// ordered_arg_commands[3][0] = time
-// ordered_arg_commands[4][0] = exam_date
-// ordered_arg_commands[5][0] = class_number
+
     if((check_number_type(ordered_arg_commands[0][1]) != 1) ||
     (check_number_type(ordered_arg_commands[1][1]) != 1 ) ||
     (check_number_type(ordered_arg_commands[2][1]) != 1 ) ||
@@ -237,7 +227,7 @@ void course_offer_command(string command , vector<Major *> &majors , vector<Stud
     throw OkExeption();
 }
 
-void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
+void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
     while (true)
@@ -333,7 +323,7 @@ void run(vector<Major *> &majors , vector<Student *> &students , vector<Course *
                 if(user_id != 0){
                     throw PermissionDenied();
                 }
-                course_offer_command(command , majors , students , courses , professors , presented_course , ut_account_ptr);
+                course_offer_command(command , students , courses , professors , presented_course , ut_account_ptr);
             }
 
 
@@ -366,9 +356,13 @@ int main(int argc, char *argv[])
     extract_students_csv(argv[2], students);
     extract_courses_csv(argv[3], courses);
     extract_professors_csv(argv[4], professors);
-    run(majors , students , courses , professors , presented_course , ut_account_ptr);
-    for(auto & x : presented_course){
-        x->test_show();
+    run(students , courses , professors , presented_course , ut_account_ptr);
+    // for(auto & x : presented_course){
+    //     x->test_show();
+    // }
+
+    for(auto & s : students){
+        s->show_notif_vec();
     }
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
