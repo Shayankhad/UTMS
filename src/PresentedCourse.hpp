@@ -29,6 +29,19 @@ public:
         cout << professor_name << endl;
     }
 
+    //<id> <name> <capacity> <professor> <time> <exam_date> <class_number> |
+// 7 Advanced Programming 110 Ramtin Khosravi Tuesday:10-12 1403/4/2 1
+
+    void show_type_2(){
+        cout << presented_course_id << " ";
+        cout << course_name << " ";
+        cout << capacity << " ";
+        cout << professor_name << " ";
+        cout << day << ":" << start_finish_hour[0] << ":" << start_finish_hour[1] << " ";
+        cout << exam_date[2] << "/" << exam_date[1] << "/" << exam_date[0] << " ";
+        cout << class_number << endl;
+    }
+
     bool check_start_and_finish_time_class_interference( vector<int> hour_ , string day_ , int proffesor_id_){
         if(proffesor_id_ == professor_id){
             if(day_ == day){
@@ -39,8 +52,11 @@ public:
                 }
             }
         }
-
         return true;
+    }
+
+    int get_presented_course_id(){
+        return presented_course_id;
     }
 
 private:
