@@ -1,5 +1,32 @@
 #include "global.hpp"
 
+
+bool is_it_take_course_command(string command){
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0 ;
+    while (getline(ss, word, ' '))
+    {
+        if(!(word == "" )){
+            commands.push_back(word);
+            iteration ++;
+        }
+    }
+
+    if(iteration == 5){
+        if((commands[0] == PUT) && (commands[1] == MY_COURSES) && (commands[3] == ID)){
+            return true;
+        }else {
+            return false;
+        }
+    }else {
+        return false;
+    }
+}
+
+
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
@@ -121,6 +148,11 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
                 show_presented_course_type_two_command( command , presented_course);
                 continue;
             }
+
+
+
+
+            cout << is_it_take_course_command(command) << endl;
 
 
             // end
