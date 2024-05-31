@@ -24,9 +24,14 @@ bool is_it_show_presented_course_type_one_command(string command){
     }
 }
 
-// void show_presented_course_type_one_command(vector<PresentedCourse *> presented_course){
-
-// }
+void show_presented_course_type_one_command(vector<PresentedCourse *> presented_course){
+    if(how_many_courses_presented(presented_course) == 0){
+        throw Empty();
+    }
+    for(auto & presented_c : presented_course){
+        presented_c->show_type_1();
+    }
+}
 
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
@@ -135,7 +140,8 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
                 if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
                     throw PermissionDenied();
                 }
-                //show_presented_course_type_one_command(presented_course);
+                show_presented_course_type_one_command(presented_course);
+                continue;
             }
 
 

@@ -71,7 +71,13 @@ void course_offer_command(string command , vector<Student *> &students , vector<
             course_name = course->get_name();
         }
     }
-    PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , course_name , int_proffesor_id , int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id , presented_course_id);
+    string professor_name;
+    for(auto & professor : professors){
+        if(professor->get_id() == int_proffesor_id){
+            professor_name = professor->get_name();
+        }
+    }
+    PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , course_name , int_proffesor_id , professor_name ,int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id , presented_course_id);
     presented_course.emplace_back(presented_course_ptr);
     course_offer_notif_handeling(students , professors , ut_account_ptr , int_proffesor_id);
     throw OkExeption();
