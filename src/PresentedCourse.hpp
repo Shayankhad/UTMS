@@ -61,6 +61,10 @@ public:
         return true;
     }
 
+    int get_course_id(){
+        return course_id;
+    }
+
 private:
     int course_id;
     string course_name;

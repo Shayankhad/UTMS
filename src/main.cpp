@@ -73,6 +73,30 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
             for(auto & presented_c : presented_course){
                 if(presented_c->get_presented_course_id() == target_presented_course_id){
                     if(!presented_c->check_semester(student->get_semester())){
+                        throw PermissionDenied();
+                    }
+                }
+            }
+        }
+    }
+    int course_id;
+    for(auto & presented_c : presented_course){
+        if(presented_c->get_presented_course_id() == target_presented_course_id){
+            course_id = presented_c->get_course_id();
+        }
+    }
+    int student_major_id;
+    for(auto & student : students){
+        if(student->get_id() == student_id){
+            student_major_id = student->get_major_id();
+        }
+    }
+
+    for(auto & student : students){
+        if(student->get_id() == student_id){
+            for(auto & course : courses){
+                if(course->get_id() == course_id){
+                    if(!course->is_majors_id_match(student_major_id)){
                         cout << "hi" << endl;
                         throw PermissionDenied();
                     }
@@ -80,6 +104,7 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
             }
         }
     }
+
 
 
 
