@@ -37,7 +37,7 @@ public:
         cout << course_name << " ";
         cout << capacity << " ";
         cout << professor_name << " ";
-        cout << day << ":" << start_finish_hour[0] << ":" << start_finish_hour[1] << " ";
+        cout << day << ":" << start_finish_hour[0] << "-" << start_finish_hour[1] << " ";
         cout << exam_date[2] << "/" << exam_date[1] << "/" << exam_date[0] << " ";
         cout << class_number << endl;
     }

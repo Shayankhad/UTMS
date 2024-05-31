@@ -25,6 +25,44 @@ bool is_it_show_presented_course_type_two_command(string command){
     }
 }
 
+bool is_presented_course_id_exist(vector<PresentedCourse *> presented_course , int target_presented_course_id){
+    for(auto & presented_c : presented_course){
+        if(presented_c->get_presented_course_id() == target_presented_course_id){
+            return true;
+        }
+    }
+    return false;
+}
+
+void show_presented_course_type_two_command(string command , vector<PresentedCourse *> presented_course){
+    vector<string> commands;
+    string word;
+    stringstream ss;
+    ss << command;
+    while(getline(ss , word , ' ' )){
+        if(!word.empty()){
+            commands.push_back(word);
+        }
+    }
+
+    if(check_number_type(commands[4]) != 1){
+        throw BadRequest();
+    }
+    int target_presented_course_id = string_to_int(commands[4]); 
+
+    if(!is_presented_course_id_exist(presented_course , target_presented_course_id)){
+        throw NotFound();
+    }
+
+    for(auto & presented_c : presented_course){
+        if(target_presented_course_id == presented_c->get_presented_course_id()){
+            presented_c->show_type_2();
+        }
+    }
+
+    throw OkExeption();
+}
+
 
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
@@ -140,7 +178,12 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
 
 
 
-            cout <<  is_it_show_presented_course_type_two_command(command);
+            if(is_it_show_presented_course_type_two_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                show_presented_course_type_two_command( command , presented_course);
+            }
 
 
             // end
