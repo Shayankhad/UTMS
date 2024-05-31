@@ -153,6 +153,25 @@ vector<int> seperate_exam_date(string exam_date){
 }
 
 
+void course_offer_handeling(vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr , int professor_id){
+    string professor_name;
+    for(auto & professor : professors){
+        if(professor->get_id() == professor_id){
+            professor_name = professor->get_name(); 
+        }
+    }
+
+
+    for(auto & student : students){
+        student->add_notif(professor_id , professor_name , NEW_COURSE_OFFERING);
+    }
+    for(auto & professor : professors){
+        professor->add_notif(professor_id , professor_name , NEW_COURSE_OFFERING);
+    }
+
+    ut_account_ptr->add_notif(professor_id , professor_name , NEW_COURSE_OFFERING);    
+}
+
 
 void course_offer_command(string command , vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
     vector<string> commands;
@@ -224,6 +243,7 @@ void course_offer_command(string command , vector<Student *> &students , vector<
 
     PresentedCourse * presented_course_ptr = new PresentedCourse(int_course_id , int_proffesor_id , int_capacity_id ,day ,hour , exam_date_vec , int_class_number_id);
     presented_course.emplace_back(presented_course_ptr);
+    course_offer_handeling(students , professors , ut_account_ptr , int_proffesor_id);
     throw OkExeption();
 }
 
