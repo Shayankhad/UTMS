@@ -119,6 +119,17 @@ public:
     int get_major_id(){
         return major_id;
     }
+
+    void add_token_courses(int id_){
+        token_courses.push_back(id_);
+    }
+
+    void show_token_courses(){
+        for(vector<int>::size_type i = 0 ; i < token_courses.size() ; i++){
+            cout << name<< ": " << token_courses[i] << endl;
+        }
+    }
+
 protected:
     int id;
     string name;
@@ -129,6 +140,7 @@ protected:
     vector<Post_system *> posts_i_made;
     int post_id = 1 ;
     vector<Notif*> notifications;
+    vector<int> token_courses;
 };
 
 #endif

@@ -147,6 +147,12 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors , students , courses , professors , argv[1] , argv[2] , argv[3] , argv[4]);
     run(students , courses , professors , presented_course , ut_account_ptr);
+    for(auto & x : students){
+        x->show_token_courses();
+    }
+    for(auto & x : professors){
+        x->show_token_courses();
+    }
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }
