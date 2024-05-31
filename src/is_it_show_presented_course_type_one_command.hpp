@@ -1,0 +1,6 @@
+#ifndef IS_IT_SHOW_PRESENTED_COURSE_TYPE_ONE_COMMAND_HPP
+#define IS_IT_SHOW_PRESENTED_COURSE_TYPE_ONE_COMMAND_HPP
+#include "global.hpp"
+
+bool is_it_show_presented_course_type_one_command(string command);
+#endif

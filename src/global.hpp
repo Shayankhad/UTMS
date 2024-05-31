@@ -106,6 +106,8 @@ using namespace std;
 #include "course_offer_notif_handeling.hpp"
 #include "check_course_offer_time_handeling.hpp"
 #include "course_offer_command.hpp"
+#include "is_it_show_presented_course_type_one_command.hpp"
+#include "show_presented_course_type_one_command.hpp"
 #include "deallocate.hpp"
 
 
