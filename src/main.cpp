@@ -1,5 +1,47 @@
 #include "global.hpp"
 
+bool is_it_show_my_courses_command(string command){
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0 ;
+    while (getline(ss, word, ' '))
+    {
+        if(!(word == "")){
+            commands.push_back(word);
+            iteration ++;
+        }
+    }
+    if(iteration == 3){
+        if((commands[0] == GET) && (commands[1] == MY_COURSES) && (commands[2] == "?")){
+            return true;
+        }else {
+            return false;
+        }
+    }else {
+        return false;
+    }
+}
+
+
+void show_my_courses_command(int student_id , vector<Student *> students ,vector<PresentedCourse *> presented_course ){
+    vector<int> token_courses;
+    for(auto & student: students){
+        if(student->get_id() == student_id){
+            token_courses = student->get_token_courses();
+        }
+    }
+    if(token_courses.size() == 0){
+        throw Empty();
+    }
+    PresentedCourse * current_presented_course;
+    for(std::vector<int>::size_type i = 0 ; i < token_courses.size() ; i++){
+        current_presented_course = find_PresentedCourse(token_courses[i] , presented_course);
+        current_presented_course->show_type_2();
+    }
+}
+
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
     string command;
@@ -153,6 +195,21 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
                 delete_student_course(command , students , professors , ut_account_ptr , user_id);
             }
 
+
+
+
+
+            if(is_it_show_my_courses_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students ,professors , ut_account_ptr);
+                if(!is_it_student(user_id , students)){
+                    throw PermissionDenied();
+                }
+                show_my_courses_command(user_id , students , presented_course);
+                continue;
+            }
 
 
 

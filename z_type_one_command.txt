@@ -6,6 +6,7 @@ POST login ? password lablablab id 810102588
 POST connect ? id 810102612
 PUT my_courses ? id 1
 PUT my_courses ? id 2
+GET my_courses ?
 DELETE my_courses ? id 2
 POST logout ?
 POST login ? password ImtheproblemItsme id 810102612
