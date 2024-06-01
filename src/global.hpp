@@ -116,6 +116,8 @@ using namespace std;
 #include "is_it_take_course_command.hpp"
 #include "check_take_course_time_handeling.hpp"
 #include "take_course_command.hpp"
+#include "is_it_delete_student_course.hpp"
+#include "delete_student_course.hpp"
 #include "deallocate.hpp"
 
 
