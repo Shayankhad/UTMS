@@ -61,6 +61,7 @@ using namespace std;
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
 #include "Student.hpp"
+#include "is_it_student.hpp"
 #include "extract_students_csv.hpp"
 #include "Professor.hpp"
 #include "extract_professors_csv.hpp"
@@ -95,6 +96,7 @@ using namespace std;
 #include "add_notif_handeling.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
 #include "PresentedCourse.hpp"
+#include "find_PresentedCourse.hpp"
 #include "how_many_courses_presented.hpp"
 #include "set_arg_order.hpp"
 #include "is_it_course_offer_command.hpp"
@@ -111,6 +113,9 @@ using namespace std;
 #include "is_it_show_presented_course_type_two_command.hpp"
 #include "is_presented_course_id_exist.hpp"
 #include "show_presented_course_type_two_command.hpp"
+#include "is_it_take_course_command.hpp"
+#include "check_take_course_time_handeling.hpp"
+#include "take_course_command.hpp"
 #include "deallocate.hpp"
 
 
