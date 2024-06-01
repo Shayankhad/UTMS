@@ -1,9 +1,10 @@
 #include "global.hpp"
 
-string seperate_day(string time){
+string seperate_day(string time)
+{
     string day;
     stringstream ss;
     ss << time;
-    getline(ss , day , ':' );
+    getline(ss, day, ':');
     return day;
 }

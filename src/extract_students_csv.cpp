@@ -1,27 +1,30 @@
 #include "global.hpp"
 
-void extract_students_csv(string address, vector<Student*> &students){
+void extract_students_csv(string address, vector<Student *> &students)
+{
     fstream file(address);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cerr << "failed to open the students file!!!";
     }
     string line;
-    getline (file , line);
-    while(getline(file , line)){
+    getline(file, line);
+    while (getline(file, line))
+    {
         stringstream ss;
         ss << line;
         string id;
-        getline(ss , id , ',');
+        getline(ss, id, ',');
         string name;
-        getline(ss , name , ',');
+        getline(ss, name, ',');
         string major_id;
-        getline(ss , major_id , ',');
+        getline(ss, major_id, ',');
         string semester;
-        getline(ss , semester , ',');
+        getline(ss, semester, ',');
         string password;
-        getline(ss , password);
-        Student * ptr_student = new Student;
-        ptr_student->student_csv_setup(string_to_int(id), name , string_to_int(major_id) , string_to_int(semester) , password);
+        getline(ss, password);
+        Student *ptr_student = new Student;
+        ptr_student->student_csv_setup(string_to_int(id), name, string_to_int(major_id), string_to_int(semester), password);
         students.emplace_back(ptr_student);
     }
     file.close();

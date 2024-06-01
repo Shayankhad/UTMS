@@ -128,15 +128,4 @@ using namespace std;
 #include "show_post_command.hpp"
 #include "deallocate.hpp"
 
-
-// files/majors.csv
-// files/students.csv
-// files/courses.csv
-// files/professors.csv
-// files/majors.csv files/students.csv files/courses.csv files/professors.csv
-
-// 810102566
-// Shayan7812
-#endif 
-
-
+#endif

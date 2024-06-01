@@ -2,7 +2,8 @@
 #define PERMISION_DENIED_HPP
 #include "global.hpp"
 
-class PermissionDenied : public MyException {
+class PermissionDenied : public MyException
+{
 public:
     PermissionDenied() : MyException(PERMISSION_DENIED) {}
 };

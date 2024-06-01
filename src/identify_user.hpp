@@ -6,4 +6,3 @@
 int identify_user(vector<Student *> students, vector<Professor *> professors, UtAccount *ut_account_ptr);
 
 #endif
-
