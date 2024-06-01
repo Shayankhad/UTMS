@@ -26,6 +26,14 @@ public:
     vector<int> get_token_courses(){
         return token_courses;
     }
+
+    void delete_token_course(int id_){
+        for(std::vector<int>::size_type i = 0 ; i < token_courses.size() ; i ++){
+            if(token_courses[i] == id_){
+                token_courses.erase(token_courses.begin() + i);
+            }
+        }
+    }
 private:
     int semester;
 };

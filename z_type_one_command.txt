@@ -4,9 +4,9 @@ POST course_offer ? course_id 3 professor_id 831013132 capacity 100 time Monday:
 POST logout ?
 POST login ? password lablablab id 810102588
 POST connect ? id 810102612
+PUT my_courses ? id 1
 PUT my_courses ? id 2
-PUT my_courses ? id 2
-
+DELETE my_courses ? id 2
 POST logout ?
 POST login ? password ImtheproblemItsme id 810102612
 GET notification ?
