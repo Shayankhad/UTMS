@@ -22,6 +22,10 @@ public:
     int get_semester(){
         return semester;
     }
+
+    vector<int> get_token_courses(){
+        return token_courses;
+    }
 private:
     int semester;
 };
