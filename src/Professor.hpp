@@ -18,6 +18,10 @@ public:
         cout << "position: " << position <<endl;
         cout << "password: " << password <<endl;
     }
+
+    string get_position(){
+        return position;
+    }
 private:
     string position;
 };

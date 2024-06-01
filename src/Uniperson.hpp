@@ -130,6 +130,10 @@ public:
         }
     }
 
+    vector<int> get_token_courses(){
+        return token_courses;
+    }
+
 protected:
     int id;
     string name;

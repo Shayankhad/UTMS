@@ -8,10 +8,16 @@ public:
         mid = mid_;
         major = major_;
     }
-    void test_show(){
-        cout << "mid: " << mid << endl;
-        cout << "major: "<< major << endl;
+
+    int get_mid(){
+        return mid;
     }
+
+    string get_major_name(){
+        return major;
+    }
+
+    
 private:
     int mid;
     string major;

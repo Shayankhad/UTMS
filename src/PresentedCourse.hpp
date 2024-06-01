@@ -91,6 +91,10 @@ public:
         return exam_date;
     }
 
+    string get_course_name(){
+        return course_name;
+    }
+
 
 private:
     int course_id;
