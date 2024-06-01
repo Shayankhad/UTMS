@@ -77,24 +77,15 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
         throw NotFound();
     }
 
-
+    PresentedCourse * presented_c_ptr = find_PresentedCourse(target_presented_course_id , presented_course);
     for(auto & student : students){
         if(student->get_id() == student_id){
-            for(auto & presented_c : presented_course){
-                if(presented_c->get_presented_course_id() == target_presented_course_id){
-                    if(!presented_c->check_semester(student->get_semester())){
-                        throw PermissionDenied();
-                    }
-                }
-            }
+            if(!presented_c_ptr->check_semester(student->get_semester())){
+                throw PermissionDenied();
+            }   
         }
     }
-    int course_id;
-    for(auto & presented_c : presented_course){
-        if(presented_c->get_presented_course_id() == target_presented_course_id){
-            course_id = presented_c->get_course_id();
-        }
-    }
+    int course_id = presented_c_ptr->get_course_id();
     int student_major_id;
     for(auto & student : students){
         if(student->get_id() == student_id){
@@ -113,21 +104,13 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
             }
         }
     }
-
-
-    
-
-
     for(auto & student : students){
         if(student->get_id() == student_id){
             student->add_token_courses(target_presented_course_id);
         }
     }
-
     add_notif_handeling(students ,professors , ut_account_ptr, GET_COURSE , student_id );
-
     throw OkExeption();
-
 }
 
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr  ){
