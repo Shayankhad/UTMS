@@ -12,6 +12,9 @@ public:
     void show_full_post_system(){
         cout  << id << " " <<  '"' << title << '"' << " " << '"'<< message << '"'<< endl;
     }
+    void show_title_post_system(){
+        cout  << id << " " <<  '"' << title << '"' << endl;
+    }
 
     int get_post_id(){
         return id;

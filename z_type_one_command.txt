@@ -9,6 +9,7 @@ POST login ? password lablablab id 810102588
 PUT my_courses ? id 2
 POST logout ?
 POST login ? password ImtheproblemItsme id 810102612
+GET post ? id 810000000 post_id 1
 GET personal_page ? id 0
 GET personal_page ? id 810000000
 GET personal_page ? id 831013132

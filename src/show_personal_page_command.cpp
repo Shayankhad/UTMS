@@ -1,5 +1,5 @@
 #include "global.hpp"
-
+// show_my_posts
 int show_personal_page_command(string command ,vector<Student *> students
 , vector<Professor *> professors , UtAccount *ut_account_ptr
 , vector<PresentedCourse *> presented_course , vector<Major *> majors){
@@ -42,7 +42,7 @@ int show_personal_page_command(string command ,vector<Student *> students
     }
     if(type_person == 3){
         cout << UT_ACCOUNT << endl;
-        ut_account_ptr->show_my_posts();
+        ut_account_ptr->show_title_of_my_posts();
         return 1;
     }
     if(type_person == 1){
@@ -87,7 +87,7 @@ int show_personal_page_command(string command ,vector<Student *> students
             }
         }
         for(auto & student : students){
-            student->show_my_posts();
+            student->show_title_of_my_posts();
         }
         return 1;
     }
@@ -134,7 +134,7 @@ int show_personal_page_command(string command ,vector<Student *> students
             }
         }
         for(auto & professor : professors){
-            professor->show_my_posts();
+            professor->show_title_of_my_posts();
         }
         
     }

@@ -1,6 +1,217 @@
 #include "global.hpp"
 
+int show_post_page_command(int user_id , int post_id ,vector<Student *> students
+, vector<Professor *> professors , UtAccount *ut_account_ptr
+, vector<PresentedCourse *> presented_course , vector<Major *> majors){
+    int target_id = user_id;
+    int type_person = 0;
+    if(is_it_student(target_id , students)){
+        type_person = 1;
+    }
+    if(is_it_professor(target_id , professors)){
+        type_person = 2;
+    }
+    if(is_it_ut_account(target_id)){
+        type_person = 3;
+    }
+    if(type_person == 0){
+        throw NotFound();
+    }
+    if(type_person == 3){
+        cout << UT_ACCOUNT << endl;
+        ut_account_ptr->show_specific_posts(post_id);
+        return 1;
+    }
+    if(type_person == 1){
+        string student_name;
+        int major_id;
+        string major_name;
+        int semester;
+        vector<int> token_courses;
+        for(auto & student : students ){
+            if(student->get_id() == target_id){
+                student_name = student->get_name();
+                major_id = student->get_major_id();
+                semester = student->get_semester();
+                token_courses = student->get_token_courses();
+                for(auto & major : majors){
+                    if(major->get_mid() == major_id){
+                        major_name = major->get_major_name();
+                    }
+                }
+            }
+        }
+        
+        cout << student_name << " " << major_name << " " << semester;
 
+        if(token_courses.size() == 0){
+            cout << endl;
+        }
+        if(token_courses.size() == 1){
+            PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[0] , presented_course);
+            cout << " " << presented_course_ptr->get_course_name() << endl;
+        }
+        if(token_courses.size() > 1){
+            cout << " ";
+            for(std::vector<int>::size_type i = 0 ; i < token_courses.size() ; i++){
+                if( i == token_courses.size() - 1){
+                    PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[i] , presented_course);
+                    cout << presented_course_ptr->get_course_name() << endl;
+                }else{
+                    PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[i] , presented_course);
+                    cout << presented_course_ptr->get_course_name() <<",";
+                }
+            }
+        }
+        for(auto & student : students){
+            student->show_specific_posts(post_id);
+        }
+        return 1;
+    }
+
+    if(type_person == 2){
+        string proffesor_name;
+        int major_id;
+        string major_name;
+        string position;
+        vector<int> token_courses;
+        for(auto & professor : professors ){
+            if(professor->get_id() == target_id){
+                proffesor_name = professor->get_name();
+                major_id = professor->get_major_id();
+                position = professor->get_position();
+                token_courses = professor->get_token_courses();
+                for(auto & major : majors){
+                    if(major->get_mid() == major_id){
+                        major_name = major->get_major_name();
+                    }
+                }
+            }
+        }
+        
+        cout << proffesor_name << " " << major_name << " " << position;
+
+        if(token_courses.size() == 0){
+            cout << endl;
+        }
+        if(token_courses.size() == 1){
+            PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[0] , presented_course);
+            cout << " " << presented_course_ptr->get_course_name() << endl;
+        }
+        if(token_courses.size() > 1){
+            cout << " ";
+            for(std::vector<int>::size_type i = 0 ; i < token_courses.size() ; i++){
+                if( i == token_courses.size() - 1){
+                    PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[i] , presented_course);
+                    cout << presented_course_ptr->get_course_name() << endl;
+                }else{
+                    PresentedCourse * presented_course_ptr = find_PresentedCourse(token_courses[i] , presented_course);
+                    cout << presented_course_ptr->get_course_name() <<",";
+                }
+            }
+        }
+        for(auto & professor : professors){
+            professor->show_specific_posts(post_id);
+        }
+        
+    }
+    return 1;
+}
+
+bool is_it_show_post_command(string command){
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0 ;
+    while (getline(ss, word, ' '))
+    {
+        if(!(word == "")){
+            commands.push_back(word);
+            iteration ++;
+        }
+    }
+    if(iteration == 7){
+        if(((commands[0] == GET) && (commands[1] == POST_SECOND_COMMAND) && (commands[2] == "?") && (commands[3] == ID) && (commands[5] == POST_ID))
+        || ((commands[0] == GET) && (commands[1] == POST_SECOND_COMMAND) && (commands[2] == "?") && (commands[3] == POST_ID) && (commands[5] == ID))){
+            return true;
+        }else {
+            return false;
+        }
+    }else {
+        return false;
+    }
+}
+
+void show_post_command(string command , vector<Student *> students , vector<Professor *> professors
+, UtAccount *ut_account_ptr ,  vector<PresentedCourse *> presented_course , vector<Major *> majors ){
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    while (getline(ss, word, ' '))
+    {
+        if(!(word == "")){
+            commands.push_back(word);
+        }
+    }
+
+    // GET post ? id 810102612 post_id 5
+    // commands[4] = id
+    // commands[6] = post_id
+    if((commands[3] == ID) && (commands[5] == POST_ID)){
+        if(check_number_type(commands[4]) != 1){
+            throw BadRequest();
+        }
+        int user_id = string_to_int(commands[4]);
+        if(user_id <= 0){
+            throw BadRequest();
+        }
+        if(check_number_type(commands[6]) != 1){
+            throw BadRequest();
+        }
+        int post_id = string_to_int(commands[6]);
+        if(post_id <= 0){
+            throw BadRequest();
+        }
+
+        if(!check_id_match_in_peaple(user_id , students , professors , ut_account_ptr)){
+            throw NotFound();
+        }
+        for(auto & student : students){
+            if(student->get_id() == user_id){
+                check_post_id_exist(post_id , students , professors , ut_account_ptr);
+            }
+        }
+        show_post_page_command(user_id , post_id , students , professors , ut_account_ptr ,presented_course , majors);
+    }
+    if((commands[5] == ID) && (commands[3] == POST_ID)){
+        if(check_number_type(commands[6]) != 1){
+            throw BadRequest();
+        }
+        int user_id = string_to_int(commands[6]);
+        if(user_id <= 0){
+            throw BadRequest();
+        }
+        if(check_number_type(commands[4]) != 1){
+            throw BadRequest();
+        }
+        int post_id = string_to_int(commands[4]);
+        if(post_id <= 0){
+            throw BadRequest();
+        }
+
+        if(!check_id_match_in_peaple(user_id , students , professors , ut_account_ptr)){
+            throw NotFound();
+        }
+        for(auto & student : students){
+            if(student->get_id() == user_id){
+                check_post_id_exist(post_id , students , professors , ut_account_ptr);
+            }
+        }
+        show_post_page_command(user_id , post_id , students , professors , ut_account_ptr ,presented_course , majors);
+    }
+}
 
 void run(vector<Student *> &students , vector<Course *> &courses, vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr , vector<Major *> &majors ){
     set_ut_account_ptr_contacts(students ,professors , ut_account_ptr);
@@ -182,6 +393,18 @@ void run(vector<Student *> &students , vector<Course *> &courses, vector<Profess
                     throw PermissionDenied();
                 }
                 show_personal_page_command(command , students , professors , ut_account_ptr  , presented_course , majors  );
+                continue;
+            }
+
+
+
+
+            
+            if(is_it_show_post_command(command)){
+                if(!(is_anyone_loged_in(students ,professors , ut_account_ptr))){
+                    throw PermissionDenied();
+                }
+                show_post_command(command  ,students , professors , ut_account_ptr , presented_course , majors);
                 continue;
             }
 

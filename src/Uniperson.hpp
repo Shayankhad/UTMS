@@ -74,9 +74,23 @@ public:
             }
         }
     }
+
+
+    void show_title_of_my_posts(){
+        for(auto &x : posts_i_made){
+            x->show_title_post_system();
+        }
+    }
     void show_my_posts(){
         for(auto &x : posts_i_made){
             x->show_full_post_system();
+        }
+    }
+    void show_specific_posts(int post_id_){
+        for(auto &x : posts_i_made){
+            if(x->get_post_id() == post_id_){
+                x->show_full_post_system();
+            }
         }
     }
 
