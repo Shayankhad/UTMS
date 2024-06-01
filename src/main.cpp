@@ -35,6 +35,15 @@ bool is_it_student(int user_id ,vector<Student *> students ){
     return false;
 }
 
+PresentedCourse * find_PresentedCourse(int presented_course_id , vector<PresentedCourse *> presented_course){
+    for(auto & presented_c : presented_course ){
+        if(presented_c->get_presented_course_id() == presented_course_id){
+            return presented_c;
+        }
+    }
+    return nullptr;
+}
+
 void take_course_command(string command ,vector<Student *> &students , vector<Course *> &courses
 , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course , UtAccount *ut_account_ptr
 , int student_id)
@@ -49,10 +58,11 @@ void take_course_command(string command ,vector<Student *> &students , vector<Co
             commands.push_back(word);
         }
     }
-    // commands[4] == id
+
     if(check_number_type(commands[4]) != 1){
         throw BadRequest();
     }
+
     int target_presented_course_id = string_to_int(commands[4]);
     if(target_presented_course_id <= 0){
         throw BadRequest();
@@ -284,9 +294,6 @@ int main(int argc, char *argv[])
     for(auto & x : students){
         x->show_token_courses();
     }
-    // for(auto & x : professors){
-    //     x->show_token_courses();
-    // }
     deallocate(majors ,students , courses ,professors , ut_account_ptr ,presented_course );
     return 0;
 }
