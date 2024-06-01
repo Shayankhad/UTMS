@@ -118,6 +118,8 @@ using namespace std;
 #include "take_course_command.hpp"
 #include "is_it_delete_student_course.hpp"
 #include "delete_student_course.hpp"
+#include "is_it_show_my_courses_command.hpp"
+#include "show_my_courses_command.hpp"
 #include "deallocate.hpp"
 
 
