@@ -123,6 +123,9 @@ using namespace std;
 #include "show_my_courses_command.hpp"
 #include "is_it_show_personal_page_command.hpp"
 #include "show_personal_page_command.hpp"
+#include "is_it_show_post_command.hpp"
+#include "show_post_page_command.hpp"
+#include "show_post_command.hpp"
 #include "deallocate.hpp"
 
 
