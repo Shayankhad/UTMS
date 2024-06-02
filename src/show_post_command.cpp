@@ -13,7 +13,6 @@ void show_post_command(string command, vector<Student *> students, vector<Profes
             commands.push_back(word);
         }
     }
-
     if ((commands[3] == ID) && (commands[5] == POST_ID))
     {
         if (check_number_type(commands[4]) != 1)
@@ -21,7 +20,7 @@ void show_post_command(string command, vector<Student *> students, vector<Profes
             throw BadRequest();
         }
         int user_id = string_to_int(commands[4]);
-        if (user_id <= 0)
+        if (user_id < 0)
         {
             throw BadRequest();
         }
@@ -55,7 +54,7 @@ void show_post_command(string command, vector<Student *> students, vector<Profes
             throw BadRequest();
         }
         int user_id = string_to_int(commands[6]);
-        if (user_id <= 0)
+        if (user_id < 0)
         {
             throw BadRequest();
         }

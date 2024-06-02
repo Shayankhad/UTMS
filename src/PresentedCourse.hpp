@@ -33,7 +33,7 @@ public:
         {
             if (day_ == day)
             {
-                for (float i = hour_[0] + 1; i < hour_[1]; i = i + 0.5)
+                for (float i = hour_[0]; i <= hour_[1]; i = i + 0.5)
                 {
                     if (((start_finish_hour[0] < i) && (i < start_finish_hour[1])))
                     {
@@ -80,7 +80,7 @@ public:
         vector<int> presented_course_exam_time = presented_course->get_exam_date();
         if (presented_course_day == day)
         {
-            for (float i = presented_course_get_start_finish_hour[0] + 1; i < presented_course_get_start_finish_hour[1]; i = i + 0.5)
+            for (float i = presented_course_get_start_finish_hour[0]; i <= presented_course_get_start_finish_hour[1]; i = i + 0.5)
             {
                 if (((start_finish_hour[0] < i) && (i < start_finish_hour[1])))
                 {
