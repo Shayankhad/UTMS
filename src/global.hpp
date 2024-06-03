@@ -45,6 +45,7 @@
 #define NEW_COURSE_OFFERING "New Course Offering"
 #define GET_COURSE "Get Course"
 #define DELETE_COURSE "Delete Course"
+#define IMAGE "image"
 
 using namespace std;
 

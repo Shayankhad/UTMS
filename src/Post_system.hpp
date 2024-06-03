@@ -29,6 +29,7 @@ private:
     int id;
     string title;
     string message;
+    string image_address;
 };
 
 #endif
