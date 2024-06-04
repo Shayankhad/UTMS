@@ -1,7 +1,71 @@
 #include "global.hpp"
 
-bool is_it_post_image_command(string command){
+vector<vector<string>> sort_post_command(string arg_1 , string arg_2 , string arg_3
+, string arg_1_value , string arg_2_value , string arg_3_value){
+    vector<vector<string>> un_sorted(3);
+    un_sorted.push_back({arg_1 , arg_1_value});
+    un_sorted.push_back({arg_2 , arg_2_value});
+    un_sorted.push_back({arg_3 , arg_3_value});
+    vector<vector<string>> sorted(3);
+    for(std::vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+        if(un_sorted[i][0] == TITLE){
+            sorted[0] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == MESSAGE){
+            sorted[1] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == IMAGE){
+            sorted[2] =un_sorted[i];
+        }
+    }
+    return sorted;
+}
+
+void is_it_post_image_command(string command){
+    string help_str;
+    stringstream ss;
+    ss << command;
+    string command_1;
+    getline(ss , command_1 , ' ');
+    string command_2;
+    getline(ss , command_2 , ' ');
+    string q_mark;
+    getline(ss , q_mark , ' ');
+    string arg_1;
+    getline(ss , arg_1 , ' ');
+    string arg_1_value;
+    if(arg_1 == IMAGE){
+        getline(ss , arg_1_value , ' ');
+    }else{
+        getline(ss, arg_1_value, '"');
+        getline(ss, arg_1_value, '"');
+        getline(ss, help_str, ' ');
+    }
+    string arg_2;
+    getline(ss , arg_2 , ' ');
+    string arg_2_value;
+    if(arg_2 == IMAGE){
+        getline(ss , arg_2_value , ' ');
+    }else{
+        getline(ss, arg_2_value, '"');
+        getline(ss, arg_2_value, '"');
+        getline(ss, help_str, ' ');
+    }
+    string arg_3;
+    getline(ss , arg_3 , ' ');
+    string arg_3_value;
+    if(arg_3 == IMAGE){
+        getline(ss , arg_3_value , ' ');
+    }else{
+        getline(ss, arg_3_value, '"');
+        getline(ss, arg_3_value, '"');
+        getline(ss, help_str, ' ');
+    }
+    vector<vector<string>> args; 
+    args = sort_post_command(arg_1 , arg_2 , arg_3 , arg_1_value , arg_2_value , arg_3_value);
     
+
+
 }
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
@@ -176,8 +240,7 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-
-            cout << is_it_post_image_command(command) << endl;
+            is_it_post_image_command(command);
 
 
 
