@@ -11,6 +11,13 @@ public:
         title = title_;
         message = message_;
     }
+    Post_system(int id_, string title_, string message_ , string image_address_)
+    {
+        id = id_;
+        title = title_;
+        message = message_;
+        image_address = image_address_;
+    }
     void show_full_post_system()
     {
         cout << id << " " << '"' << title << '"' << " " << '"' << message << '"' << endl;

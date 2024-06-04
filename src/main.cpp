@@ -1,5 +1,9 @@
 #include "global.hpp"
 
+bool is_it_post_image_command(string command){
+    
+}
+
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
     set_ut_account_ptr_contacts(students, professors, ut_account_ptr);
@@ -168,6 +172,15 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 show_post_command(command, students, professors, ut_account_ptr, presented_course, majors);
                 continue;
             }
+
+
+
+
+
+            cout << is_it_post_image_command(command) << endl;
+
+
+
 
             throw BadRequest();
         }
