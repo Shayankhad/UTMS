@@ -80,6 +80,13 @@ public:
         posts_i_made.emplace_back(new_post);
         post_id++;
     }
+    void make_post_with_image(string post_title, string post_message , string image_address)
+    {
+        Post_system *new_post;
+        new_post = new Post_system(post_id, post_title, post_message , image_address);
+        posts_i_made.emplace_back(new_post);
+        post_id++;
+    }
     bool is_post_id_match(int post_id_)
     {
         for (auto &post_element : posts_i_made)

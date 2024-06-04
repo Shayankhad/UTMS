@@ -1,13 +1,19 @@
 #include "global.hpp"
 
+bool is_it_post_image_command(string command){
+    if(command == "asd"){
+    }
+    return true;
+}
+
 vector<vector<string>> sort_post_command(string arg_1 , string arg_2 , string arg_3
 , string arg_1_value , string arg_2_value , string arg_3_value){
-    vector<vector<string>> un_sorted(3);
+    vector<vector<string>> un_sorted;
     un_sorted.push_back({arg_1 , arg_1_value});
     un_sorted.push_back({arg_2 , arg_2_value});
     un_sorted.push_back({arg_3 , arg_3_value});
     vector<vector<string>> sorted(3);
-    for(std::vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
         if(un_sorted[i][0] == TITLE){
             sorted[0] =un_sorted[i];
         }
@@ -21,7 +27,7 @@ vector<vector<string>> sort_post_command(string arg_1 , string arg_2 , string ar
     return sorted;
 }
 
-void is_it_post_image_command(string command){
+void post_image_command(int user_id , string command , vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
     string help_str;
     stringstream ss;
     ss << command;
@@ -63,10 +69,29 @@ void is_it_post_image_command(string command){
     }
     vector<vector<string>> args; 
     args = sort_post_command(arg_1 , arg_2 , arg_3 , arg_1_value , arg_2_value , arg_3_value);
-    
-
+    if((command_1 == POST) && (command_2 == POST_SECOND_COMMAND) && (q_mark == QUESTION_MARK)){
+        for(auto & s : students){
+            if(s->get_id() == user_id){
+                s->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
+                add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
+            }
+        }
+        for(auto & p : professors){
+            if(p->get_id() == user_id){
+                p->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
+                add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
+            }
+        }
+        if(ut_account_ptr->get_id() == user_id){
+            ut_account_ptr->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
+            add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
+        }
+    }
+    throw OkExeption();
 
 }
+
+
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
@@ -239,8 +264,14 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-
-            is_it_post_image_command(command);
+            if(is_it_post_image_command(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                post_image_command(user_id , command , students , professors , ut_account_ptr);
+            }
 
 
 
