@@ -1,13 +1,12 @@
 #include "global.hpp"
 
 
-bool is_it_profile_photo(string command){
+bool is_it_add_profile_photo_command(string command){
     vector<string> commands;
     string word;
     stringstream ss;
     ss << command;
     int iteration = 0;
-    // POST profile_photo ? photo photos/ponio.png
     while (getline(ss, word, ' '))
     {
         if (!word.empty())
@@ -32,6 +31,36 @@ bool is_it_profile_photo(string command){
     {
         return false;
     }
+}
+
+void add_profile_photo_command(string command , int user_id , vector<Student *> &students , vector<Professor *> &professors ,  UtAccount *ut_account_ptr){
+    vector<string> commands;
+    string word;
+    stringstream ss;
+    ss << command;
+    while (getline(ss, word, ' '))
+    {
+        if (!word.empty())
+        {
+            commands.push_back(word);
+        }
+    }
+
+    string profile_address = commands[4];
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            student->add_profile_photo(profile_address);
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            professor->add_profile_photo(profile_address);
+        }
+    }
+    if(ut_account_ptr->get_id() == user_id){
+        ut_account_ptr->add_profile_photo(profile_address);
+    }
+    throw OkExeption();
 }
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
@@ -218,15 +247,21 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-            cout << is_it_profile_photo(command) << endl;
-
+            if(is_it_add_profile_photo_command(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                add_profile_photo_command(command , user_id , students , professors , ut_account_ptr);
+            }
 
 
             throw BadRequest();
         }
-        catch (const MyException &e)
+        catch (const MyException &exept)
         {
-            cout << e.what() << endl;
+            cout << exept.what() << endl;
         }
     }
 }
@@ -243,6 +278,13 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors, students, courses, professors, argv[1], argv[2], argv[3], argv[4]);
     run(students, courses, professors, presented_course, ut_account_ptr, majors);
+    // for(auto & s : students){
+    //     s->show_profile_photo();
+    // }
+    // for(auto & p : professors){
+    //     p->show_profile_photo();
+    // }
+    // ut_account_ptr->show_profile_photo();
     deallocate(majors, students, courses, professors, ut_account_ptr, presented_course);
     return 0;
 }

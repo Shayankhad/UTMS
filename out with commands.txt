@@ -39,7 +39,7 @@ Empty
 ------------------ command: POST profile_photo ? photo photos/ponio.png
 OK
 ------------------ command: POST profile_photo ? phttttoto photos/ponio.png
-OK
+Bad Request
 ------------------ command: POST logout ?
 OK
 ------------------ command: POST login ? password UT_account id 0

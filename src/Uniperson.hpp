@@ -200,6 +200,13 @@ public:
     {
         return token_courses;
     }
+    void add_profile_photo(string photo_address_){
+        profile_photo = photo_address_;
+    }
+
+    void show_profile_photo(){
+        cout << profile_photo << endl;
+    }
 
 protected:
     int id;
@@ -212,6 +219,7 @@ protected:
     int post_id = 1;
     vector<Notif *> notifications;
     vector<int> token_courses;
+    string profile_photo;
 };
 
 #endif
