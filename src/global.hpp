@@ -133,6 +133,8 @@ using namespace std;
 #include "is_it_post_image_command.hpp"
 #include "sort_post_command.hpp"
 #include "post_image_command.hpp"
+#include "is_it_add_profile_photo_command.hpp"
+#include "add_profile_photo_command.hpp"
 #include "deallocate.hpp"
 
 #endif
