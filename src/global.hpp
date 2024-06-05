@@ -46,6 +46,8 @@
 #define GET_COURSE "Get Course"
 #define DELETE_COURSE "Delete Course"
 #define IMAGE "image"
+#define PROFILE_PHOTO "profile_photo"
+#define PHOTO "photo"
 
 using namespace std;
 
@@ -127,6 +129,10 @@ using namespace std;
 #include "is_it_show_post_command.hpp"
 #include "show_post_page_command.hpp"
 #include "show_post_command.hpp"
+#include "check_post_image_args.hpp"
+#include "is_it_post_image_command.hpp"
+#include "sort_post_command.hpp"
+#include "post_image_command.hpp"
 #include "deallocate.hpp"
 
 #endif

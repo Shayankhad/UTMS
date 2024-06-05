@@ -1,155 +1,38 @@
 #include "global.hpp"
 
-bool check_post_image_args(vector<vector<string>> commands){
-    bool does_it_have_title = false;
-    for(auto & layer_1 : commands){
-        if(layer_1[0] == TITLE){
-            does_it_have_title = true;
-        }
-    }
-    bool does_it_have_message = false;
-    for(auto & layer_1 : commands){
-        if(layer_1[0] == MESSAGE){
-            does_it_have_message = true;
-        }
-    }
-    bool does_it_have_image = false;
-    for(auto & layer_1 : commands){
-        if(layer_1[0] == IMAGE){
-            does_it_have_image = true;
-        }
-    }
-    return (does_it_have_title && does_it_have_message && does_it_have_image);
-}
 
-bool is_it_post_image_command(string command){
-    string help_str;
+bool is_it_profile_photo(string command){
+    vector<string> commands;
+    string word;
     stringstream ss;
     ss << command;
-    string command_1;
-    getline(ss , command_1 , ' ');
-    string command_2;
-    getline(ss , command_2 , ' ');
-    string q_mark;
-    getline(ss , q_mark , ' ');
-    if((command_1 != POST) || (command_2 != POST_SECOND_COMMAND) || (q_mark != QUESTION_MARK)){
+    int iteration = 0;
+    // POST profile_photo ? photo photos/ponio.png
+    while (getline(ss, word, ' '))
+    {
+        if (!word.empty())
+        {
+            commands.push_back(word);
+            iteration++;
+        }
+    }
+
+    if (iteration == 5)
+    {
+        if ((commands[0] == POST) && (commands[1] == PROFILE_PHOTO) && (commands[2] == QUESTION_MARK) && (commands[3] == PHOTO))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
         return false;
     }
-    string arg_sample;
-    string arg_sample_val;
-    string space_sample_val;
-    vector<vector<string>> commands(3);
-    for(int i = 0 ; i < 3 ; i++){
-        getline(ss , arg_sample , ' ');
-        if(arg_sample.empty()){
-            return false;
-        }
-        if(arg_sample != IMAGE){
-            getline(ss, arg_sample_val , '"');
-            getline(ss, arg_sample_val , '"');
-            getline(ss, space_sample_val , ' ');
-        }else{
-            getline(ss , arg_sample_val , ' ' );
-        }
-        if(arg_sample.empty()){
-            return false;
-        }
-        if(arg_sample_val.empty()){
-            return false;
-        }
-        commands[i]= {arg_sample , arg_sample_val};
-    }
-    if(!check_post_image_args(commands)){
-        return false;
-    }
-    return true;
 }
-
-vector<vector<string>> sort_post_command(string arg_1 , string arg_2 , string arg_3
-, string arg_1_value , string arg_2_value , string arg_3_value){
-    vector<vector<string>> un_sorted;
-    un_sorted.push_back({arg_1 , arg_1_value});
-    un_sorted.push_back({arg_2 , arg_2_value});
-    un_sorted.push_back({arg_3 , arg_3_value});
-    vector<vector<string>> sorted(3);
-    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
-        if(un_sorted[i][0] == TITLE){
-            sorted[0] =un_sorted[i];
-        }
-        if(un_sorted[i][0] == MESSAGE){
-            sorted[1] =un_sorted[i];
-        }
-        if(un_sorted[i][0] == IMAGE){
-            sorted[2] =un_sorted[i];
-        }
-    }
-    return sorted;
-}
-
-void post_image_command(int user_id , string command , vector<Student *> &students, vector<Professor *> &professors, UtAccount *ut_account_ptr){
-    string help_str;
-    stringstream ss;
-    ss << command;
-    string command_1;
-    getline(ss , command_1 , ' ');
-    string command_2;
-    getline(ss , command_2 , ' ');
-    string q_mark;
-    getline(ss , q_mark , ' ');
-    string arg_1;
-    getline(ss , arg_1 , ' ');
-    string arg_1_value;
-    if(arg_1 == IMAGE){
-        getline(ss , arg_1_value , ' ');
-    }else{
-        getline(ss, arg_1_value, '"');
-        getline(ss, arg_1_value, '"');
-        getline(ss, help_str, ' ');
-    }
-    string arg_2;
-    getline(ss , arg_2 , ' ');
-    string arg_2_value;
-    if(arg_2 == IMAGE){
-        getline(ss , arg_2_value , ' ');
-    }else{
-        getline(ss, arg_2_value, '"');
-        getline(ss, arg_2_value, '"');
-        getline(ss, help_str, ' ');
-    }
-    string arg_3;
-    getline(ss , arg_3 , ' ');
-    string arg_3_value;
-    if(arg_3 == IMAGE){
-        getline(ss , arg_3_value , ' ');
-    }else{
-        getline(ss, arg_3_value, '"');
-        getline(ss, arg_3_value, '"');
-        getline(ss, help_str, ' ');
-    }
-    vector<vector<string>> args; 
-    args = sort_post_command(arg_1 , arg_2 , arg_3 , arg_1_value , arg_2_value , arg_3_value);
-    if((command_1 == POST) && (command_2 == POST_SECOND_COMMAND) && (q_mark == QUESTION_MARK)){
-        for(auto & s : students){
-            if(s->get_id() == user_id){
-                s->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
-                add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
-            }
-        }
-        for(auto & p : professors){
-            if(p->get_id() == user_id){
-                p->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
-                add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
-            }
-        }
-        if(ut_account_ptr->get_id() == user_id){
-            ut_account_ptr->make_post_with_image(args[0][1] ,args[1][1] , args[2][1] );
-            add_notif_handeling(students , professors , ut_account_ptr , NEW_POST , user_id);
-        }
-    }
-    throw OkExeption();
-}
-
-
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
@@ -331,6 +214,11 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 post_image_command(user_id , command , students , professors , ut_account_ptr);
             }
 
+
+
+
+
+            cout << is_it_profile_photo(command) << endl;
 
 
 
