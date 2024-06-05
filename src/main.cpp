@@ -1,7 +1,66 @@
 #include "global.hpp"
 
+bool check_post_image_args(vector<vector<string>> commands){
+    bool does_it_have_title = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == TITLE){
+            does_it_have_title = true;
+        }
+    }
+    bool does_it_have_message = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == MESSAGE){
+            does_it_have_message = true;
+        }
+    }
+    bool does_it_have_image = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == IMAGE){
+            does_it_have_image = true;
+        }
+    }
+    return (does_it_have_title && does_it_have_message && does_it_have_image);
+}
+
 bool is_it_post_image_command(string command){
-    if(command == "asd"){
+    string help_str;
+    stringstream ss;
+    ss << command;
+    string command_1;
+    getline(ss , command_1 , ' ');
+    string command_2;
+    getline(ss , command_2 , ' ');
+    string q_mark;
+    getline(ss , q_mark , ' ');
+    if((command_1 != POST) || (command_2 != POST_SECOND_COMMAND) || (q_mark != QUESTION_MARK)){
+        return false;
+    }
+    string arg_sample;
+    string arg_sample_val;
+    string space_sample_val;
+    vector<vector<string>> commands(3);
+    for(int i = 0 ; i < 3 ; i++){
+        getline(ss , arg_sample , ' ');
+        if(arg_sample.empty()){
+            return false;
+        }
+        if(arg_sample != IMAGE){
+            getline(ss, arg_sample_val , '"');
+            getline(ss, arg_sample_val , '"');
+            getline(ss, space_sample_val , ' ');
+        }else{
+            getline(ss , arg_sample_val , ' ' );
+        }
+        if(arg_sample.empty()){
+            return false;
+        }
+        if(arg_sample_val.empty()){
+            return false;
+        }
+        commands[i]= {arg_sample , arg_sample_val};
+    }
+    if(!check_post_image_args(commands)){
+        return false;
     }
     return true;
 }
@@ -88,7 +147,6 @@ void post_image_command(int user_id , string command , vector<Student *> &studen
         }
     }
     throw OkExeption();
-
 }
 
 
@@ -264,14 +322,15 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-            if(is_it_post_image_command(command)){
-                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
-                {
-                    throw PermissionDenied();
-                }
-                int user_id = identify_user(students, professors, ut_account_ptr);
-                post_image_command(user_id , command , students , professors , ut_account_ptr);
-            }
+            // if(is_it_post_image_command(command)){
+            //     if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+            //     {
+            //         throw PermissionDenied();
+            //     }
+            //     int user_id = identify_user(students, professors, ut_account_ptr);
+            //     post_image_command(user_id , command , students , professors , ut_account_ptr);
+            // }
+            cout << is_it_post_image_command(command) << endl;
 
 
 
