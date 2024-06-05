@@ -322,15 +322,14 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-            // if(is_it_post_image_command(command)){
-            //     if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
-            //     {
-            //         throw PermissionDenied();
-            //     }
-            //     int user_id = identify_user(students, professors, ut_account_ptr);
-            //     post_image_command(user_id , command , students , professors , ut_account_ptr);
-            // }
-            cout << is_it_post_image_command(command) << endl;
+            if(is_it_post_image_command(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                post_image_command(user_id , command , students , professors , ut_account_ptr);
+            }
 
 
 

@@ -111,9 +111,9 @@ public:
 
     void show_title_of_my_posts()
     {
-        for (auto &x : posts_i_made)
+        for (auto it = posts_i_made.rbegin(); it != posts_i_made.rend(); ++it)
         {
-            x->show_title_post_system();
+            (*it)->show_title_post_system();
         }
     }
     void show_my_posts()
