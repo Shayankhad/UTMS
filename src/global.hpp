@@ -150,6 +150,9 @@ using namespace std;
 #include "post_course_notif_handle.hpp"
 #include "make_course_post_command_type_one.hpp"
 #include "check_make_course_post_type_two_args.hpp"
+#include "is_it_make_course_post_command_type_two.hpp"
+#include "sort_course_post_type_two_command.hpp"
+#include "make_course_post_command_type_two.hpp"
 #include "Form_system.hpp"
 #include "deallocate.hpp"
 #endif
