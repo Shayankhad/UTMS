@@ -121,8 +121,8 @@ public:
         course_posts.clear();
     }
 
-    void add_course_post(int who_made , int presente_course_id_ , string title_ , string message_){
-        CoursePost * new_course_post = new CoursePost(who_made , presente_course_id_ ,title_ , message_ , post_id);
+    void add_course_post(int who_made , string who_made_name , int presente_course_id_ , string presente_course_name_ , string title_ , string message_){
+        CoursePost * new_course_post = new CoursePost(who_made , who_made_name , presente_course_id_ , presente_course_name_ , title_ , message_ , post_id);
         course_posts.emplace_back(new_course_post);
         post_id ++;
     }

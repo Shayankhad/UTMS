@@ -137,12 +137,14 @@ void make_course_post_command_type_one( int user_id,string command , vector<Stud
     int presnted_course_id = string_to_int(commands[0][1]);
     string post_title = commands[1][1];
     string post_message = commands[2][1];
+    string author_name;
     vector <int> all_courses;
     all_courses = get_all_presented_courses(professors);
     bool does_id_exist = false;
     bool does_id_has_per = false;
     for(auto & student : students){
         if(student->get_id() == user_id){
+            author_name = student->get_name();
             for(auto & x : all_courses){
                 if(x == presnted_course_id){
                     does_id_exist = true;
@@ -159,6 +161,7 @@ void make_course_post_command_type_one( int user_id,string command , vector<Stud
     }
     for(auto & professor : professors){
         if(professor->get_id() == user_id){
+            author_name = professor->get_name();
             for(auto & x : all_courses){
                 if(x == presnted_course_id){
                     does_id_exist = true;
@@ -180,8 +183,9 @@ void make_course_post_command_type_one( int user_id,string command , vector<Stud
         throw PermissionDenied();
     }
     PresentedCourse * presented_course_ptr = find_PresentedCourse(presnted_course_id , presented_course);
-    presented_course_ptr->add_course_post(user_id , presnted_course_id  , post_title , post_message );
-    
+    string presented_course_name = presented_course_ptr->get_course_name();
+    presented_course_ptr->add_course_post(user_id , author_name , presnted_course_id , presented_course_name , post_title , post_message);
+
     throw OkExeption();
 }
 
