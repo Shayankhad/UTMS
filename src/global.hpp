@@ -154,5 +154,7 @@ using namespace std;
 #include "sort_course_post_type_two_command.hpp"
 #include "make_course_post_command_type_two.hpp"
 #include "Form_system.hpp"
+#include "is_it_show_course_channel_command.hpp"
+#include "show_course_channel_command.hpp"
 #include "deallocate.hpp"
 #endif
