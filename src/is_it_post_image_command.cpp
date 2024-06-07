@@ -14,6 +14,8 @@ bool is_it_post_image_command(string command){
     if((command_1 != POST) || (command_2 != POST_SECOND_COMMAND) || (q_mark != QUESTION_MARK)){
         return false;
     }
+    vector<char> command_char;
+
     string arg_sample;
     string arg_sample_val;
     string space_sample_val;
@@ -38,6 +40,19 @@ bool is_it_post_image_command(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
+
+    for(std::__cxx11::basic_string<char>::size_type i = 0 ; i < command.size() ; i++ ){
+        if(!(command[i] == ' ')){
+            command_char.push_back(command[i]);
+        }
+    }
+    if(commands[2][0] != IMAGE){
+        if(!(command_char[command_char.size() - 1] == '"')){
+            return false;
+        }
+    }
+
+
     if(!check_post_image_args(commands)){
         return false;
     }
