@@ -1,6 +1,71 @@
 #include "global.hpp"
 
+bool check_make_course_post_type_one_args(vector<vector<string>> commands){
+    bool does_it_have_id = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == ID){
+            does_it_have_id = true;
+        }
+    }
+    bool does_it_have_title = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == TITLE){
+            does_it_have_title = true;
+        }
+    }
+    bool does_it_have_message = false;
+    for(auto & layer_1 : commands){
+        if(layer_1[0] == IMAGE){
+            does_it_have_message = true;
+        }
+    }
+    return (does_it_have_id && does_it_have_title && does_it_have_message);
+}
 
+
+bool is_it_make_course_post_command_type_one(string command){
+    // POST course_post ? id 4 title “Homework 6” message “Phase 2”
+    string help_str;
+    stringstream ss;
+    ss << command;
+    string command_1;
+    getline(ss , command_1 , ' ');
+    string command_2;
+    getline(ss , command_2 , ' ');
+    string q_mark;
+    getline(ss , q_mark , ' ');
+    if((command_1 != POST) || (command_2 != COURSE_POST ) || (q_mark != QUESTION_MARK)){
+        return false;
+    }
+    string arg_sample;
+    string arg_sample_val;
+    string space_sample_val;
+    vector<vector<string>> commands(3);
+    for(int i = 0 ; i < 3 ; i++){
+        getline(ss , arg_sample , ' ');
+        if(arg_sample.empty()){
+            return false;
+        }
+        if(arg_sample != ID){
+            getline(ss, arg_sample_val , '"');
+            getline(ss, arg_sample_val , '"');
+            getline(ss, space_sample_val , ' ');
+        }else{
+            getline(ss , arg_sample_val , ' ' );
+        }
+        if(arg_sample.empty()){
+            return false;
+        }
+        if(arg_sample_val.empty()){
+            return false;
+        }
+        commands[i]= {arg_sample , arg_sample_val};
+    }
+    if(!check_make_course_post_type_one_args(commands)){
+        return false;
+    }
+    return true;
+}
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
@@ -196,6 +261,10 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
             }
 
 
+
+
+
+            cout << is_it_make_course_post_command_type_one(command) << endl;
 
 
 

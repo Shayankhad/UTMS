@@ -48,6 +48,12 @@
 #define IMAGE "image"
 #define PROFILE_PHOTO "profile_photo"
 #define PHOTO "photo"
+#define COURSE_POST "course_post"
+#define COURSE_CHANNEL "course_channel"
+#define TA_FORM "ta_form"
+#define CLOSE_TA_FORM "close_ta_form"
+#define TA_REQUEST "ta_request"
+#define FORM_ID "form_id"
 
 using namespace std;
 
@@ -99,6 +105,7 @@ using namespace std;
 #include "notificaiton_command.hpp"
 #include "add_notif_handeling.hpp"
 #include "set_ut_account_ptr_contacts.hpp"
+#include "CoursePost.hpp"
 #include "PresentedCourse.hpp"
 #include "find_PresentedCourse.hpp"
 #include "how_many_courses_presented.hpp"
@@ -135,8 +142,6 @@ using namespace std;
 #include "post_image_command.hpp"
 #include "is_it_add_profile_photo_command.hpp"
 #include "add_profile_photo_command.hpp"
-#include "CoursePost.hpp"
 #include "Form_system.hpp"
 #include "deallocate.hpp"
-
 #endif
