@@ -1,5 +1,37 @@
 #include "global.hpp"
 
+bool is_it_show_course_channel_command(string command){
+    // GET course_channel ? id 7
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0;
+    while (getline(ss, word, ' '))
+    {
+        if (!(word == ""))
+        {
+            commands.push_back(word);
+            iteration++;
+        }
+    }
+    if (iteration == 5)
+    {   
+        if ((commands[0] == GET) && (commands[1] == COURSE_CHANNEL) && (commands[3] == ID))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
     set_ut_account_ptr_contacts(students, professors, ut_account_ptr);
@@ -205,8 +237,6 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 make_course_post_command_type_one(user_id , command , students , professors , presented_course);
             }
 
-
-
             if (is_it_make_course_post_command_type_two(command)){
                 if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
                 {
@@ -215,10 +245,6 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 int user_id = identify_user(students, professors, ut_account_ptr);
                 make_course_post_command_type_two(user_id , command , students , professors , presented_course);
             }
-
-
-
-
 
             throw BadRequest();
         }
