@@ -21,8 +21,7 @@ bool check_make_course_post_type_one_args(vector<vector<string>> commands){
     }
     return (does_it_have_id && does_it_have_title && does_it_have_message);
 }
-
-
+ 
 bool is_it_make_course_post_command_type_one(string command){
     // POST course_post ? id 4 title “Homework 6” message “Phase 2”
     string help_str;
@@ -36,6 +35,12 @@ bool is_it_make_course_post_command_type_one(string command){
     getline(ss , q_mark , ' ');
     if((command_1 != POST) || (command_2 != COURSE_POST ) || (q_mark != QUESTION_MARK)){
         return false;
+    }
+    vector<char> command_char;
+    for(std::__cxx11::basic_string<char>::size_type i = 0 ; i < command.size() ; i++ ){
+        if(!(command[i] == ' ')){
+            command_char.push_back(command[i]);
+        }
     }
     string arg_sample;
     string arg_sample_val;
@@ -61,7 +66,13 @@ bool is_it_make_course_post_command_type_one(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
-    cout << "test" << endl;
+
+    if(commands[2][0] != ID){
+        if(!(command_char[command_char.size() - 1] == '"')){
+            return false;
+        }
+    }
+
     if(!check_make_course_post_type_one_args(commands)){
         return false;
     }
