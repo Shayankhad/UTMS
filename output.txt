@@ -1,18 +1,18 @@
 ./a.exe files/majors.csv files/students.csv files/courses.csv files/professors.csv
 OK
-Sarah Computer Engineering 5 
+Sarah Computer Engineering 5
 OK
 OK
 Bad Request
 OK
-Sarah Computer Engineering 5 
+Sarah Computer Engineering 5
 2 "title1"
 1 "title1"
-Sarah Computer Engineering 5 
+Sarah Computer Engineering 5
 1 "title1" "dkooooooo azizammm !!!!! khkhkhkhkh@!"
-Sarah Computer Engineering 5 
+Sarah Computer Engineering 5
 2 "title1" "jygjyjyjt trrub tf rrrrrr"
-Sarah Computer Engineering 5 
+Sarah Computer Engineering 5
 2 "title1" "jygjyjyjt trrub tf rrrrrr"
 Not Found
 OK
@@ -70,6 +70,7 @@ Not Found
 2 Sarah Williams "Homework 7777"
 1 Sarah Williams "Homework 6"
 1 Advanced Programming 70 Sarah Williams Sunday:13-15 1403/4/4 3
+3 Nesa "Homework 6"
 2 Sarah Williams "Homework yohahahaha"
 1 Sarah Williams "Homework 6"
 OK
@@ -89,6 +90,7 @@ Not Found
 2 Sarah Williams "Homework 7777"
 1 Sarah Williams "Homework 6"
 1 Advanced Programming 70 Sarah Williams Sunday:13-15 1403/4/4 3
+3 Nesa "Homework 6"
 2 Sarah Williams "Homework yohahahaha"
 1 Sarah Williams "Homework 6"
 1 Advanced Programming 70 Sarah Williams Sunday:13-15 1403/4/4 3
