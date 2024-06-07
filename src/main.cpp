@@ -1,5 +1,7 @@
 #include "global.hpp"
 
+
+
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
     set_ut_account_ptr_contacts(students, professors, ut_account_ptr);
@@ -192,6 +194,11 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 int user_id = identify_user(students, professors, ut_account_ptr);
                 add_profile_photo_command(command , user_id , students , professors , ut_account_ptr);
             }
+
+
+
+
+
 
 
             throw BadRequest();
