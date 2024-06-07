@@ -114,16 +114,18 @@ public:
     }
     void deallocate_presented_course()
     {
-        for (CoursePost *x : course_post)
+        for (CoursePost *x : course_posts)
         {
             delete x;
         }
-        course_post.clear();
+        course_posts.clear();
     }
 
-    // void add_course_post(int presente_course_id_ , string title_ , string message_ , int post_id_){
-        
-    // }
+    void add_course_post(int who_made , int presente_course_id_ , string title_ , string message_){
+        CoursePost * new_course_post = new CoursePost(who_made , presente_course_id_ ,title_ , message_ , post_id);
+        course_posts.emplace_back(new_course_post);
+        post_id ++;
+    }
 
 private:
     int course_id;
@@ -137,6 +139,7 @@ private:
     int class_number;
     int presented_course_id;
     int prerequisite;
-    vector<CoursePost *> course_post;
+    int post_id = 1;
+    vector<CoursePost *> course_posts;
 };
 #endif

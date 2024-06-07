@@ -6,3 +6,7 @@ POST login ? password def456 id 810420434
 GET courses ?
 POST course_post ? id 4 title "Homework 6" message "Phase 2"
 POST course_post ? id 2 title "Homework 6" message "Phase 2"
+POST logout ?
+POST login ? password jkl012 id 810420436
+POST course_post ? id 4 title "Homework 6" message "Phase 2"
+POST course_post ? id 2 title "Homework 6" message "Phase 2"

@@ -3,7 +3,8 @@
 #include "global.hpp"
 class CoursePost {
 public:
-    CoursePost(int presente_course_id_ , string title_ , string message_ , int post_id_){
+    CoursePost(int who_made_ , int presente_course_id_ , string title_ , string message_ , int post_id_){
+        who_made = who_made_;
         presente_course_id = presente_course_id_;
         title = title_;
         message = message_;
@@ -11,6 +12,7 @@ public:
     }
     
 private:
+    int who_made;
     int post_id;
     int presente_course_id;
     string title;

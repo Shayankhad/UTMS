@@ -135,7 +135,8 @@ void make_course_post_command_type_one( int user_id,string command , vector<Stud
         throw PermissionDenied();
     }
     int presnted_course_id = string_to_int(commands[0][1]);
-    PresentedCourse * presented_course_ptr;
+    string post_title = commands[1][1];
+    string post_message = commands[2][1];
     vector <int> all_courses;
     all_courses = get_all_presented_courses(professors);
     bool does_id_exist = false;
@@ -178,6 +179,9 @@ void make_course_post_command_type_one( int user_id,string command , vector<Stud
     if(!does_id_has_per){
         throw PermissionDenied();
     }
+    PresentedCourse * presented_course_ptr = find_PresentedCourse(presnted_course_id , presented_course);
+    presented_course_ptr->add_course_post(user_id , presnted_course_id  , post_title , post_message );
+    
     throw OkExeption();
 }
 
