@@ -121,6 +121,10 @@ public:
         course_post.clear();
     }
 
+    // void add_course_post(int presente_course_id_ , string title_ , string message_ , int post_id_){
+        
+    // }
+
 private:
     int course_id;
     string course_name;

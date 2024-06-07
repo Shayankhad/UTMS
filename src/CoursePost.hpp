@@ -3,6 +3,12 @@
 #include "global.hpp"
 class CoursePost {
 public:
+    CoursePost(int presente_course_id_ , string title_ , string message_ , int post_id_){
+        presente_course_id = presente_course_id_;
+        title = title_;
+        message = message_;
+        post_id = post_id_;
+    }
     
 private:
     int post_id;

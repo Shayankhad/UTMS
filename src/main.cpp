@@ -97,8 +97,18 @@ vector<vector<string>> sort_course_post_type_one_command(vector<vector<string>> 
     return sorted;
 }
 
+vector<int> get_all_presented_courses(vector<Professor *> &professors){
+    vector<int> all_courses;
+    for(auto & professor : professors){
+        for(auto & x : professor->get_token_courses()){
+            all_courses.push_back(x);
+        }
+    }
+    return all_courses;
+}
 
-void make_course_post_command_type_one(string command , vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr , vector<PresentedCourse *> &presented_course ){
+
+void make_course_post_command_type_one( int user_id,string command , vector<Student *> &students , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course ){
     // POST course_post ? id 4 title “Homework 6” message “Phase 2”
     string arg_sample;
     string arg_sample_val;
@@ -120,8 +130,55 @@ void make_course_post_command_type_one(string command , vector<Student *> &stude
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
-    commands = sort_course_post_type_one_command(commands);
-    
+    commands = sort_course_post_type_one_command(commands); 
+    if (user_id == 0){
+        throw PermissionDenied();
+    }
+    int presnted_course_id = string_to_int(commands[0][1]);
+    PresentedCourse * presented_course_ptr;
+    vector <int> all_courses;
+    all_courses = get_all_presented_courses(professors);
+    bool does_id_exist = false;
+    bool does_id_has_per = false;
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            for(auto & x : all_courses){
+                if(x == presnted_course_id){
+                    does_id_exist = true;
+                }
+            }
+            vector<int> tooken_course;
+            tooken_course = student->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == presnted_course_id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            for(auto & x : all_courses){
+                if(x == presnted_course_id){
+                    does_id_exist = true;
+                }
+            }
+            vector<int> tooken_course;
+            tooken_course = professor->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == presnted_course_id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+    if(!does_id_exist){
+        throw NotFound();
+    }
+    if(!does_id_has_per){
+        throw PermissionDenied();
+    }
+    throw OkExeption();
 }
 
 
@@ -328,7 +385,8 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 {
                     throw PermissionDenied();
                 }
-                make_course_post_command_type_one(command , students , professors , ut_account_ptr , presented_course);
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                make_course_post_command_type_one(user_id , command , students , professors , presented_course);
             }
 
 
