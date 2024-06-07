@@ -135,6 +135,7 @@ using namespace std;
 #include "post_image_command.hpp"
 #include "is_it_add_profile_photo_command.hpp"
 #include "add_profile_photo_command.hpp"
+#include "CoursePost.hpp"
 #include "Form_system.hpp"
 #include "deallocate.hpp"
 

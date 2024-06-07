@@ -1,5 +1,5 @@
 #include "global.hpp"
-
+// presented_course
 void deallocate(vector<Major *> &majors, vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, UtAccount *ut_account_ptr, vector<PresentedCourse *> &presented_course)
 {
     for (Major *major_ptr : majors)
@@ -34,6 +34,7 @@ void deallocate(vector<Major *> &majors, vector<Student *> &students, vector<Cou
     ut_account_ptr = nullptr;
     for (PresentedCourse *presented_course_ptr : presented_course)
     {
+        presented_course_ptr->deallocate_presented_course();
         delete presented_course_ptr;
     }
     presented_course.clear();

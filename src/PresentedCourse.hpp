@@ -112,6 +112,14 @@ public:
     {
         return course_name;
     }
+    void deallocate_presented_course()
+    {
+        for (CoursePost *x : course_post)
+        {
+            delete x;
+        }
+        course_post.clear();
+    }
 
 private:
     int course_id;
@@ -125,5 +133,6 @@ private:
     int class_number;
     int presented_course_id;
     int prerequisite;
+    vector<CoursePost *> course_post;
 };
 #endif
