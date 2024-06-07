@@ -23,7 +23,7 @@ bool check_make_course_post_type_one_args(vector<vector<string>> commands){
 }
  
 bool is_it_make_course_post_command_type_one(string command){
-    // POST course_post ? id 4 title “Homework 6” message “Phase 2”
+    
     string help_str;
     stringstream ss;
     ss << command;
@@ -78,6 +78,54 @@ bool is_it_make_course_post_command_type_one(string command){
     }
     return true;
 }
+
+
+
+vector<vector<string>> sort_course_post_type_one_command(vector<vector<string>> un_sorted){
+    vector<vector<string>> sorted(3);
+    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+        if(un_sorted[i][0] == ID){
+            sorted[0] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == TITLE){
+            sorted[1] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == MESSAGE){
+            sorted[2] =un_sorted[i];
+        }
+    }
+    return sorted;
+}
+
+
+void make_course_post_command_type_one(string command , vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr , vector<PresentedCourse *> &presented_course ){
+    // POST course_post ? id 4 title “Homework 6” message “Phase 2”
+    string arg_sample;
+    string arg_sample_val;
+    string space_sample_val;
+    stringstream ss;
+    ss << command;
+    getline(ss , space_sample_val , ' ');
+    getline(ss , space_sample_val , ' ');
+    getline(ss , space_sample_val , ' ');
+    vector<vector<string>> commands(3);
+    for(int i = 0 ; i < 3 ; i++){
+        getline(ss , arg_sample , ' ');
+        if(arg_sample != ID){
+            getline(ss, arg_sample_val , '"');
+            getline(ss, arg_sample_val , '"');
+            getline(ss, space_sample_val , ' ');
+        }else{
+            getline(ss , arg_sample_val , ' ' );
+        }
+        commands[i]= {arg_sample , arg_sample_val};
+    }
+    commands = sort_course_post_type_one_command(commands);
+    
+}
+
+
+
 
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
@@ -275,8 +323,13 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-
-            cout << is_it_make_course_post_command_type_one(command) << endl;
+            if(is_it_make_course_post_command_type_one(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                make_course_post_command_type_one(command , students , professors , ut_account_ptr , presented_course);
+            }
 
 
 
