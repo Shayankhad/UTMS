@@ -15,7 +15,7 @@ bool check_make_course_post_type_one_args(vector<vector<string>> commands){
     }
     bool does_it_have_message = false;
     for(auto & layer_1 : commands){
-        if(layer_1[0] == IMAGE){
+        if(layer_1[0] == MESSAGE){
             does_it_have_message = true;
         }
     }
@@ -61,6 +61,7 @@ bool is_it_make_course_post_command_type_one(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
+    cout << "test" << endl;
     if(!check_make_course_post_type_one_args(commands)){
         return false;
     }
