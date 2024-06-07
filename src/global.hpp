@@ -54,6 +54,7 @@
 #define CLOSE_TA_FORM "close_ta_form"
 #define TA_REQUEST "ta_request"
 #define FORM_ID "form_id"
+#define NEW_COURSE_POST "New Course Post"
 
 using namespace std;
 
