@@ -1,3 +1,4 @@
+./a.exe files/majors.csv files/students.csv files/courses.csv files/professors.csv
 OK
 Sarah Computer Engineering 5 
 OK
@@ -21,7 +22,7 @@ OK
 810102456 Sarah: New Post
 Empty
 OK
-OK
+Bad Request
 OK
 OK
 Permission Denied
@@ -63,7 +64,7 @@ OK
 810420436 Sarah Williams: New Course Offering
 OK
 OK
-Permission Denied
+OK
 Not Found
 2 Web Development 70 Sarah Williams Sunday:15-16 1403/4/6 3
 2 Sarah Williams "Homework 7777"
