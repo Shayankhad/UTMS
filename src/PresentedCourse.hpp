@@ -126,6 +126,16 @@ public:
         course_posts.emplace_back(new_course_post);
         post_id ++;
     }
+    void add_course_post_with_image(int who_made , string who_made_name , int presente_course_id_ , string presente_course_name_ , string title_ , string message_ , string image_){
+        CoursePost * new_course_post = new CoursePost(who_made , who_made_name , presente_course_id_ , presente_course_name_ , title_ , message_ , post_id , image_);
+        course_posts.emplace_back(new_course_post);
+        post_id ++;
+    }
+    void show_post_images(){
+        for(auto & a : course_posts){
+            a->show_image();
+        }
+    }
 
 private:
     int course_id;

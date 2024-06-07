@@ -109,7 +109,6 @@ vector<int> get_all_presented_courses(vector<Professor *> &professors){
 
 
 void post_course_notif_handle(int user_id , int presented_course_id , string presented_course_name, vector<Student *> &students , vector<Professor *> &professors){
-    // 7 Advanced Programming: New Course Post
     for(auto &student : students){
         for(auto & int_courses : student->get_token_courses()){
             if(int_courses == presented_course_id){
@@ -304,6 +303,25 @@ bool is_it_make_course_post_command_type_two(string command){
 }
 
 
+vector<vector<string>> sort_course_post_type_two_command(vector<vector<string>> un_sorted){
+    vector<vector<string>> sorted(4);
+    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+        if(un_sorted[i][0] == ID){
+            sorted[0] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == TITLE){
+            sorted[1] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == MESSAGE){
+            sorted[2] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == IMAGE){
+            sorted[3] =un_sorted[i];
+        }
+    }
+    return sorted;
+}
+
 void make_course_post_command_type_two(int user_id,string command , vector<Student *> &students , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course ){
     // POST course_post ? id 2 title "asd" message "qwe" image rtfd
     string arg_sample;
@@ -314,10 +332,10 @@ void make_course_post_command_type_two(int user_id,string command , vector<Stude
     getline(ss , space_sample_val , ' ');
     getline(ss , space_sample_val , ' ');
     getline(ss , space_sample_val , ' ');
-    vector<vector<string>> commands(3);
-    for(int i = 0 ; i < 3 ; i++){
+    vector<vector<string>> commands(4);
+    for(int i = 0 ; i < 4 ; i++){
         getline(ss , arg_sample , ' ');
-        if(arg_sample != ID){
+        if((arg_sample != ID) && (arg_sample != IMAGE)){
             getline(ss, arg_sample_val , '"');
             getline(ss, arg_sample_val , '"');
             getline(ss, space_sample_val , ' ');
@@ -326,13 +344,14 @@ void make_course_post_command_type_two(int user_id,string command , vector<Stude
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
-    commands = sort_course_post_type_one_command(commands); 
+    commands = sort_course_post_type_two_command(commands); 
     if (user_id == 0){
         throw PermissionDenied();
     }
     int presnted_course_id = string_to_int(commands[0][1]);
     string post_title = commands[1][1];
     string post_message = commands[2][1];
+    string post_image = commands[3][1];
     string author_name;
     vector <int> all_courses;
     all_courses = get_all_presented_courses(professors);
@@ -385,7 +404,7 @@ void make_course_post_command_type_two(int user_id,string command , vector<Stude
 
     PresentedCourse * presented_course_ptr = find_PresentedCourse(presnted_course_id , presented_course);
     string presented_course_name = presented_course_ptr->get_course_name();
-    presented_course_ptr->add_course_post(user_id , author_name , presnted_course_id , presented_course_name , post_title , post_message);
+    presented_course_ptr->add_course_post_with_image(user_id , author_name , presnted_course_id , presented_course_name , post_title , post_message , post_image);
     post_course_notif_handle(user_id , presnted_course_id , presented_course_name , students , professors);
     throw OkExeption();
 }
@@ -598,13 +617,14 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-            // if (is_it_make_course_post_command_type_two(command)){
-            //     if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
-            //     {
-            //         throw PermissionDenied();
-            //     }
-            // }
-            cout << is_it_make_course_post_command_type_two(command) << endl;
+            if (is_it_make_course_post_command_type_two(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                make_course_post_command_type_two(user_id , command , students , professors , presented_course);
+            }
 
 
 
@@ -631,13 +651,9 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors, students, courses, professors, argv[1], argv[2], argv[3], argv[4]);
     run(students, courses, professors, presented_course, ut_account_ptr, majors);
-    for(auto & s : students){
-        s->show_notif_vec();
+    for(auto & s : presented_course){
+        s->show_post_images();
     }
-    for(auto & p : professors){
-        p->show_notif_vec();
-    }
-    ut_account_ptr->show_notif_vec();
     deallocate(majors, students, courses, professors, ut_account_ptr, presented_course);
     return 0;
 }

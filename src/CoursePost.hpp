@@ -12,6 +12,19 @@ public:
         message = message_;
         post_id = post_id_;
     }
+    CoursePost(int who_made_  , string who_made_name_, int presente_course_id_ , string presented_course_name_ , string title_ , string message_ , int post_id_ , string image_address_){
+        who_made = who_made_;
+        who_made_name = who_made_name_;
+        presente_course_id = presente_course_id_;
+        presente_course_name = presented_course_name_;
+        title = title_;
+        message = message_;
+        post_id = post_id_;
+        image_address = image_address_;
+    }
+    void show_image(){
+        cout << image_address << endl;
+    }
     
 private:
     int who_made;
