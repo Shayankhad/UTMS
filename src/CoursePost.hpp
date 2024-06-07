@@ -25,7 +25,9 @@ public:
     void show_image(){
         cout << image_address << endl;
     }
-    
+    void show_type_one(){
+        cout << post_id << " " << who_made_name << " " << '"' << title << '"' << endl; 
+    }
 private:
     int who_made;
     string who_made_name;

@@ -137,6 +137,13 @@ public:
         }
     }
 
+    void show_summery_post_courses(){
+        show_type_2();
+        for(auto it = course_posts.rbegin(); it != course_posts.rend(); ++it){
+            (*it)->show_type_one();
+        }
+    }
+
 private:
     int course_id;
     string course_name;

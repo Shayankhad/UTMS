@@ -4,11 +4,12 @@ POST course_offer ? course_id 4 capacity 70 time Sunday:15-16 exam_date 1403/4/6
 POST logout ?
 POST login ? password ImtheproblemItsme id 810102612
 PUT my_courses ? id 1
-GET my_courses ?
 POST logout ?
 POST login ? password jkl012 id 810420436
 POST course_post ? id 1 title "Homework 6" message "Phase 2" image asdasd
+POST course_post ? id 1 title "hfsuhncfka" message "dfsdse 2" image a33sd
 POST logout ?
 POST login ? password ImtheproblemItsme id 810102612
 GET notification ?
+GET course_channel ? id 1
 POST course_post ? id 1 title "Homework 6" message "Phaffffse 2" image ./sdvihv/ddfdd
