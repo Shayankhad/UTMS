@@ -1,0 +1,5 @@
+#ifndef IS_IT_MAKE_COURSE_POST_COMMAND_TYPE_ONE_HPP
+#define IS_IT_MAKE_COURSE_POST_COMMAND_TYPE_ONE_HPP
+#include "global.hpp"
+bool is_it_make_course_post_command_type_one(string command);
+#endif

@@ -143,6 +143,13 @@ using namespace std;
 #include "post_image_command.hpp"
 #include "is_it_add_profile_photo_command.hpp"
 #include "add_profile_photo_command.hpp"
+#include "check_make_course_post_type_one_args.hpp"
+#include "is_it_make_course_post_command_type_one.hpp"
+#include "sort_course_post_type_one_command.hpp"
+#include "get_all_presented_courses.hpp"
+#include "post_course_notif_handle.hpp"
+#include "make_course_post_command_type_one.hpp"
+#include "check_make_course_post_type_two_args.hpp"
 #include "Form_system.hpp"
 #include "deallocate.hpp"
 #endif
