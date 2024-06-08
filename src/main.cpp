@@ -56,6 +56,12 @@ bool is_it_ta_form_command(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
+    while(getline(ss , space_sample_val , ' ')){
+        if((space_sample_val != " ") && (space_sample_val != "") ){
+            return false;
+        }
+    }
+    
 
     for(std::__cxx11::basic_string<char>::size_type i = 0 ; i < command.size() ; i++ ){
         if(!(command[i] == ' ')){
@@ -73,6 +79,50 @@ bool is_it_ta_form_command(string command){
         return false;
     }
     return true;
+}
+
+
+vector<vector<string>> sort_ta_form_args(vector<vector<string>> un_sorted){
+    vector<vector<string>> sorted(2);
+    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+        if(un_sorted[i][0] == COURSE_ID){
+            sorted[0] = un_sorted[i];
+        }
+        if(un_sorted[i][0] == MESSAGE){
+            sorted[1] = un_sorted[i];
+        }
+    }
+    return sorted;
+}
+
+void ta_form_command(string command){
+    // POST ta_form ? course_id 2 message ”TA for designing project”
+    string arg_sample;
+    string arg_sample_val;
+    string space_sample_val;
+    vector<vector<string>> commands(2);
+    stringstream ss;
+    ss << command;
+    getline(ss , space_sample_val , ' ');
+    getline(ss , space_sample_val , ' ');
+    getline(ss , space_sample_val , ' ');
+    for(int i = 0 ; i < 2 ; i++){
+        getline(ss , arg_sample , ' ');
+        if(arg_sample != COURSE_ID){
+            getline(ss, arg_sample_val , '"');
+            getline(ss, arg_sample_val , '"');
+            getline(ss, space_sample_val , ' ');
+        }else{
+            getline(ss , arg_sample_val , ' ' );
+        }
+        commands[i]= {arg_sample , arg_sample_val};
+    }
+    commands = sort_ta_form_args(commands);
+    for(auto & a : commands){
+        for(auto & b : a){
+            cout << b << endl;
+        }
+    }
 }
 
 
