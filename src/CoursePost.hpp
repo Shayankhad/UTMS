@@ -29,7 +29,6 @@ public:
         cout << post_id << " " << who_made_name << " " << '"' << title << '"' << endl; 
     }
     void show_type_two(){
-        // <post_id> <author_name> “<title>” “<message>"
         cout << post_id << ' ' << who_made_name << ' ' << '"' << title << '"' << ' ' << '"' << message << '"' << endl;
     }
     int get_post_id(){

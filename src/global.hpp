@@ -164,5 +164,11 @@ using namespace std;
 #include "is_it_show_course_post_command.hpp"
 #include "sort_show_course_post_args.hpp"
 #include "show_course_post_command.hpp"
+#include "check_ta_form_args.hpp"
+#include "is_it_ta_form_command.hpp"
+#include "sort_ta_form_args.hpp"
+#include "get_professor_through_presented_course_id.hpp"
+#include "ta_form_command.hpp"
+#include "interface.hpp"
 #include "deallocate.hpp"
 #endif
