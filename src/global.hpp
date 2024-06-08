@@ -156,5 +156,8 @@ using namespace std;
 #include "Form_system.hpp"
 #include "is_it_show_course_channel_command.hpp"
 #include "show_course_channel_command.hpp"
+#include "is_it_show_course_post_command.hpp"
+#include "sort_show_course_post_args.hpp"
+#include "show_course_post_command.hpp"
 #include "deallocate.hpp"
 #endif
