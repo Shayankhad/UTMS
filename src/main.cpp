@@ -95,7 +95,18 @@ vector<vector<string>> sort_ta_form_args(vector<vector<string>> un_sorted){
     return sorted;
 }
 
-void ta_form_command(string command , int user_id){
+
+int get_professor_through_presented_course_id(int presented_course_id , vector<Professor *> professors , vector<PresentedCourse *> presented_course ){
+    for(auto & p_course : presented_course){
+        if(p_course->get_presented_course_id() == presented_course_id ){
+            return p_course->get_professor_id();
+        }
+    }
+    return -1;
+}
+
+
+void ta_form_command(string command , int user_id , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course){
     // POST ta_form ? course_id 2 message ”TA for designing project”
     string arg_sample;
     string arg_sample_val;
@@ -126,7 +137,7 @@ void ta_form_command(string command , int user_id){
         throw BadRequest();
     }
     string message = commands[1][1];
-
+    cout << get_professor_through_presented_course_id(presented_course_id , professors , presented_course) << endl;
 }
 
 

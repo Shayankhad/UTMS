@@ -171,6 +171,10 @@ public:
         }
     }
 
+    int get_professor_id(){
+        return professor_id;
+    }
+
 private:
     int course_id;
     string course_name;
