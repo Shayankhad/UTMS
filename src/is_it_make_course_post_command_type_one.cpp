@@ -44,6 +44,11 @@ bool is_it_make_course_post_command_type_one(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
+    while(getline(ss , space_sample_val , ' ')){
+        if((space_sample_val != " ") && (space_sample_val != "") ){
+            return false;
+        }
+    }
 
     if(commands[2][0] != ID){
         if(!(command_char[command_char.size() - 1] == '"')){

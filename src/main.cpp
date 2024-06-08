@@ -56,12 +56,12 @@ bool is_it_ta_form_command(string command){
         }
         commands[i]= {arg_sample , arg_sample_val};
     }
+    
     while(getline(ss , space_sample_val , ' ')){
         if((space_sample_val != " ") && (space_sample_val != "") ){
             return false;
         }
     }
-    
 
     for(std::__cxx11::basic_string<char>::size_type i = 0 ; i < command.size() ; i++ ){
         if(!(command[i] == ' ')){
