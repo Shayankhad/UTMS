@@ -106,7 +106,7 @@ int get_professor_through_presented_course_id(int presented_course_id , vector<P
 }
 
 
-void ta_form_command(string command , int user_id , vector<Student *> &students , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course){
+void ta_form_command(string command , int user_id , vector<Student *> &students , vector<Professor *> &professors , UtAccount *ut_account_ptr , vector<PresentedCourse *> &presented_course){
     // POST ta_form ? course_id 2 message ”TA for designing project”
     string arg_sample;
     string arg_sample_val;
@@ -140,21 +140,10 @@ void ta_form_command(string command , int user_id , vector<Student *> &students 
     if(!is_presented_course_id_exist(presented_course , presented_course_id)){
         throw NotFound();
     }
-
-    bool does_id_has_per = false;
-
-    for(auto & student : students){
-        if(student->get_id() == user_id){
-            vector<int> tooken_course;
-            tooken_course = student->get_token_courses();
-            for(auto & a : tooken_course){
-                if(a == presented_course_id){
-                    does_id_has_per = true;
-                }
-            }
-        }
+    if(!is_it_professor(user_id , professors)){
+        throw PermissionDenied();
     }
-
+    bool does_id_has_per = false;
     for(auto & professor : professors){
         if(professor->get_id() == user_id){
             vector<int> tooken_course;
@@ -171,8 +160,19 @@ void ta_form_command(string command , int user_id , vector<Student *> &students 
     }  
 
     int professor_id = get_professor_through_presented_course_id(presented_course_id , presented_course);
-    
+    string presented_course_name;
+    for(auto & p_course : presented_course){
+        if(p_course->get_course_id() == presented_course_id){
+            presented_course_name = p_course->get_course_name();
+        }
+    }
+    for(auto & professor : professors){
+        if(professor->get_id() == professor_id){
+            professor->make_form(message , presented_course_id , presented_course_name);
+        }
+    }
 
+    add_notif_handeling(students , professors  , ut_account_ptr  , NEW_FORM , user_id);
 
     throw OkExeption(); 
 
@@ -424,7 +424,7 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                     throw PermissionDenied();
                 }
                 int user_id = identify_user(students, professors, ut_account_ptr);
-                ta_form_command(command , user_id , students , professors , presented_course);
+                ta_form_command(command , user_id , students , professors , ut_account_ptr ,presented_course);
             }
 
 

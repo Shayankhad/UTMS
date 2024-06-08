@@ -55,6 +55,9 @@
 #define TA_REQUEST "ta_request"
 #define FORM_ID "form_id"
 #define NEW_COURSE_POST "New Course Post"
+#define NEW_FORM "New Form"
+#define COURSE "course"
+#define TA_FORM_FOR "TA form for"
 #define ACCEPT "accept"
 #define REJECT "reject"
 

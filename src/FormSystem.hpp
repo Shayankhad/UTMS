@@ -13,6 +13,12 @@ public:
         author_id = author_id_;
         author_name = author_name_;
     }
+    void show_title_of_forms(){
+        cout << form_id << ' ' << TA_FORM_FOR << ' ' <<  presented_course_name << ' ' << COURSE << endl;
+    }
+    int get_form_id(){
+        return form_id;
+    }
 private:
     int form_id;
     int presented_course_id;

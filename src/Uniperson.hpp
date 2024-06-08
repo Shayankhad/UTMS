@@ -98,6 +98,19 @@ public:
         }
         return false;
     }
+
+    bool is_form_id_match(int form_id_)
+    {
+        for (auto &form_element : forms_i_made)
+        {
+            if (form_element->get_form_id() == form_id_)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void delete_post(int target_post_id)
     {
         for (std::vector<Post_system *>::size_type i = 0; i < posts_i_made.size(); i++)
@@ -111,9 +124,14 @@ public:
 
     void show_title_of_my_posts()
     {
-        for (auto it = posts_i_made.rbegin(); it != posts_i_made.rend(); ++it)
-        {
-            (*it)->show_title_post_system();
+        for(int i = post_id - 1 ; i >= 0 ; i -- ){
+            if(is_post_id_match(i)){
+                posts_i_made[i]->show_title_post_system();
+            }
+            if(is_form_id_match(i)){
+                forms_i_made[i]->show_title_of_forms();
+            }
+
         }
     }
     void show_my_posts()
