@@ -55,6 +55,8 @@
 #define TA_REQUEST "ta_request"
 #define FORM_ID "form_id"
 #define NEW_COURSE_POST "New Course Post"
+#define ACCEPT "accept"
+#define REJECT "reject"
 
 using namespace std;
 
@@ -158,6 +160,6 @@ using namespace std;
 #include "is_it_show_course_post_command.hpp"
 #include "sort_show_course_post_args.hpp"
 #include "show_course_post_command.hpp"
-#include "Form_system.hpp"
+#include "FormSystem.hpp"
 #include "deallocate.hpp"
 #endif

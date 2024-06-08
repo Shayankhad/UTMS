@@ -95,7 +95,7 @@ vector<vector<string>> sort_ta_form_args(vector<vector<string>> un_sorted){
     return sorted;
 }
 
-void ta_form_command(string command){
+void ta_form_command(string command , int user_id){
     // POST ta_form ? course_id 2 message ”TA for designing project”
     string arg_sample;
     string arg_sample_val;
@@ -118,11 +118,15 @@ void ta_form_command(string command){
         commands[i]= {arg_sample , arg_sample_val};
     }
     commands = sort_ta_form_args(commands);
-    for(auto & a : commands){
-        for(auto & b : a){
-            cout << b << endl;
-        }
+    if(check_number_type(commands[0][1]) != 1){
+        throw BadRequest();
     }
+    int presented_course_id = string_to_int(commands[0][1]);
+    if(presented_course_id <=0){
+        throw BadRequest();
+    }
+    string message = commands[1][1];
+
 }
 
 
@@ -365,9 +369,14 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
             }
 
 
-
-            cout << is_it_ta_form_command(command) << endl;
-
+            if(is_it_ta_form_command(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                //ta_form_command(command);
+            }
 
             throw BadRequest();
         }

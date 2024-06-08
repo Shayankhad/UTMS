@@ -164,19 +164,6 @@ public:
         notifications.clear();
     }
 
-    void deallocate_uniperson()
-    {
-        for (Post_system *x : posts_i_made)
-        {
-            delete x;
-        }
-        posts_i_made.clear();
-        for (Notif *x : notifications)
-        {
-            delete x;
-        }
-        notifications.clear();
-    }
 
     int get_major_id()
     {
@@ -208,6 +195,20 @@ public:
         cout << profile_photo << endl;
     }
 
+    void deallocate_uniperson()
+    {
+        for (Post_system *x : posts_i_made)
+        {
+            delete x;
+        }
+        posts_i_made.clear();
+        for (Notif *x : notifications)
+        {
+            delete x;
+        }
+        notifications.clear();
+    }
+    
 protected:
     int id;
     string name;
