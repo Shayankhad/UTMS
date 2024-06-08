@@ -144,6 +144,33 @@ public:
         }
     }
 
+    vector<int> get_all_post_ids(){
+        vector<int> post_ids;
+        for(auto & courses: course_posts){
+            post_ids.push_back(courses->get_post_id());
+        }
+        return post_ids;
+    } 
+
+    bool does_post_exist(int post_id_){
+        vector<int> post_ids = get_all_post_ids();
+        for (auto & s : post_ids){
+            if(post_id_ == s){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void show_specific_post(int post_id_){
+        show_type_2();
+        for(auto & posts : course_posts){
+            if(posts->get_post_id() == post_id_){
+                posts->show_type_two();
+            }
+        }
+    }
+
 private:
     int course_id;
     string course_name;

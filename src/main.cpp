@@ -1,7 +1,6 @@
 #include "global.hpp"
 
 bool is_it_show_course_post_command(string command){
-    // GET course_post ? id 7 post_id 2
     vector<string> commands;
     stringstream ss;
     ss << command;
@@ -30,6 +29,87 @@ bool is_it_show_course_post_command(string command){
     {
         return false;
     }
+}
+
+vector<vector<string>> sort_show_course_post_args(vector<vector<string>> un_sorted){
+    vector<vector<string>> sorted(2);
+    for(vector<std::vector<std::__cxx11::basic_string<char> > >::size_type i = 0 ; i < un_sorted.size() ; i++){
+        if(un_sorted[i][0] == ID){
+            sorted[0] =un_sorted[i];
+        }
+        if(un_sorted[i][0] == POST_ID){
+            sorted[1] =un_sorted[i];
+        }
+    }
+    return sorted;
+}
+
+void show_course_post_command(int user_id , string command , vector<PresentedCourse *> presented_course , vector<Student *> students , vector<Professor *> professors){
+    // GET course_post ? id 7 post_id 2
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0;
+    while (getline(ss, word, ' '))
+    {
+        if (!(word == ""))
+        {
+            commands.push_back(word);
+            iteration++;
+        }
+    }
+    vector<vector<string>> command_args;
+    command_args.push_back({commands[3] , commands[4]});
+    command_args.push_back({commands[5] , commands[6]});
+    command_args = sort_show_course_post_args(command_args);
+    if(check_number_type(commands[4]) != 1){
+        throw BadRequest();
+    }
+    int id = string_to_int(commands[4]);
+    if(check_number_type(commands[6]) != 1){
+        throw BadRequest();
+    }
+    int post_id = string_to_int(commands[6]);
+
+    if(!is_presented_course_id_exist(presented_course , id)){
+        throw NotFound();
+    }
+    PresentedCourse * presented_course_ptr = find_PresentedCourse(id , presented_course); 
+    if(!presented_course_ptr->does_post_exist(post_id)){
+        throw NotFound();
+    }
+
+    bool does_id_has_per = false;
+
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            vector<int> tooken_course;
+            tooken_course = student->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            vector<int> tooken_course;
+            tooken_course = professor->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+    if(!does_id_has_per){
+        throw PermissionDenied();
+    }   
+
+    presented_course_ptr->show_specific_post(post_id);
 }
 
 
@@ -261,7 +341,15 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
 
 
 
-            cout << is_it_show_course_post_command(command) << endl;
+            if(is_it_show_course_post_command(command)){
+                if (!(is_anyone_loged_in(students, professors, ut_account_ptr)))
+                {
+                    throw PermissionDenied();
+                }
+                int user_id = identify_user(students, professors, ut_account_ptr);
+                show_course_post_command(user_id , command  ,presented_course , students , professors);
+                continue;
+            }
 
 
             throw BadRequest();

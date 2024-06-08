@@ -32,6 +32,9 @@ public:
         // <post_id> <author_name> “<title>” “<message>"
         cout << post_id << ' ' << who_made_name << ' ' << '"' << title << '"' << ' ' << '"' << message << '"' << endl;
     }
+    int get_post_id(){
+        return post_id;
+    }
 private:
     int who_made;
     string who_made_name;
