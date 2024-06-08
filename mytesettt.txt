@@ -17,3 +17,4 @@ GET course_post ? id 1 post_id 2
 GET course_post ? id 1 post_id 3
 POST ta_form ? course_id 2 message ”TA for designing project”
 POST ta_form ? message ”TA for designing project” course_id 2 
+POST ta_form ? message ”TA for designing project” course_id 1

@@ -96,7 +96,7 @@ vector<vector<string>> sort_ta_form_args(vector<vector<string>> un_sorted){
 }
 
 
-int get_professor_through_presented_course_id(int presented_course_id , vector<Professor *> professors , vector<PresentedCourse *> presented_course ){
+int get_professor_through_presented_course_id(int presented_course_id , vector<PresentedCourse *> presented_course ){
     for(auto & p_course : presented_course){
         if(p_course->get_presented_course_id() == presented_course_id ){
             return p_course->get_professor_id();
@@ -106,7 +106,7 @@ int get_professor_through_presented_course_id(int presented_course_id , vector<P
 }
 
 
-void ta_form_command(string command , int user_id , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course){
+void ta_form_command(string command , int user_id , vector<Student *> &students , vector<Professor *> &professors , vector<PresentedCourse *> &presented_course){
     // POST ta_form ? course_id 2 message ”TA for designing project”
     string arg_sample;
     string arg_sample_val;
@@ -137,7 +137,41 @@ void ta_form_command(string command , int user_id , vector<Professor *> &profess
         throw BadRequest();
     }
     string message = commands[1][1];
-    cout << get_professor_through_presented_course_id(presented_course_id , professors , presented_course) << endl;
+    if(!is_presented_course_id_exist(presented_course , presented_course_id)){
+        throw NotFound();
+    }
+
+    bool does_id_has_per = false;
+
+    for(auto & student : students){
+        if(student->get_id() == user_id){
+            vector<int> tooken_course;
+            tooken_course = student->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == presented_course_id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+
+    for(auto & professor : professors){
+        if(professor->get_id() == user_id){
+            vector<int> tooken_course;
+            tooken_course = professor->get_token_courses();
+            for(auto & a : tooken_course){
+                if(a == presented_course_id){
+                    does_id_has_per = true;
+                }
+            }
+        }
+    }
+    if(!does_id_has_per){
+        throw PermissionDenied();
+    }  
+
+    throw OkExeption(); 
+
 }
 
 
@@ -386,8 +420,10 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                     throw PermissionDenied();
                 }
                 int user_id = identify_user(students, professors, ut_account_ptr);
-                //ta_form_command(command);
+                ta_form_command(command , user_id , students , professors , presented_course);
             }
+
+
 
             throw BadRequest();
         }
