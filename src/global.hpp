@@ -153,11 +153,11 @@ using namespace std;
 #include "is_it_make_course_post_command_type_two.hpp"
 #include "sort_course_post_type_two_command.hpp"
 #include "make_course_post_command_type_two.hpp"
-#include "Form_system.hpp"
 #include "is_it_show_course_channel_command.hpp"
 #include "show_course_channel_command.hpp"
 #include "is_it_show_course_post_command.hpp"
 #include "sort_show_course_post_args.hpp"
 #include "show_course_post_command.hpp"
+#include "Form_system.hpp"
 #include "deallocate.hpp"
 #endif

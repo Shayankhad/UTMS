@@ -15,3 +15,5 @@ GET course_channel ? id 1
 POST course_post ? id 1 title "Homework 6" message "Phaffffse 2" image ./sdvihv/ddfdd
 GET course_post ? id 1 post_id 2
 GET course_post ? id 1 post_id 3
+POST ta_form ? course_id 2 message ”TA for designing project”
+POST ta_form ? message ”TA for designing project” course_id 2 
