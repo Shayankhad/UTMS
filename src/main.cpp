@@ -170,6 +170,10 @@ void ta_form_command(string command , int user_id , vector<Student *> &students 
         throw PermissionDenied();
     }  
 
+    int professor_id = get_professor_through_presented_course_id(presented_course_id , presented_course);
+    
+
+
     throw OkExeption(); 
 
 }

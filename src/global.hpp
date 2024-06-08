@@ -69,6 +69,7 @@ using namespace std;
 #include "BadRequest.hpp"
 #include "PermissionDenied.hpp"
 #include "Post_system.hpp"
+#include "FormSystem.hpp"
 #include "Notif.hpp"
 #include "Uniperson.hpp"
 #include "UtAccount.hpp"
@@ -160,6 +161,5 @@ using namespace std;
 #include "is_it_show_course_post_command.hpp"
 #include "sort_show_course_post_args.hpp"
 #include "show_course_post_command.hpp"
-#include "FormSystem.hpp"
 #include "deallocate.hpp"
 #endif

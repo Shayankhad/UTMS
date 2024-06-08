@@ -195,6 +195,14 @@ public:
         cout << profile_photo << endl;
     }
 
+    void make_form(string message , int presented_course_id_ , string presented_course_name_ )
+    {
+        FormSystem *new_form;
+        new_form = new FormSystem(post_id , presented_course_id_ , presented_course_name_ , message , id , name );
+        forms_i_made.emplace_back(new_form);
+        post_id++;
+    }
+
     void deallocate_uniperson()
     {
         for (Post_system *x : posts_i_made)
@@ -207,6 +215,11 @@ public:
             delete x;
         }
         notifications.clear();
+        for (FormSystem *x : forms_i_made)
+        {
+            delete x;
+        }
+        forms_i_made.clear();
     }
     
 protected:
@@ -221,6 +234,7 @@ protected:
     vector<Notif *> notifications;
     vector<int> token_courses;
     string profile_photo;
+    vector<FormSystem *> forms_i_made;
 };
 
 #endif

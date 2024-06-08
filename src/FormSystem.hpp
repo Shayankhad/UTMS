@@ -5,7 +5,7 @@
 class FormSystem
 {
 public:
-    FormSystem(int form_id_  , int presented_course_id_ ,int presented_course_name_ , string message_ ,  int author_id_ , string author_name_ ){
+    FormSystem(int form_id_  , int presented_course_id_ ,string presented_course_name_ , string message_ ,  int author_id_ , string author_name_ ){
         form_id = form_id_;
         presented_course_id = presented_course_id_;
         presented_course_name = presented_course_name_;
@@ -16,7 +16,7 @@ public:
 private:
     int form_id;
     int presented_course_id;
-    int presented_course_name;
+    string presented_course_name;
     string message;
     int author_id;
     string author_name;
