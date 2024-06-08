@@ -1,5 +1,38 @@
 #include "global.hpp"
 
+bool is_it_show_course_post_command(string command){
+    // GET course_post ? id 7 post_id 2
+    vector<string> commands;
+    stringstream ss;
+    ss << command;
+    string word;
+    int iteration = 0;
+    while (getline(ss, word, ' '))
+    {
+        if (!(word == ""))
+        {
+            commands.push_back(word);
+            iteration++;
+        }
+    }
+    if (iteration == 7)
+    {
+        if (((commands[0] == GET) && (commands[1] == COURSE_POST) && (commands[2] == "?") && (commands[3] == ID) && (commands[5] == POST_ID)) || ((commands[0] == GET) && (commands[1] == COURSE_POST) && (commands[2] == "?") && (commands[3] == POST_ID) && (commands[5] == ID)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
 void run(vector<Student *> &students, vector<Course *> &courses, vector<Professor *> &professors, vector<PresentedCourse *> &presented_course, UtAccount *ut_account_ptr, vector<Major *> &majors)
 {
     set_ut_account_ptr_contacts(students, professors, ut_account_ptr);
@@ -225,6 +258,12 @@ void run(vector<Student *> &students, vector<Course *> &courses, vector<Professo
                 show_course_channel_command(command , user_id , students , professors , presented_course);
                 continue;
             }
+
+
+
+            cout << is_it_show_course_post_command(command) << endl;
+
+
             throw BadRequest();
         }
         catch (const MyException &exept)
@@ -246,9 +285,9 @@ int main(int argc, char *argv[])
     UtAccount *ut_account_ptr = new UtAccount();
     extract_csv(majors, students, courses, professors, argv[1], argv[2], argv[3], argv[4]);
     run(students, courses, professors, presented_course, ut_account_ptr, majors);
-    for(auto & s : presented_course){
-        s->show_post_images();
-    }
+    // for(auto & s : presented_course){
+    //     s->show_post_images();
+    // }
     deallocate(majors, students, courses, professors, ut_account_ptr, presented_course);
     return 0;
 }

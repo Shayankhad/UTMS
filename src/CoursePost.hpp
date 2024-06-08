@@ -28,6 +28,10 @@ public:
     void show_type_one(){
         cout << post_id << " " << who_made_name << " " << '"' << title << '"' << endl; 
     }
+    void show_type_two(){
+        // <post_id> <author_name> “<title>” “<message>"
+        cout << post_id << ' ' << who_made_name << ' ' << '"' << title << '"' << ' ' << '"' << message << '"' << endl;
+    }
 private:
     int who_made;
     string who_made_name;
