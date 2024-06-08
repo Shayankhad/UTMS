@@ -162,10 +162,11 @@ void ta_form_command(string command , int user_id , vector<Student *> &students 
     int professor_id = get_professor_through_presented_course_id(presented_course_id , presented_course);
     string presented_course_name;
     for(auto & p_course : presented_course){
-        if(p_course->get_course_id() == presented_course_id){
+        if(p_course->get_presented_course_id() == presented_course_id){
             presented_course_name = p_course->get_course_name();
         }
     }
+    
     for(auto & professor : professors){
         if(professor->get_id() == professor_id){
             professor->make_form(message , presented_course_id , presented_course_name);

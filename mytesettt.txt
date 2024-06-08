@@ -6,14 +6,16 @@ POST login ? password ImtheproblemItsme id 810102612
 PUT my_courses ? id 1
 POST logout ?
 POST login ? password jkl012 id 810420436
+POST post ? title “Good Day” message “Ye rooz joonane dige”
 POST course_post ? id 1 title "Homework 6" message "Phase 2" image asdasd
 POST course_post ? id 1 title "hfsuhncfka" message "dfsdse 2" image a33sd
-GET notification ?
-GET course_channel ? id 1
-POST course_post ? id 1 title "Homework 6" message "Phaffffse 2" image ./sdvihv/ddfdd
+POST course_post ? id 2 title "Homework 6" message "Phaffffse 2" image ./sdvihv/ddfdd
 GET course_post ? id 1 post_id 2
-GET course_post ? id 1 post_id 3
+GET course_post ? id 2 post_id 1
 POST ta_form ? course_id 2 message ”TA for designing project”
 POST ta_form ? message ”TA for designing project” course_id 2 
 POST ta_form ? message ”TA for designing project” course_id 1
 GET personal_page ? id 810420436
+POST logout ?
+POST login ? password UT_account id 0
+GET notification ?

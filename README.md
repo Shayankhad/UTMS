@@ -4,7 +4,6 @@ LIFE IS HARD
 I hate this fucking errors 
 swear to god if one shows up again i will kill my family after i killed my self.
 
-
 1- error number 1:
 make: *** [run] Error -1073741795
 problem: had a wrong return type for a functino

@@ -124,14 +124,21 @@ public:
 
     void show_title_of_my_posts()
     {
-        for(int i = post_id - 1 ; i >= 0 ; i -- ){
+        for(int i = post_id - 1 ; i > 0 ; i -- ){
             if(is_post_id_match(i)){
-                posts_i_made[i]->show_title_post_system();
+                for(auto & target_post : posts_i_made){
+                    if(target_post->get_post_id() == i){
+                        target_post->show_title_post_system();
+                    }
+                }
             }
             if(is_form_id_match(i)){
-                forms_i_made[i]->show_title_of_forms();
+                for(auto & target_form : forms_i_made){
+                    if(target_form->get_form_id() == i){
+                        target_form->show_title_of_forms();
+                    }
+                }
             }
-
         }
     }
     void show_my_posts()
